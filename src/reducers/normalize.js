@@ -27,9 +27,25 @@ export default (state, action) => {
       if (!alreadyExist) {
         let { category_items, items } = state
         let item_ids = category_items.filter(pivot => pivot.category_id === category_id).map(pivot => pivot.item_id)
-        let itemsX = items.filter(item => item_ids.includes(item.id))
-        let itemsByCategory = { ...currItemsByCategory, [category_id]: itemsX }
+        let filteredItems = items.filter(item => item_ids.includes(item.id))
+        let itemsByCategory = { ...currItemsByCategory, [category_id]: filteredItems }
         return { ...state, itemsByCategory }
+      }
+      // Nothing to update
+      return state
+    }
+    case c.NORMALIZE_MODIFIERS_BY_ITEM: {
+      let { modifiersByItem: currModifiersByItem } = state
+      let { item_id } = action
+      let alreadyExist = currModifiersByItem[item_id]
+      if (!alreadyExist) {
+        let { item_modifier_groups, modifier_groups } = state
+        let modifier_ids = item_modifier_groups
+          .filter(pivot => pivot.parent_item_id === item_id)
+          .map(pivot => pivot.modifier_group_id)
+        let filteredModifiers = modifier_groups.filter(modifier => modifier_ids.includes(modifier.id))
+        let modifiersByItem = { ...currModifiersByItem, [item_id]: filteredModifiers }
+        return { ...state, modifiersByItem }
       }
       // Nothing to update
       return state

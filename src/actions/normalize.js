@@ -9,3 +9,8 @@ export const actionNormalizeItemsByCategory = category_id => ({
   type: c.NORMALIZE_ITEMS_BY_CATEGORY,
   category_id
 })
+
+export const actionNormalizeModifiersByItem = item_id => ({
+  type: c.NORMALIZE_MODIFIERS_BY_ITEM,
+  item_id
+})

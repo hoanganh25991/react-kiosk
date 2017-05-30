@@ -24,7 +24,8 @@ export default (state = initState, action) => {
       return order(state, action)
     }
     case c.NORMALIZE_SUB_CATEGORIES_BY_CATEGORY:
-    case c.NORMALIZE_ITEMS_BY_CATEGORY: {
+    case c.NORMALIZE_ITEMS_BY_CATEGORY:
+    case c.NORMALIZE_MODIFIERS_BY_ITEM: {
       return normalize(state, action)
     }
     default:

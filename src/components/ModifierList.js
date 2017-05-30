@@ -2,16 +2,18 @@ import React from "react"
 import HoiModifier from "../containers/HoiModifier"
 
 export default class ModifierList extends React.Component {
+  normalizeData = () => {
+    let { normalizeModifiersByItem } = this.props
+    let { item_id } = this.props
+    normalizeModifiersByItem(item_id)
+  }
+
   componentDidUpdate() {
-    // let { normalizeItemsByCategory } = this.props
-    // let { categoryId } = this.props
-    // normalizeItemsByCategory(categoryId)
+    this.normalizeData()
   }
 
   componentDidMount() {
-    // let { normalizeItemsByCategory } = this.props
-    // let { categoryId } = this.props
-    // normalizeItemsByCategory(categoryId)
+    this.normalizeData()
   }
 
   render() {
@@ -23,7 +25,7 @@ export default class ModifierList extends React.Component {
         <h3>Modifier list</h3>
         {modifiers && modifiers.length > 0
           ? <div className="scroll maxHeight500">
-              {modifiers.map((item, index) => <HoiModifier item={item} key={index} />)}
+              {modifiers.map((modifier, key) => <HoiModifier {...{ modifier, key }} />)}
             </div>
           : <p>No modifier by this item, id: {item_id}</p>}
       </div>
