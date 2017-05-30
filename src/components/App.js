@@ -1,6 +1,8 @@
 import React from "react"
 import HoiCategoryList from "../containers/HoiCategoryList"
 
+import HoiSubCategoryList from "../containers/HoiSubCategoryList"
+
 export default class App extends React.Component {
   render() {
     return (
@@ -12,7 +14,7 @@ export default class App extends React.Component {
               <HoiCategoryList />
             </div>
             <div className="flex8">
-              <h1>----</h1>
+              <HoiSubCategoryList />
             </div>
           </div>
         </div>
