@@ -25,7 +25,7 @@ export default class ItemList extends React.Component {
           ? <div className="scroll maxHeight500">
               {items.map((item, index) => <HoiItem item={item} key={index} />)}
             </div>
-          : <p>No items by this category, id: {categoryId}</p>}
+          : <p>No item by this category, id: {categoryId}</p>}
       </div>
     )
   }
