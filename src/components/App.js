@@ -10,7 +10,7 @@ export default class App extends React.Component {
       <div className="App">
         <div className="orderPage">
           <h1>Order Page</h1>
-          <div className="flexRow">
+          <div className="flexRow height600">
             <div className="flex4">
               <HoiCategoryList />
             </div>
