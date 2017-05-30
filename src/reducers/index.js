@@ -12,7 +12,8 @@ const initState = {
   },
   subCategoriesByCategory: {},
   itemsByCategory: {},
-  modifiersByItem: {}
+  modifiersByItem: {},
+  itemsByModifier: {}
 }
 
 export default (state = initState, action) => {
@@ -25,7 +26,8 @@ export default (state = initState, action) => {
     }
     case c.NORMALIZE_SUB_CATEGORIES_BY_CATEGORY:
     case c.NORMALIZE_ITEMS_BY_CATEGORY:
-    case c.NORMALIZE_MODIFIERS_BY_ITEM: {
+    case c.NORMALIZE_MODIFIERS_BY_ITEM:
+    case c.NORMALIZE_ITEMS_BY_MODIFIER: {
       return normalize(state, action)
     }
     default:

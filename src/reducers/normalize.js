@@ -50,6 +50,22 @@ export default (state, action) => {
       // Nothing to update
       return state
     }
+    case c.NORMALIZE_ITEMS_BY_MODIFIER: {
+      let { itemsByModifier: currItemsByModifier } = state
+      let { modifier_id } = action
+      let alreadyExist = currItemsByModifier[modifier_id]
+      if (!alreadyExist) {
+        let { modifier_group_items, items } = state
+        let item_ids = modifier_group_items
+          .filter(pivot => pivot.modifier_group_id === modifier_id)
+          .map(pivot => pivot.item_id)
+        let filteredItems = items.filter(item => item_ids.includes(item.id))
+        let itemsByModifier = { ...currItemsByModifier, [modifier_id]: filteredItems }
+        return { ...state, itemsByModifier }
+      }
+      // Nothing to update
+      return state
+    }
     default:
       return state
   }
