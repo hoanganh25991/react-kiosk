@@ -9,15 +9,15 @@ export default class OrderProcess extends React.Component {
     let title
     switch (step) {
       case null: {
-        title = <h1>Please choose one category</h1>
+        title = "Please choose one category"
         break
       }
       case c.ORDER_PROCESS_STEP_LOAD_ITEMS: {
-        title = <h1>Pick one item</h1>
+        title = "Pick one item"
         break
       }
       case c.ORDER_PROCESS_STEP_LOAD_MODIFIERS: {
-        title = <h1>Choose your favour</h1>
+        title = "Choose your favour"
         break
       }
       default:
@@ -33,7 +33,7 @@ export default class OrderProcess extends React.Component {
 
     return (
       <div className="fullWidth fullHeight flexColumn">
-        {this.stepTitle(step)}
+        <h1>{this.stepTitle(step)}</h1>
         <div className="flex1 scroll">
           {step === null
             ? <div />
