@@ -1,5 +1,6 @@
 import React from "react"
 import HoiCategoryList from "../containers/HoiCategoryList"
+import HoiOrderProcess from "../containers/HoiOrderProcess"
 
 import HoiSubCategoryList from "../containers/HoiSubCategoryList"
 
@@ -14,7 +15,7 @@ export default class App extends React.Component {
               <HoiCategoryList />
             </div>
             <div className="flex8">
-              <HoiSubCategoryList />
+              <HoiOrderProcess />
             </div>
           </div>
         </div>
