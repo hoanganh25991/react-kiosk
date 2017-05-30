@@ -1,11 +1,12 @@
 import React from "react"
 
-export default class CategoryItem extends React.Component {
+export default class CategoryCard extends React.Component {
   render() {
     let { category } = this.props
 
     return (
-      <div>
+      <div className="categoryCard flexColumn">
+        <div className="flex1" />
         <h3>{category.display_name}</h3>
       </div>
     )

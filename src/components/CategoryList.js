@@ -1,6 +1,6 @@
 import React from "react"
 
-import HoiItem from "../containers/HoiCategoryItem"
+import HoiCategory from "../containers/HoiCategory"
 
 export default class CategoryList extends React.Component {
   render() {
@@ -10,7 +10,7 @@ export default class CategoryList extends React.Component {
       <div className="fullWidth">
         <h1>Category List</h1>
         <div className="scroll height500">
-          {categories.map((category, index) => <HoiItem category={category} key={index} />)}
+          {categories.map((category, index) => <HoiCategory category={category} key={index} />)}
         </div>
       </div>
     )

@@ -1,6 +1,6 @@
 import React from "react"
 
-import CategoryItemCard from "./CategoryItemCard"
+import CategoryCard from "./CategoryCard"
 
 export default class SubCategoryList extends React.Component {
   render() {
@@ -10,7 +10,7 @@ export default class SubCategoryList extends React.Component {
       <div className="fullWidth">
         <h1>Sub Category List</h1>
         <div className="height500 flexRow flexSpaceBetween">
-          {categories.map((category, index) => <CategoryItemCard category={category} key={index} />)}
+          {categories.map((category, index) => <CategoryCard category={category} key={index} />)}
         </div>
       </div>
     )
