@@ -10,7 +10,7 @@ export default class CategoryList extends React.Component {
       <div className="fullWidth">
         <h1>Category List</h1>
         <div className="scroll maxHeight500">
-          {categories.map((category, index) => <HoiCategory category={category} key={index} />)}
+          {categories.map((category, key) => <HoiCategory {...{ category, key }} />)}
         </div>
       </div>
     )

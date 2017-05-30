@@ -6,8 +6,13 @@ export default class Category extends React.Component {
 
     let { chooseCategory } = this.props
 
+    let { isSelected } = this.props
+
+    let className = ""
+    className = isSelected(category.id) ? className + " selected" : className
+
     return (
-      <div onClick={e => chooseCategory(category.id)}>
+      <div className={className} onClick={e => chooseCategory(category.id)}>
         <h3>{category.display_name}</h3>
       </div>
     )
