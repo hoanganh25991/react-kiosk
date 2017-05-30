@@ -35,11 +35,9 @@ export default class OrderProcess extends React.Component {
       <div className="fullWidth fullHeight flexColumn">
         <h1>{this.stepTitle(step)}</h1>
         <div className="flex1 scroll">
-          {step === null
-            ? <div />
-            : step === c.ORDER_PROCESS_STEP_LOAD_ITEMS
-                ? <HoiOrderProcessLoadItems />
-                : step === c.ORDER_PROCESS_STEP_LOAD_MODIFIERS ? <HoiOrderProcessLoadModifiers /> : null}
+          {step === null ? <div /> : null}
+          {step === c.ORDER_PROCESS_STEP_LOAD_ITEMS ? <HoiOrderProcessLoadItems /> : null}
+          {step === c.ORDER_PROCESS_STEP_LOAD_MODIFIERS ? <HoiOrderProcessLoadModifiers /> : null}
         </div>
         {step !== null ? <div>Back|Next</div> : null}
       </div>
