@@ -9,9 +9,11 @@ const findSubCategories = (categories, category_id) => {
 
 const mapStateToProps = ({ categories, order }) => {
   let { category_id } = order
-
+  let subCategories = findSubCategories(categories, category_id)
+  console.log(subCategories)
   return {
-    categories: findSubCategories(categories, category_id)
+    subCategories,
+    order
   }
 }
 

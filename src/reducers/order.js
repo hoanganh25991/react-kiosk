@@ -10,6 +10,9 @@ export default (state, action) => {
       // Update state
       return { ...state, order }
     }
+    case c.LOAD_ITEMS_BY_CATEGORY: {
+      return state
+    }
     default:
       return state
   }

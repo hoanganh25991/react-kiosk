@@ -5,8 +5,7 @@ import order from "./order"
 const initState = {
   ...fakeData,
   order: {
-    category_id: null,
-    subcategory_id: null,
+    category_id: -1,
     item_id: null,
     step: null
   }
@@ -14,7 +13,8 @@ const initState = {
 
 export default (state = initState, action) => {
   switch (action.type) {
-    case c.CHOOSE_CATEGORY: {
+    case c.CHOOSE_CATEGORY:
+    case c.LOAD_ITEMS_BY_CATEGORY: {
       return order(state, action)
     }
     default:
