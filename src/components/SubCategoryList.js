@@ -56,12 +56,47 @@ export default class SubCategoryList extends React.Component {
     let { normalizeSubCategoriesByCategory } = this.props
     normalizeSubCategoriesByCategory()
   }
+
   componentDidMount() {
     console.log("SubCategoryList mounted")
     let { normalizeSubCategoriesByCategory } = this.props
     normalizeSubCategoriesByCategory()
   }
+
+  shouldLoadSubCategories = () => {
+    let { subCategories } = this.props
+    return subCategories && subCategories.length > 0
+  }
+
+  loadSubCategories = () => {
+    let { subCategories } = this.props
+
+    return (
+      <div className="height500 scroll">
+        {subCategories.map((category, index) => (
+          <div key={index} className="fullWidth">
+            <h3>Sub: {category.display_name}</h3>
+            <HoiItemList categoryId={category.id} />
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  loadItemFromItSelf = () => {
+    return (
+      <div className="fullWidth">
+        <h3>Load from it self</h3>
+      </div>
+    )
+  }
+
   render() {
-    return <div />
+    return (
+      <div className="fullWidth">
+        <h1>Please choose one</h1>
+        {this.shouldLoadSubCategories() ? this.loadSubCategories() : this.loadItemFromItSelf()}
+      </div>
+    )
   }
 }

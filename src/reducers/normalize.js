@@ -20,6 +20,20 @@ export default (state, action) => {
       // Nothing to update
       return state
     }
+    case c.NORMALIZE_ITEMS_BY_CATEGORY: {
+      let { itemsByCategory: currItemsByCategory } = state
+      let { category_id } = action
+      let alreadyExist = currItemsByCategory[category_id]
+      if (!alreadyExist) {
+        let { category_items, items } = state
+        let item_ids = category_items.filter(pivot => pivot.category_id === category_id).map(pivot => pivot.item_id)
+        let itemsX = items.filter(item => item_ids.includes(item.id))
+        let itemsByCategory = { ...currItemsByCategory, [category_id]: itemsX }
+        return { ...state, itemsByCategory }
+      }
+      // Nothing to update
+      return state
+    }
     default:
       return state
   }

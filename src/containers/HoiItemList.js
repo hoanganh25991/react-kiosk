@@ -1,9 +1,12 @@
 import { connect } from "react-redux"
-import { actionLoadItemsByCategory } from "../actions"
 import ItemList from "../components/ItemList"
 
+import { actionNormalizeItemsByCategory } from "../actions"
+
+const mapStateToProps = ({ itemsByCategory }) => ({ itemsByCategory })
+
 const mapActionToProps = dispatch => ({
-  loadItemsByCategory: categoryId => dispatch(actionLoadItemsByCategory(categoryId))
+  normalizeItemsByCategory: category_id => dispatch(actionNormalizeItemsByCategory(category_id))
 })
 
-export default connect(null, mapActionToProps)(ItemList)
+export default connect(mapStateToProps, mapActionToProps)(ItemList)

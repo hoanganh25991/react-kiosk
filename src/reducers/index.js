@@ -10,7 +10,8 @@ const initState = {
     item_id: null,
     step: null
   },
-  subCategoriesByCategory: {}
+  subCategoriesByCategory: {},
+  itemsByCategory: {}
 }
 
 export default (state = initState, action) => {
@@ -19,7 +20,8 @@ export default (state = initState, action) => {
     case c.LOAD_ITEMS_BY_CATEGORY: {
       return order(state, action)
     }
-    case c.NORMALIZE_SUB_CATEGORIES_BY_CATEGORY: {
+    case c.NORMALIZE_SUB_CATEGORIES_BY_CATEGORY:
+    case c.NORMALIZE_ITEMS_BY_CATEGORY: {
       return normalize(state, action)
     }
     default:
