@@ -21,13 +21,10 @@ export default class ModifierList extends React.Component {
     let modifiers = modifiersByItem[item_id]
 
     return (
-      <div className="fullWidth">
-        <h3>Modifier list</h3>
+      <div>
         {modifiers && modifiers.length > 0
-          ? <div className="scroll maxHeight500">
-              {modifiers.map((modifier, key) => <HoiModifier {...{ modifier, key }} />)}
-            </div>
-          : <p>No modifier by this item, id: {item_id}</p>}
+          ? modifiers.map((modifier, key) => <HoiModifier {...{ modifier, key }} />)
+          : <p>No modifier found on this item, id: {item_id}</p>}
       </div>
     )
   }

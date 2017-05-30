@@ -22,11 +22,8 @@ export default class ItemByModifierList extends React.Component {
 
     return (
       <div>
-        <h3>ItemByModifierList</h3>
         {items && items.length > 0
-          ? <div>
-              {items.map((item, key) => <HoiItemByModifier {...{ item, key }} />)}
-            </div>
+          ? items.map((item, key) => <HoiItemByModifier {...{ item, key }} />)
           : <p>No items found on modifier, id: {modifier_id}</p>}
       </div>
     )

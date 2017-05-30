@@ -6,10 +6,8 @@ export default class Item extends React.Component {
     let { id: modifier_id } = modifier
     return (
       <div>
-        <div>{modifier.display_name}</div>
-        <div>
-          <HoiItemByModifierList {...{ modifier_id }} />
-        </div>
+        <h3 className="bgYellow">{modifier.display_name}</h3>
+        <HoiItemByModifierList {...{ modifier_id }} />
       </div>
     )
   }

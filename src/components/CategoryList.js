@@ -7,11 +7,9 @@ export default class CategoryList extends React.Component {
     let { categories } = this.props
 
     return (
-      <div className="fullWidth">
+      <div>
         <h1>Category List</h1>
-        <div className="scroll maxHeight500">
-          {categories.map((category, key) => <HoiCategory {...{ category, key }} />)}
-        </div>
+        {categories.map((category, key) => <HoiCategory {...{ category, key }} />)}
       </div>
     )
   }
