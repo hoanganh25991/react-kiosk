@@ -11,11 +11,8 @@ export default class OrderProcessLoadItems extends React.Component {
 
     return (
       <div className="fullWidth">
-        <h1>Pick one item</h1>
-        <div className="maxHeight500 scroll">
-          <HoiSubCategoryList categoryId={category_id} />
-          <HoiItemList categoryId={category_id} />
-        </div>
+        <HoiSubCategoryList categoryId={category_id} />
+        <HoiItemList categoryId={category_id} />
       </div>
     )
   }
