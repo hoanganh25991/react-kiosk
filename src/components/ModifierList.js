@@ -15,8 +15,8 @@ export default class ModifierList extends React.Component {
   }
 
   render() {
-    let { modifiersByItem, itemId } = this.props
-    let modifiers = modifiersByItem[itemId]
+    let { modifiersByItem, item_id } = this.props
+    let modifiers = modifiersByItem[item_id]
 
     return (
       <div className="fullWidth">
@@ -25,7 +25,7 @@ export default class ModifierList extends React.Component {
           ? <div className="scroll maxHeight500">
               {modifiers.map((item, index) => <HoiModifier item={item} key={index} />)}
             </div>
-          : <p>No modifier by this item, id: {itemId}</p>}
+          : <p>No modifier by this item, id: {item_id}</p>}
       </div>
     )
   }

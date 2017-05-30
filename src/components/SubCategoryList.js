@@ -16,7 +16,7 @@ import HoiItemList from "../containers/HoiItemList"
 //         {subCategories.map((category, index) => (
 //           <div key={index} className="fullWidth">
 //             <h3>Sub: {category.display_name}</h3>
-//             <HoiItemList categoryId={category.id} />
+//             <HoiModifierList categoryId={category.id} />
 //           </div>
 //         ))}
 //       </div>
@@ -29,7 +29,7 @@ import HoiItemList from "../containers/HoiItemList"
 //     return (
 //       <div className="fullWidth">
 //         <h3>Load from it self</h3>
-//         {[category_id].map((category_id, index) => <HoiItemList categoryId={category_id} key={index} />)}
+//         {[category_id].map((category_id, index) => <HoiModifierList categoryId={category_id} key={index} />)}
 //       </div>
 //     )
 //   }

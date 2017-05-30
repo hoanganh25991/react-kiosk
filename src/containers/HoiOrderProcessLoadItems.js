@@ -1,9 +1,7 @@
 import { connect } from "react-redux"
 import OrderProcessLoadItems from "../components/OrderProcessLoadItems"
 
-const mapStateToProps = ({ subCategoriesByCategory, itemsByCategory, order }) => ({
-  subCategoriesByCategory,
-  itemsByCategory,
+const mapStateToProps = ({ order }) => ({
   order
 })
 
