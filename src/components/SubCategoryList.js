@@ -71,17 +71,18 @@ export default class SubCategoryList extends React.Component {
     let subCategories = subCategoriesByCategory[categoryId]
 
     return (
-      <div className="fullWidth">
+      <div>
         {subCategories && subCategories.length > 0
-          ? <div className="scroll maxHeight500">
+          ? /* <div className="scroll maxHeight500"> */
+            <div className="fullWidth">
               {subCategories.map((category, index) => (
                 <div key={index} className="fullWidth">
-                  <h3>Sub: {category.display_name}</h3>
+                  <h3 className="bgYellow">{category.display_name}</h3>
                   <HoiItemList categoryId={category.id} />
                 </div>
               ))}
             </div>
-          : <h3>No sub categories</h3>}
+          : null}
       </div>
     )
   }

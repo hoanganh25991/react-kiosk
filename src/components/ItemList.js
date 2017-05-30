@@ -19,13 +19,15 @@ export default class ItemList extends React.Component {
     let items = itemsByCategory[categoryId]
 
     return (
-      <div className="fullWidth">
-        <h3>Item list</h3>
+      <div>
         {items && items.length > 0
-          ? <div className="scroll maxHeight500">
-              {items.map((item, index) => <HoiItem item={item} key={index} />)}
+          ? <div className="fullWidth">
+              {/* <h3>Item list</h3> */}
+              <div className="scroll maxHeight500">
+                {items.map((item, index) => <HoiItem item={item} key={index} />)}
+              </div>
             </div>
-          : <p>No item by this category, id: {categoryId}</p>}
+          : null}
       </div>
     )
   }
