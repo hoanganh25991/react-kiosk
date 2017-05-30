@@ -10,8 +10,8 @@ export default class Item extends React.Component {
 
     return (
       <div className={className} onClick={e => chooseItem(item.id)}>
-        <img src={item.photo_file_url} className="thumb" />
-        <p>{item.display_name}</p>
+        <img src={item.photo_file_url} className="thumb" alt={item.display_name} />
+        <p>{item.display_name}, Id: {item.id}</p>
       </div>
     )
   }

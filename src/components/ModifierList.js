@@ -24,7 +24,7 @@ export default class ModifierList extends React.Component {
       <div>
         {modifiers && modifiers.length > 0
           ? modifiers.map((modifier, key) => <HoiModifier {...{ modifier, key }} />)
-          : <p>No modifier found on this item, id: {item_id}</p>}
+          : <p>No modifier found on this item, Id: {item_id}</p>}
       </div>
     )
   }
