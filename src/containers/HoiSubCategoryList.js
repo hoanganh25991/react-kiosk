@@ -1,20 +1,19 @@
 import { connect } from "react-redux"
 import SubCategoryList from "../components/SubCategoryList"
+import moment from "moment"
+import { actionNormalizeSubCategoriesByCategory } from "../actions"
 
-const findSubCategories = (categories, category_id) => {
-  let subCategory = categories.filter(category => category.main_category_id === category_id)
-
-  return subCategory
-}
-
-const mapStateToProps = ({ categories, order }) => {
+const mapStateToProps = ({ subCategoriesByCategory, order }) => {
   let { category_id } = order
-  let subCategories = findSubCategories(categories, category_id)
-  console.log(subCategories)
+  let subCategories = subCategoriesByCategory[category_id]
   return {
     subCategories,
-    order
+    timestamp: moment()
   }
 }
 
-export default connect(mapStateToProps, null)(SubCategoryList)
+const mapActionToProps = dispatch => ({
+  normalizeSubCategoriesByCategory: category_id => dispatch(actionNormalizeSubCategoriesByCategory(category_id))
+})
+
+export default connect(mapStateToProps, mapActionToProps)(SubCategoryList)
