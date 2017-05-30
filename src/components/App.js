@@ -1,5 +1,6 @@
-import React from 'react';
-class App extends React.Component {
+import React from "react"
+
+export default class App extends React.Component {
   render() {
     return (
       <div className="App">
@@ -15,8 +16,6 @@ class App extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
-
-export default App;

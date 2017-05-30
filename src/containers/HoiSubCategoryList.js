@@ -1,4 +1,3 @@
-import fakeData from '../fake-data';
+import fakeData from "../../tmp/fake-data"
 
-let {categories} = fakeData;
-
+let { categories } = fakeData
