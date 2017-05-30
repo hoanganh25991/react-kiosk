@@ -1,30 +1,16 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import fakeData from './fake-data'
-class App extends Component {
+import React from 'react';
+class App extends React.Component {
   render() {
-    let {categories} = fakeData; 
-
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <div style={{display: 'flex', flexDirection: 'row'}}>
-          {/* catetories */}
-          <div style={{display: 'flex', flexDirection: 'row'}}>
-            {/* main categories */}
-            <div style={{display: 'flex', flexDirection: 'column', width: 300}}>
-              {categories.map((categ, index) => <div key={index}>{categ.display_name}</div>)}
+        <div className="orderPage">
+          <h1>Order Page</h1>
+          <div className="flexRow">
+            <div className="flex4">
+              <h1>Category List</h1>
             </div>
-            {/* show sub categories */}
-            <div style={{display: 'flex', flexDirection: 'column', flex: 1}}>
-              <h1>What the heck What the heck What the heck What the heck</h1>
+            <div className="flex8">
+              <h1>----</h1>
             </div>
           </div>
         </div>
