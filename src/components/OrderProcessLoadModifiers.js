@@ -10,10 +10,7 @@ export default class OrderProcessLoadModifiers extends React.Component {
 
     return (
       <div className="fullWidth">
-        <h1>Choose your flavour</h1>
-        <div className="maxHeight500 scroll">
-          <HoiModifierList item_id={item_id} />
-        </div>
+        <HoiModifierList item_id={item_id} />
       </div>
     )
   }
