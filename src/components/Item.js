@@ -8,6 +8,11 @@ export default class Item extends React.Component {
     let className = ""
     className = isSelected(item.id) ? className + " selected" : className
 
-    return <div className={className} onClick={e => chooseItem(item.id)}>{item.display_name}</div>
+    return (
+      <div className={className} onClick={e => chooseItem(item.id)}>
+        <img src={item.photo_file_url} className="thumb" />
+        <p>{item.display_name}</p>
+      </div>
+    )
   }
 }
