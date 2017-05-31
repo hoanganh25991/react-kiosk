@@ -23,7 +23,8 @@ export default (state = initState, action) => {
     case c.ORDER_PROCESS_STEP_LOAD_ITEMS:
     case c.CHOOSE_ITEM:
     case c.ADD_TIME_TO_BAG:
-    case c.ORDER_PROCESS_STEP_LOAD_MODIFIERS: {
+    case c.ORDER_PROCESS_STEP_LOAD_MODIFIERS:
+    case c.ADD_ITEM_BY_MODIFIER_TO_BAG: {
       return order(state, action)
     }
     case c.NORMALIZE_SUB_CATEGORIES_BY_CATEGORY:

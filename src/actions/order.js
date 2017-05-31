@@ -73,3 +73,20 @@ export const actionChooseItemOrAddToBag = item_id => {
     dispatch(action())
   }
 }
+//
+//
+//
+//
+// click to add item by modifier to bag
+// export const actionAddItemByModifierToBag = () => {
+//   return (dispatch, getState) => {
+//     dispatch({type: c.THUNK_ADD_ITEM_BY_MODIFIER_TO_BAG})
+//
+//
+//   }
+// }
+export const actionAddItemByModifierToBag = (modifier, item) => ({
+  type: c.ADD_ITEM_BY_MODIFIER_TO_BAG,
+  modifier,
+  item
+})
