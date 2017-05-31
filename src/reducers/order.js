@@ -1,7 +1,9 @@
 import * as c from "../actions/const-name"
 
+const priceLevel = "price1"
 const addItemToBag = (bag, item) => {
-  let newBagItem = { ...item, quanity: 1 }
+  let { [priceLevel]: item_price } = item
+  let newBagItem = { ...item, quanity: 1, type: c.NORMAL_BAG_ITEM, item_price }
   let newBag = bag.reduce(
     (carry, bagItem) => {
       let alreadyExist = bagItem.id === newBagItem.id

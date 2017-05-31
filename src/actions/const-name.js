@@ -29,3 +29,10 @@ export const NORMALIZE_ITEMS_BY_MODIFIER = "NORMALIZE_ITEMS_BY_MODIFIER"
  * Alert
  */
 export const ALERT_MSG = "ALERT_MSG"
+
+/**
+ * Bag item
+ */
+// Type
+export const NORMAL_BAG_ITEM = "NORMAL_BAG_ITEM"
+export const MODIFIER_BAG_ITEM = "MODIFIER_BAG_ITEM"
