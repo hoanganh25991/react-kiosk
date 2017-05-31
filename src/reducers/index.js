@@ -8,7 +8,8 @@ const initState = {
   order: {
     category_id: -1,
     item_id: null,
-    step: null
+    step: null,
+    bag: []
   },
   subCategoriesByCategory: {},
   itemsByCategory: {},
@@ -21,6 +22,7 @@ export default (state = initState, action) => {
     case c.CHOOSE_CATEGORY:
     case c.ORDER_PROCESS_STEP_LOAD_ITEMS:
     case c.CHOOSE_ITEM:
+    case c.ADD_TIME_TO_BAG:
     case c.ORDER_PROCESS_STEP_LOAD_MODIFIERS: {
       return order(state, action)
     }
@@ -29,6 +31,11 @@ export default (state = initState, action) => {
     case c.NORMALIZE_MODIFIERS_BY_ITEM:
     case c.NORMALIZE_ITEMS_BY_MODIFIER: {
       return normalize(state, action)
+    }
+    case c.ALERT_MSG: {
+      let { msg } = action
+      window.alert(msg)
+      return state
     }
     default:
       return state

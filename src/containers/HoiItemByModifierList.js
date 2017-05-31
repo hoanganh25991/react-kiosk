@@ -2,7 +2,7 @@ import { connect } from "react-redux"
 import ItemByModifierList from "../components/ItemByModifierList"
 import { actionNormalizeItemsByModifier } from "../actions"
 const mapStateToProps = ({ itemsByModifier, modifier_groups }) => {
-  let byModifier = modifier_id => modifier_groups.filter(modifier => modifier.id == modifier_id)[0]
+  let byModifier = modifier_id => modifier_groups.filter(modifier => modifier.id === modifier_id)[0]
   return { itemsByModifier, byModifier }
 }
 

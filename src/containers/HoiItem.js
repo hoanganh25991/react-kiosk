@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import Item from "../components/Item"
-import { actionChooseItem } from "../actions"
+import { actionChooseItemOrAddToBag } from "../actions"
 
 const mapStateToProps = ({ order }) => {
   let { item_id: orderItemId } = order
@@ -9,8 +9,9 @@ const mapStateToProps = ({ order }) => {
     isSelected: item_id => item_id === orderItemId
   }
 }
+
 const mapActionToProps = dispatch => ({
-  chooseItem: item_id => dispatch(actionChooseItem(item_id))
+  clickOnItem: item_id => dispatch(actionChooseItemOrAddToBag(item_id))
 })
 
 export default connect(mapStateToProps, mapActionToProps)(Item)

@@ -1,5 +1,4 @@
 import React from "react"
-import Item from "./Item"
 
 export default class ItemByModifier extends React.Component {
   render() {
