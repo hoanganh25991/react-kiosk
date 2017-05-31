@@ -47,9 +47,10 @@ export const actionAddItemToBag = item_id => ({ type: c.ADD_TIME_TO_BAG, item_id
 //
 // click on an item
 export const actionChooseItemOrAddToBag = item_id => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({ type: c.CHOOSE_ITEM_OR_ADD_TO_BAG })
-    let modifiers = dispatch(actionLoadModifiersByItem(item_id))
+    let { modifiersByItem } = getState()
+    let modifiers = modifiersByItem[item_id]
     // Decide proper action to handle
     let action
     if (modifiers === undefined) {
