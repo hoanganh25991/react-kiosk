@@ -1,6 +1,7 @@
 import React from "react"
 import HoiCategoryList from "../containers/HoiCategoryList"
 import HoiOrderProcess from "../containers/HoiOrderProcess"
+import HoiOrderInfo from "../containers/HoiOrderInfo"
 
 export default class App extends React.Component {
   render() {
@@ -16,6 +17,7 @@ export default class App extends React.Component {
               <HoiOrderProcess />
             </div>
           </div>
+          <HoiOrderInfo />
         </div>
       </div>
     )
