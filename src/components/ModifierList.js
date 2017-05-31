@@ -17,8 +17,8 @@ export default class ModifierList extends React.Component {
   }
 
   render() {
-    let { modifiersByItem, item_id } = this.props
-    let modifiers = modifiersByItem[item_id]
+    let { getModifiersByItem, item_id } = this.props
+    let modifiers = getModifiersByItem(item_id)
 
     return (
       <div>

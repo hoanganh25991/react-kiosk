@@ -3,7 +3,13 @@ import ItemList from "../components/ItemList"
 
 import { actionNormalizeItemsByCategory } from "../actions"
 
-const mapStateToProps = ({ itemsByCategory }) => ({ itemsByCategory })
+const mapStateToProps = ({ itemsByCategory }) => {
+  let getItemsByCategory = category_id => itemsByCategory[category_id]
+
+  return {
+    getItemsByCategory
+  }
+}
 
 const mapActionToProps = dispatch => ({
   normalizeItemsByCategory: category_id => dispatch(actionNormalizeItemsByCategory(category_id))

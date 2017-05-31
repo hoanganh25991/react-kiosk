@@ -4,8 +4,8 @@ import HoiItem from "../containers/HoiItem"
 export default class ItemList extends React.Component {
   normalizeData = () => {
     let { normalizeItemsByCategory } = this.props
-    let { categoryId } = this.props
-    normalizeItemsByCategory(categoryId)
+    let { category_id } = this.props
+    normalizeItemsByCategory(category_id)
   }
 
   componentDidUpdate() {
@@ -17,8 +17,8 @@ export default class ItemList extends React.Component {
   }
 
   render() {
-    let { itemsByCategory, categoryId } = this.props
-    let items = itemsByCategory[categoryId]
+    let { getItemsByCategory, category_id } = this.props
+    let items = getItemsByCategory(category_id)
 
     return (
       <div>

@@ -1,7 +1,9 @@
 import { connect } from "react-redux"
 import ItemByModifier from "../components/ItemByModifier"
 
-const mapStateToProps = null
+const mapStateToProps = () => {
+  return {}
+}
 
 const mapActionToProps = null
 

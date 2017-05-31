@@ -5,7 +5,7 @@ import { actionAlert } from "./alert"
  * Hanlde normalize right at someone ask for 'modifiers' by 'items'
  * @param item_id
  */
-export const loadModifiersByItem = item_id => {
+export const actionLoadModifiersByItem = item_id => {
   return (dispatch, getState) => {
     dispatch({ type: c.LOAD_MODIFIERS_BY_ITEM })
     dispatch(n.actionNormalizeModifiersByItem(item_id))
@@ -49,7 +49,7 @@ export const actionAddItemToBag = item_id => ({ type: c.ADD_TIME_TO_BAG, item_id
 export const actionChooseItemOrAddToBag = item_id => {
   return dispatch => {
     dispatch({ type: c.CHOOSE_ITEM_OR_ADD_TO_BAG })
-    let modifiers = dispatch(loadModifiersByItem(item_id))
+    let modifiers = dispatch(actionLoadModifiersByItem(item_id))
     // Decide proper action to handle
     let action
     if (modifiers === undefined) {

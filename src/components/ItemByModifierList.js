@@ -16,14 +16,18 @@ export default class ItemByModifierList extends React.Component {
   }
 
   render() {
-    let { itemsByModifier, modifier_id } = this.props
+    let { getItemsByModifier, modifier_id } = this.props
 
-    let items = itemsByModifier[modifier_id]
-    let { byModifier } = this.props
-    let modifier = byModifier(modifier_id)
+    let items = getItemsByModifier(modifier_id)
+    let { getModifier } = this.props
+    let modifier = getModifier(modifier_id)
+    let { mandatory, multi_select } = modifier
+    let { getInstructionMsg } = this.props
+    let instructionMsg = getInstructionMsg(mandatory, multi_select)
 
     return (
       <div>
+        <h4>{instructionMsg}</h4>
         {items && items.length > 0
           ? items.map((item, key) => <HoiItemByModifier {...{ item, key, modifier }} />)
           : <p>No items found on modifier, id: {modifier_id}</p>}
