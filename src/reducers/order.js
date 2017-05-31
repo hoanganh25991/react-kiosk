@@ -10,8 +10,7 @@ const addItemToBag = (bag, item) => {
       if (alreadyExist) {
         // Update quanity of newBagItem
         let { quanity: currQuanity } = bagItem
-        let quanity = currQuanity + newBagItem.quanity
-        newBagItem = { ...newBagItem, quanity }
+        newBagItem.quanity = currQuanity + newBagItem.quanity
         return carry
       }
 
