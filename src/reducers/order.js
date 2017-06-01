@@ -2,6 +2,21 @@ import * as c from "../actions/const-name"
 
 const priceLevel = "price1"
 
+export const addNewOrUpdateOrderBag = ({ lastCategoryIdChanged, previousCategoryIdChanged }) => {
+  let whatShoudDo
+  switch (true) {
+    case lastCategoryIdChanged > previousCategoryIdChanged: {
+      whatShoudDo = c.ADD_NEW_TO_ORDER_BAG
+      break
+    }
+    default: {
+      whatShoudDo = c.UPDATE_ORDER_BAG
+      break
+    }
+  }
+  return whatShoudDo
+}
+
 //
 //
 //
@@ -159,6 +174,12 @@ export default (state, action) => {
       let { category_id } = action
       let { order: currOrder } = state
       let order = { ...currOrder, category_id }
+      return { ...state, order }
+    }
+    case c.UPDATE_LAST_ORDER_CATEGORY_ID_CHANGED_TIMESTAMP: {
+      let { timestamp: lastCategoryIdUpdatedTimestamp } = action
+      let { order: currOrder } = state
+      let order = { ...currOrder, lastCategoryIdUpdatedTimestamp }
       return { ...state, order }
     }
     case c.ORDER_PROCESS_STEP_LOAD_ITEMS: {

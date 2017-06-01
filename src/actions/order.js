@@ -1,18 +1,11 @@
 import * as c from "./const-name"
-import * as n from "./normalize"
 import { actionAlert } from "./alert"
-/**
- * Hanlde normalize right at someone ask for 'modifiers' by 'items'
- * @param item_id
- */
-export const actionLoadModifiersByItem = item_id => {
-  return (dispatch, getState) => {
-    dispatch({ type: c.LOAD_MODIFIERS_BY_ITEM })
-    dispatch(n.actionNormalizeModifiersByItem(item_id))
-    let { modifiersByItem } = getState()
-    return modifiersByItem[item_id]
-  }
-}
+import moment from "moment"
+
+export const actionUpdateLastOrderCategoryIdChangedTimestamp = timestamp => ({
+  type: c.UPDATE_LAST_ORDER_CATEGORY_ID_CHANGED_TIMESTAMP,
+  timestamp
+})
 
 export const actionOrderProcessStepLoadItems = () => ({ type: c.ORDER_PROCESS_STEP_LOAD_ITEMS })
 //
@@ -21,7 +14,15 @@ export const actionOrderProcessStepLoadItems = () => ({ type: c.ORDER_PROCESS_ST
 //
 // customer pick one category
 export const actionChooseCategory = category_id => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    dispatch({ type: c.THUNK_CHOOSE_CATEGORY })
+    let { order: { category_id: currCategoryId } } = getState()
+    let isCategoryIdChanged = currCategoryId != category_id
+    if (isCategoryIdChanged) {
+      let now = moment()
+      // Please remeber to use number, format from moment date obj is string
+      dispatch(actionUpdateLastOrderCategoryIdChangedTimestamp(+now.format("X")))
+    }
     dispatch({ type: c.CHOOSE_CATEGORY, category_id })
     dispatch(actionOrderProcessStepLoadItems())
   }

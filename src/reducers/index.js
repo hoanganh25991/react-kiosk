@@ -7,6 +7,7 @@ const initState = {
   ...fakeData,
   order: {
     category_id: -1,
+    lastCategoryIdUpdatedTimestamp: null,
     item_id: null,
     step: null,
     bag: []
@@ -20,6 +21,7 @@ const initState = {
 export default (state = initState, action) => {
   switch (action.type) {
     case c.CHOOSE_CATEGORY:
+    case c.UPDATE_LAST_ORDER_CATEGORY_ID_CHANGED_TIMESTAMP:
     case c.ORDER_PROCESS_STEP_LOAD_ITEMS:
     case c.CHOOSE_ITEM:
     case c.ADD_TIME_TO_BAG:
