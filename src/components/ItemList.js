@@ -9,7 +9,7 @@ export default class ItemList extends React.Component {
   }
 
   componentDidUpdate() {
-    //this.normalizeData()
+    this.normalizeData()
   }
 
   componentDidMount() {

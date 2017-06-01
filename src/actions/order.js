@@ -85,8 +85,8 @@ export const actionChooseItemOrAddToBag = item_id => {
 //
 //   }
 // }
-export const actionAddItemByModifierToBag = (modifier, item) => ({
+export const actionAddItemByModifierToBag = (modifier_id, item_by_modifier_id) => ({
   type: c.ADD_ITEM_BY_MODIFIER_TO_BAG,
-  modifier,
-  item
+  modifier_id,
+  item_by_modifier_id
 })

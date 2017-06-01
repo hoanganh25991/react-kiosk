@@ -91,26 +91,27 @@ const addItemToBag = (currBag, item_id) => {
 //         }
 //       ]
 //click to add item modifier to bag
-const addItemModifierToBag = ({ currBag, orderItem, modifier, item }) => {
-  let newBagItem = { children: [], ...orderItem, item: orderItem, quanity: 1 }
-  let newBag = currBag.reduce(
-    (carry, bagItem) => {
-      let isNewBagItemExist = bagItem.id === newBagItem.id && bagItem.type === c.MODIFIER_BAG_ITEM
-      if (isNewBagItemExist) {
-        let { children: curChildren } = bagItem
-        let isNewItemByModifierExist = curChildren.filter(
-          itemByModifier => itemByModifier.id === item.id && itemByModifier.modifier_id === modifier.id
-        )
-        if (isNewItemByModifierExist) {
-          // Should check something
-        }
-        let newItemByModifier = { ...item, modifier_id: modifier.id }
-      }
-
-      return [...carry, bagItem]
-    },
-    [newBagItem]
-  )
+const addItemModifierToBag = (currBag, item_id, modifier_id, item_by_modifier_id) => {
+  let newBag = []
+  // let newBagItem = { children: [], ...orderItem, item: orderItem, quanity: 1 }
+  // let newBag = currBag.reduce(
+  //   (carry, bagItem) => {
+  //     let isNewBagItemExist = bagItem.id === newBagItem.id && bagItem.type === c.MODIFIER_BAG_ITEM
+  //     if (isNewBagItemExist) {
+  //       let { children: curChildren } = bagItem
+  //       let isNewItemByModifierExist = curChildren.filter(
+  //         itemByModifier => itemByModifier.id === item.id && itemByModifier.modifier_id === modifier.id
+  //       )
+  //       if (isNewItemByModifierExist) {
+  //         // Should check something
+  //       }
+  //       let newItemByModifier = { ...item, modifier_id: modifier.id }
+  //     }
+  //
+  //     return [...carry, bagItem]
+  //   },
+  //   [newBagItem]
+  // )
 
   return newBag
 }
@@ -149,12 +150,11 @@ export default (state, action) => {
       return { ...state, order }
     }
     case c.ADD_ITEM_BY_MODIFIER_TO_BAG: {
-      let { modifier, item } = action
+      let { modifier_id, item_by_modifier_id } = action
       let { order: currOrder, items } = state
-      let { item_id: orderItemId } = currOrder
-      let orderItem = items.filter(item => item.id === orderItemId)[0]
+      let { item_id } = currOrder
       let { bag: currBag } = currOrder
-      let bag = addItemModifierToBag({ currBag, orderItem, modifier, item })
+      let bag = addItemModifierToBag(currBag, item_id, modifier_id, item_by_modifier_id)
       let order = { ...currOrder, bag }
       return { ...state, order }
     }

@@ -7,7 +7,8 @@ const mapStateToProps = () => {
 }
 
 const mapActionToProps = dispatch => ({
-  addItemByModifierToBag: xxx => dispatch(actionAddItemByModifierToBag(xxx))
+  addItemByModifierToBag: (modifier_id, item_by_modifier_id) =>
+    dispatch(actionAddItemByModifierToBag(modifier_id, item_by_modifier_id))
 })
 
 export default connect(mapStateToProps, mapActionToProps)(ItemByModifier)
