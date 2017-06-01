@@ -12,7 +12,7 @@ const priceLevel = "price1"
 //             type: c.NORMAL_BAG_ITEM
 //           }
 // how to add one to EXIST bag
-const addItemToBag = (currBag, item_id) => {
+const addItemToBagV2 = (currBag, item_id) => {
   let newBagItem = { item_id, quanity: 1, type: c.NORMAL_BAG_ITEM }
   let newBag = currBag.reduce(
     (carry, bagItem) => {
@@ -34,12 +34,44 @@ const addItemToBag = (currBag, item_id) => {
   // Reorder bagItem
   // The newBagItem, should at the end of currBag
   // So, move the first one to the end
-  let firstBagItem = newBag[0]
-  let restBagItem = newBag.slice(1)
-  return [...restBagItem, firstBagItem]
+  // let firstBagItem = newBag[0]
+  // let restBagItem = newBag.slice(1)
+  // return [...restBagItem, firstBagItem]
+  return newBag
 }
+//
+//
+//
+//
+// addItem keep order of currBag
+const addItemToBag = (currBag, item_id) => {
+  let defaultBagItem = { item_id, quanity: 1, type: c.NORMAL_BAG_ITEM }
+  let newBagItem = defaultBagItem
+  let newBag = currBag.map(bagItem => {
+    let sameBagItemType = bagItem.type === c.NORMAL_BAG_ITEM
+    let sameBagItemId = bagItem.item_id === newBagItem.item_id
+    let sameBagItemExist = sameBagItemType && sameBagItemId
 
-//const addItemToBagV2 = (currBag, item_id) => {}
+    if (sameBagItemExist) {
+      //Update the current one
+      let { quanity: currQuanity } = bagItem
+      let { quanity: addUpQuanity } = newBagItem
+      let quanity = currQuanity + addUpQuanity
+      newBagItem = { ...newBagItem, quanity }
+      return newBagItem
+    }
+
+    return bagItem
+  })
+
+  // If newBagItem already merge into, done, but if not, add him
+  let isNewBagItemAdded = newBagItem != defaultBagItem
+  if (!isNewBagItemAdded) {
+    newBag = [...newBag, newBagItem]
+  }
+
+  return newBag
+}
 //
 //
 //
