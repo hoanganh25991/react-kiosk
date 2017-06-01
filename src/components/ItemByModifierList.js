@@ -1,6 +1,7 @@
 import React from "react"
 import HoiItemByModifier from "../containers/HoiItemByModifier"
 import HoiItemByModifierCheckboxRow from "../containers/HoiItemByModifierCheckboxRow"
+import SwapItemByModifierStyle from "./SwapItemByModifierStyle"
 
 export default class ItemByModifierList extends React.Component {
   normalizeData = () => {
@@ -28,9 +29,11 @@ export default class ItemByModifierList extends React.Component {
 
     return (
       <div>
-        <h4>{instructionMsg}</h4>
+        {/*<h4>{instructionMsg}</h4>*/}
         {items && items.length > 0
-          ? items.map((item, index) => <HoiItemByModifierCheckboxRow {...{ item, key: item.id, modifier }} />)
+          ? items.map((item, index) => (
+              <SwapItemByModifierStyle {...{ item, total_items_by_modifier: items.length, key: item.id, modifier }} />
+            ))
           : <p>No items found on modifier, id: {modifier_id}</p>}
       </div>
     )
