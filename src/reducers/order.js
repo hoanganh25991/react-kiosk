@@ -1,21 +1,32 @@
 import * as c from "../actions/const-name"
 
 const priceLevel = "price1"
-const addItemToBag = (bag, item) => {
-  let { [priceLevel]: item_price } = item
-  // Self reference item -> item, then clone all of it data out
-  // Update with quanity & item_price
-  let newBagItem = { item, ...item, quanity: 1, type: c.NORMAL_BAG_ITEM, item_price }
-  let newBag = bag.reduce(
+
+//
+//
+//
+// bagItem as NORMAL_BAG_ITEM
+// bagItem = {
+//             item_id,
+//             quanity,
+//             type: c.NORMAL_BAG_ITEM
+//           }
+// how to add one to EXIST bag
+const addItemToBag = (currBag, item_id) => {
+  let newBagItem = { item_id, quanity: 1, type: c.NORMAL_BAG_ITEM }
+  let newBag = currBag.reduce(
     (carry, bagItem) => {
-      let alreadyExist = bagItem.id === newBagItem.id && bagItem.type === c.NORMAL_BAG_ITEM
-      if (alreadyExist) {
+      let sameBagItemType = bagItem.type === c.NORMAL_BAG_ITEM
+      let sameBagItemId = bagItem.item_id === newBagItem.item_id
+      let sameBagItemExist = sameBagItemType && sameBagItemId
+      if (sameBagItemExist) {
         // Update quanity of newBagItem
         let { quanity: currQuanity } = bagItem
         newBagItem.quanity = currQuanity + newBagItem.quanity
         return carry
       }
-
+      // Nothing conflict happen
+      // So just re-add bagItem back
       return [...carry, bagItem]
     },
     [newBagItem]
@@ -27,18 +38,16 @@ const addItemToBag = (bag, item) => {
 //
 //
 //
-// bag = [{item_id, item_price, quanity,...item, type: c.NORMAL_BAG_ITEM},
+// bag = [{item_id, quanity, type: c.NORMAL_BAG_ITEM},
 //         bagItem2,
 //         bagItem3,
 //         {
 //           item_id,
-//           item_price, // this is the caculate of its child
 //           quanity,
 //           type: c.MODIFIER_BAG_ITEM
 //           chidlren: [
-//             {item_id, modifier_id},
-//             {item_id, modifier_id},
-//             {item_id, modifier_id}
+//             modifier_id: [item_id, item_id, item_id],
+//             modifier_id: [item_id, item_id, item_id]
 //           ]
 //         }
 //       ]
