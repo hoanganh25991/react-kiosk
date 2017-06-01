@@ -31,8 +31,15 @@ const addItemToBag = (currBag, item_id) => {
     },
     [newBagItem]
   )
-  return newBag
+  // Reorder bagItem
+  // The newBagItem, should at the end of currBag
+  // So, move the first one to the end
+  let firstBagItem = newBag[0]
+  let restBagItem = newBag.slice(1)
+  return [...restBagItem, firstBagItem]
 }
+
+//const addItemToBagV2 = (currBag, item_id) => {}
 //
 //
 //
@@ -97,16 +104,11 @@ export default (state, action) => {
     }
     case c.ADD_TIME_TO_BAG: {
       let { item_id } = action
-      let { items } = state
-      let item = items.filter(item => item.id === item_id)[0]
-      if (item) {
-        let { order: { bag: currBag }, order: currOrder } = state
-        let bag = addItemToBag(currBag, item)
-        let order = { ...currOrder, bag }
-        return { ...state, order }
-      }
-      // Should throw something is wrong about item_id
-      //throw new Error(`Cant find item, Id: ${item_id}`)
+      let { order: currOrder } = state
+      let { bag: currBag } = currOrder
+      let bag = addItemToBag(currBag, item_id)
+      let order = { ...currOrder, bag }
+      return { ...state, order }
       return state
     }
     case c.ORDER_PROCESS_STEP_LOAD_MODIFIERS: {
