@@ -22,7 +22,27 @@ const addItemToBag = (bag, item) => {
   )
   return newBag
 }
-
+//
+//
+//
+//
+//
+// bag = [{item_id, item_price, quanity,...item, type: c.NORMAL_BAG_ITEM},
+//         bagItem2,
+//         bagItem3,
+//         {
+//           item_id,
+//           item_price, // this is the caculate of its child
+//           quanity,
+//           type: c.MODIFIER_BAG_ITEM
+//           chidlren: [
+//             {item_id, modifier_id},
+//             {item_id, modifier_id},
+//             {item_id, modifier_id}
+//           ]
+//         }
+//       ]
+//click to add item modifier to bag
 const addItemModifierToBag = ({ currBag, orderItem, modifier, item }) => {
   let newBagItem = { children: [], ...orderItem, item: orderItem, quanity: 1 }
   let newBag = currBag.reduce(
