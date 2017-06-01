@@ -73,13 +73,33 @@ const addItemToBag = (currBag, item_id) => {
   return newBag
 }
 
-export const addItemByModifierToModifier = (currModifier, item_by_modifier_id) => {}
+export const addItemByModifierToModifier = (currModifier, item_by_modifier_id) => {
+  let defaultItem = { item_by_modifier_id, quanity: 1 }
+  let newItem = defaultItem
+  let newModifier = currModifier.map(item => {
+    let sameItemExist = item.item_by_modifier_id === newItem.item_by_modifier_id
+    if (sameItemExist) {
+      let { quanity: currQuanity } = item
+      let { quanity: addedUpQuanity } = newItem
+      let quanity = currQuanity + addedUpQuanity
+      newItem = { ...newItem, quanity }
+      return newItem
+    }
+    return item
+  })
+  let isNewItemAdded = newItem != defaultItem
+  if (!isNewItemAdded) {
+    newModifier = [...newModifier, newItem]
+  }
+  return newModifier
+}
 
 export const addModifierToChildren = (currChildren, modifier_id, item_by_modifier_id) => {
   let newModifier = [{ item_by_modifier_id, quanity: 1 }]
   let sameModifierExist = currChildren[modifier_id]
   if (sameModifierExist) {
-    // Ok merge
+    let { [modifier_id]: currModifier } = currChildren
+    newModifier = addItemByModifierToModifier(currModifier, item_by_modifier_id)
   }
   return { ...currChildren, [modifier_id]: newModifier }
 }
@@ -107,17 +127,17 @@ export const addItemModifierToBag = (currBag, item_id, modifier_id, item_by_modi
     item_id,
     quanity: 1,
     type: c.MODIFIER_BAG_ITEM,
-    children: { modifier_id: [{ item_by_modifier_id, quanity: 1 }] }
+    children: { [modifier_id]: [{ item_by_modifier_id, quanity: 1 }] }
   }
   let newBagItem = defaultBagItem
   let newBag = currBag.map(bagItem => {
-    let sameBagItemType = bagItem.type === c.NORMAL_BAG_ITEM
+    let sameBagItemType = bagItem.type === c.MODIFIER_BAG_ITEM
     let sameBagItemId = bagItem.item_id === newBagItem.item_id
     let sameBagItemExist = sameBagItemType && sameBagItemId
 
     if (sameBagItemExist) {
       // Update the children
-      let { chilren: currChildren } = bagItem
+      let { children: currChildren } = bagItem
       let children = addModifierToChildren(currChildren, modifier_id, item_by_modifier_id)
       newBagItem = { ...newBagItem, children }
       return newBagItem
