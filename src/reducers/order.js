@@ -72,6 +72,17 @@ const addItemToBag = (currBag, item_id) => {
 
   return newBag
 }
+
+export const addItemByModifierToModifier = (currModifier, item_by_modifier_id) => {}
+
+export const addModifierToChildren = (currChildren, modifier_id, item_by_modifier_id) => {
+  let newModifier = [{ item_by_modifier_id, quanity: 1 }]
+  let sameModifierExist = currChildren[modifier_id]
+  if (sameModifierExist) {
+    // Ok merge
+  }
+  return { ...currChildren, [modifier_id]: newModifier }
+}
 //
 //
 //
@@ -91,27 +102,33 @@ const addItemToBag = (currBag, item_id) => {
 //         }
 //       ]
 //click to add item modifier to bag
-const addItemModifierToBag = (currBag, item_id, modifier_id, item_by_modifier_id) => {
-  let newBag = []
-  // let newBagItem = { children: [], ...orderItem, item: orderItem, quanity: 1 }
-  // let newBag = currBag.reduce(
-  //   (carry, bagItem) => {
-  //     let isNewBagItemExist = bagItem.id === newBagItem.id && bagItem.type === c.MODIFIER_BAG_ITEM
-  //     if (isNewBagItemExist) {
-  //       let { children: curChildren } = bagItem
-  //       let isNewItemByModifierExist = curChildren.filter(
-  //         itemByModifier => itemByModifier.id === item.id && itemByModifier.modifier_id === modifier.id
-  //       )
-  //       if (isNewItemByModifierExist) {
-  //         // Should check something
-  //       }
-  //       let newItemByModifier = { ...item, modifier_id: modifier.id }
-  //     }
-  //
-  //     return [...carry, bagItem]
-  //   },
-  //   [newBagItem]
-  // )
+export const addItemModifierToBag = (currBag, item_id, modifier_id, item_by_modifier_id) => {
+  let defaultBagItem = {
+    item_id,
+    quanity: 1,
+    type: c.MODIFIER_BAG_ITEM,
+    children: { modifier_id: [{ item_by_modifier_id, quanity: 1 }] }
+  }
+  let newBagItem = defaultBagItem
+  let newBag = currBag.map(bagItem => {
+    let sameBagItemType = bagItem.type === c.NORMAL_BAG_ITEM
+    let sameBagItemId = bagItem.item_id === newBagItem.item_id
+    let sameBagItemExist = sameBagItemType && sameBagItemId
+
+    if (sameBagItemExist) {
+      // Update the children
+      let { chilren: currChildren } = bagItem
+      let children = addModifierToChildren(currChildren, modifier_id, item_by_modifier_id)
+      newBagItem = { ...newBagItem, children }
+      return newBagItem
+    }
+    return bagItem
+  })
+  // If newBagItem already merge into, done, but if not, add him
+  let isNewBagItemAdded = newBagItem != defaultBagItem
+  if (!isNewBagItemAdded) {
+    newBag = [...newBag, newBagItem]
+  }
 
   return newBag
 }
