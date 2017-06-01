@@ -10,7 +10,12 @@ export default class ItemByModifierCheckboxRow extends React.Component {
     isSelected = () => true
     return (
       <div className="padding10">
-        <input type="checkbox" value={isSelected()} onClick={e => addItemByModifierToBag(modifier.id, item.id)} />
+        <input
+          type="checkbox"
+          onClick={e => addItemByModifierToBag(modifier.id, item.id)}
+          checked={isSelected()}
+          onChange={e => console.log("hello")}
+        />
         <span>{item.display_name}</span>
       </div>
     )
