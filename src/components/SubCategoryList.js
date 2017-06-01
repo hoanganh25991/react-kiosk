@@ -74,9 +74,9 @@ export default class SubCategoryList extends React.Component {
       <div>
         {subCategories && subCategories.length > 0
           ? subCategories.map((category, index) => (
-              <div key={index} className="fullWidth">
+              <div key={category.id} className="fullWidth">
                 <h3 className="bgYellow">{category.display_name}</h3>
-                <HoiItemList category_id={category.id} />
+                <HoiItemList {...{ category_id: category.id }} />
               </div>
             ))
           : null}

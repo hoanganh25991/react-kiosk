@@ -6,7 +6,7 @@ export default class Item extends React.Component {
   }
 
   componentDidUpdate() {
-    this.normalizeData()
+    //this.normalizeData()
   }
 
   componentDidMount() {

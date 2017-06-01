@@ -23,7 +23,7 @@ export default class ModifierList extends React.Component {
     return (
       <div>
         {modifiers && modifiers.length > 0
-          ? modifiers.map((modifier, key) => <HoiModifier {...{ modifier, key }} />)
+          ? modifiers.map((modifier, index) => <HoiModifier {...{ modifier, key: modifier.id }} />)
           : <p>No modifier found on this item, Id: {item_id}</p>}
       </div>
     )

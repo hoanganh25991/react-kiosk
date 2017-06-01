@@ -9,7 +9,7 @@ export default class ItemList extends React.Component {
   }
 
   componentDidUpdate() {
-    this.normalizeData()
+    //this.normalizeData()
   }
 
   componentDidMount() {
@@ -22,7 +22,7 @@ export default class ItemList extends React.Component {
 
     return (
       <div>
-        {items && items.length > 0 ? items.map((item, index) => <HoiItem item={item} key={index} />) : null}
+        {items && items.length > 0 ? items.map((item, index) => <HoiItem {...{ item, key: item.id }} />) : null}
       </div>
     )
   }
