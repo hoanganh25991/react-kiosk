@@ -60,11 +60,11 @@ export const actionChooseItemOrAddToBag = item_id => {
       let msg = "Please waiting..."
       action = () => actionAlert(msg)
     } else if (modifiers && modifiers.length > 0) {
-      // Item has modifiers
+      // ItemHasModifiers has modifiers
       // Click on it means load modifiers
       action = () => actionChooseItem(item_id)
     } else if (modifiers && modifiers.length === 0) {
-      // Item has no modifiers
+      // ItemHasModifiers has no modifiers
       // Click on it means add to bag
       action = () => actionAddItemToBag(item_id)
     } else {

@@ -10,12 +10,10 @@ export default class SubCategoryList extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log("SubCategoryList updated")
     this.normalizeData()
   }
 
   componentDidMount() {
-    console.log("SubCategoryList mounted")
     this.normalizeData()
   }
 

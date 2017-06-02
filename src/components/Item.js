@@ -1,6 +1,9 @@
 import React from "react"
+import HoiItemReadyToBuy from "../containers/HoiItemReadyToBuy"
+import HoiItemHasModifiers from "../containers/HoiItemHasModifiers"
+
 export default class Item extends React.Component {
-  normalizeData() {
+  normalizeData = () => {
     let { normalizeModifiersByItem, item: { id: item_id } } = this.props
     normalizeModifiersByItem(item_id)
   }
@@ -15,19 +18,16 @@ export default class Item extends React.Component {
 
   render() {
     let { item } = this.props
-    let { clickOnItem } = this.props
     let { isSelected } = this.props
-    let { getItemPrice } = this.props
-    let itemPrice = getItemPrice(item)
+    let { getHasModifiers } = this.props
+    let hasModifiers = getHasModifiers(item.id)
 
     let className = ""
     className = isSelected(item.id) ? className + " selected" : className
 
     return (
-      <div className={className} onClick={e => clickOnItem(item.id)}>
-        <img src={item.photo_file_url} className="thumb" alt={item.display_name} />
-        <p>{item.display_name}, Id: {item.id}</p>
-        {itemPrice ? <p>Price: {itemPrice}</p> : null}
+      <div className={className}>
+        {hasModifiers ? <HoiItemHasModifiers {...{ item }} /> : <HoiItemReadyToBuy {...{ item }} />}
       </div>
     )
   }
