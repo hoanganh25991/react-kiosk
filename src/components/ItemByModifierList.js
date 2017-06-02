@@ -1,7 +1,6 @@
 import React from "react"
-import HoiItemByModifier from "../containers/HoiItemByModifier"
-import HoiItemByModifierCheckboxRow from "../containers/HoiItemByModifierCheckboxRow"
-import SwapItemByModifierStyle from "./SwapItemByModifierStyle"
+import * as c from "../actions/const-name"
+import SwapItemByModifierType from "./SwapItemByModifierType"
 
 export default class ItemByModifierList extends React.Component {
   normalizeData = () => {
@@ -23,17 +22,22 @@ export default class ItemByModifierList extends React.Component {
     let items = getItemsByModifier(modifier_id)
     let { getModifier } = this.props
     let modifier = getModifier(modifier_id)
-    let { mandatory, multi_select } = modifier
-    let { getInstructionMsg } = this.props
-    let instructionMsg = getInstructionMsg(mandatory, multi_select)
+    let { itemParentOfModifier } = this.props
+    let sameDisplayName = modifier.display_name === itemParentOfModifier.display_name
+    let modifierHasMoreThanOneItem = items && items.length === 1
+    let itemByModifierType = sameDisplayName && modifierHasMoreThanOneItem
+
+    let type
+    if (itemByModifierType) {
+      type = c.ITEM_BY_MODIFIER
+    } else {
+      type = c.ITEM_BY_MODIFIER_CHECKBOX_ROW
+    }
 
     return (
       <div>
-        {/*<h4>{instructionMsg}</h4>*/}
         {items && items.length > 0
-          ? items.map((item, index) => (
-              <SwapItemByModifierStyle {...{ item, total_items_by_modifier: items.length, key: item.id, modifier }} />
-            ))
+          ? items.map((item, index) => <SwapItemByModifierType {...{ item, type, key: item.id, modifier }} />)
           : <p>No items found on modifier, id: {modifier_id}</p>}
       </div>
     )

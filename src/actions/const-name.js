@@ -51,3 +51,9 @@ export const MODIFIER_BAG_ITEM = "MODIFIER_BAG_ITEM"
 export const MULTI_SELECT = 1
 export const SINGLE_SELECT = 0
 export const MUST_HAVE_ONE = 1
+
+/**
+ * Item by modifier TYPE
+ */
+export const ITEM_BY_MODIFIER = "ITEM_BY_MODIFIER"
+export const ITEM_BY_MODIFIER_CHECKBOX_ROW = "ITEM_BY_MODIFIER_CHECKBOX_ROW"
