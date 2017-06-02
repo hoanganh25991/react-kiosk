@@ -88,33 +88,43 @@ const addItemToBag = (currBag, item_id) => {
   return newBag
 }
 
-export const addItemByModifierToModifier = (currModifier, item_by_modifier_id) => {
+export const addItemByModifierToModifier = (currModifier, modifier, item_by_modifier_id) => {
   let defaultItem = { item_by_modifier_id, quanity: 1 }
   let newItem = defaultItem
-  let newModifier = currModifier.map(item => {
-    let sameItemExist = item.item_by_modifier_id === newItem.item_by_modifier_id
-    if (sameItemExist) {
-      let { quanity: currQuanity } = item
-      let { quanity: addedUpQuanity } = newItem
-      let quanity = currQuanity + addedUpQuanity
-      newItem = { ...newItem, quanity }
-      return newItem
+  // Base on modifier multil_select flag
+  // Decide toggle or add up quanity
+  let { multil_select } = modifier
+  if (multil_select) {
+    let newModifier = currModifier.map(item => {
+      let sameItemExist = item.item_by_modifier_id === newItem.item_by_modifier_id
+      if (sameItemExist) {
+        // let { quanity: currQuanity } = item
+        // let { quanity: addedUpQuanity } = newItem
+        // let quanity = currQuanity + addedUpQuanity
+        // newItem = { ...newItem, quanity }
+        // return newItem
+        return null
+      }
+      return item
+    })
+    let isNewItemAdded = newItem != defaultItem
+    if (!isNewItemAdded) {
+      newModifier = [...newModifier, newItem]
     }
-    return item
-  })
-  let isNewItemAdded = newItem != defaultItem
-  if (!isNewItemAdded) {
-    newModifier = [...newModifier, newItem]
+    return newModifier
+  } else {
+    // Only allow one item added
+    return [newItem]
   }
-  return newModifier
 }
 
-export const addModifierToChildren = (currChildren, modifier_id, item_by_modifier_id) => {
+export const addModifierToChildren = (currChildren, modifier, item_by_modifier_id) => {
+  let { id: modifier_id } = modifier
   let newModifier = [{ item_by_modifier_id, quanity: 1 }]
   let sameModifierExist = currChildren[modifier_id]
   if (sameModifierExist) {
     let { [modifier_id]: currModifier } = currChildren
-    newModifier = addItemByModifierToModifier(currModifier, item_by_modifier_id)
+    newModifier = addItemByModifierToModifier(currModifier, modifier, item_by_modifier_id)
   }
   return { ...currChildren, [modifier_id]: newModifier }
 }
@@ -137,7 +147,8 @@ export const addModifierToChildren = (currChildren, modifier_id, item_by_modifie
 //         }
 //       ]
 //click to add item modifier to bag
-export const addItemModifierToBag = (currBag, item_id, modifier_id, item_by_modifier_id) => {
+export const addItemModifierToBag = (currBag, item_id, modifier, item_by_modifier_id) => {
+  let { id: modifier_id } = modifier
   let defaultBagItem = {
     item_id,
     quanity: 1,
@@ -153,7 +164,7 @@ export const addItemModifierToBag = (currBag, item_id, modifier_id, item_by_modi
     if (sameBagItemExist) {
       // Update the children
       let { children: currChildren } = bagItem
-      let children = addModifierToChildren(currChildren, modifier_id, item_by_modifier_id)
+      let children = addModifierToChildren(currChildren, modifier, item_by_modifier_id)
       newBagItem = { ...newBagItem, children }
       return newBagItem
     }
@@ -212,7 +223,9 @@ export default (state, action) => {
       let { order: currOrder, items } = state
       let { item_id } = currOrder
       let { bag: currBag } = currOrder
-      let bag = addItemModifierToBag(currBag, item_id, modifier_id, item_by_modifier_id)
+      let { modifier_groups } = state
+      let modifier = modifier_groups.filter(modifier => modifier.id === modifier_id)[0]
+      let bag = addItemModifierToBag(currBag, item_id, modifier, item_by_modifier_id)
       let order = { ...currOrder, bag }
       return { ...state, order }
     }

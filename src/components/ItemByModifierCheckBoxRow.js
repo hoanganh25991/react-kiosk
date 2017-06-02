@@ -6,16 +6,10 @@ export default class ItemByModifierCheckboxRow extends React.Component {
     let { modifier } = this.props
     let { isSelected } = this.props
     let { addItemByModifierToBag } = this.props
-    // Test
-    isSelected = () => true
+    console.log(isSelected(modifier.id, item.id))
     return (
-      <div className="padding10">
-        <input
-          type="checkbox"
-          onClick={e => addItemByModifierToBag(modifier.id, item.id)}
-          checked={isSelected()}
-          onChange={e => console.log("hello")}
-        />
+      <div className="padding10" onClick={e => addItemByModifierToBag(modifier.id, item.id)}>
+        <input type="checkbox" checked={isSelected(modifier.id, item.id)} onChange={e => console.log("hello")} />
         <span>{item.display_name}</span>
       </div>
     )

@@ -11,6 +11,7 @@ export default class Item extends React.Component {
     return (
       <div>
         <h3 className="bgYellow">{modifierOrItemForTitle.display_name}, Id: {modifierOrItemForTitle.id}</h3>
+        <pre>Mandatory: {modifier.mandatory}. Multiselect: {modifier.multi_select}</pre>
         <HoiItemByModifierList {...{ modifier_id }} />
       </div>
     )

@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import Item from "../components/Item"
-import { actionNormalizeModifiersByItem, actionChooseItemOrAddToBag } from "../actions"
+import { actionNormalizeModifiersByItem } from "../actions"
 
 const mapStateToProps = ({ order, modifiersByItem }) => {
   let { item_id: orderItemId } = order
