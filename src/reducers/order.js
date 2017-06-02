@@ -93,28 +93,26 @@ export const addItemByModifierToModifier = (currModifier, modifier, item_by_modi
   let newItem = defaultItem
   // Base on modifier multil_select flag
   // Decide toggle or add up quanity
-  let { multil_select } = modifier
-  if (multil_select) {
-    let newModifier = currModifier.map(item => {
-      let sameItemExist = item.item_by_modifier_id === newItem.item_by_modifier_id
-      if (sameItemExist) {
-        // let { quanity: currQuanity } = item
-        // let { quanity: addedUpQuanity } = newItem
-        // let quanity = currQuanity + addedUpQuanity
-        // newItem = { ...newItem, quanity }
-        // return newItem
-        return null
-      }
-      return item
-    })
-    let isNewItemAdded = newItem != defaultItem
-    if (!isNewItemAdded) {
-      newModifier = [...newModifier, newItem]
-    }
-    return newModifier
+  let { multi_select, mandatory } = modifier
+  let newModifier
+  if (multi_select === c.MULTI_SELECT) {
+    newModifier = currModifier.reduce(
+      (carry, item) => {
+        let sameItemExist = item.item_by_modifier_id === newItem.item_by_modifier_id
+        if (sameItemExist) {
+          return carry.slice(1)
+        }
+        return [...carry, item]
+      },
+      [newItem]
+    )
   } else {
     // Only allow one item added
-    return [newItem]
+    newModifier = [newItem]
+  }
+
+  if (mandatory === c.MUST_HAVE_ONE) {
+    return newModifier.length > 0 ? newModifier : currModifier
   }
 }
 

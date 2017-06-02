@@ -11,6 +11,7 @@ export default class OrderProcessLoadModifiers extends React.Component {
     return (
       <div className="fullWidth">
         <HoiModifierList item_id={item_id} />
+
       </div>
     )
   }

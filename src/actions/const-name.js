@@ -42,3 +42,10 @@ export const ALERT_MSG = "ALERT_MSG"
 // Type
 export const NORMAL_BAG_ITEM = "NORMAL_BAG_ITEM"
 export const MODIFIER_BAG_ITEM = "MODIFIER_BAG_ITEM"
+
+/**
+ * Modifier
+ */
+export const MULTI_SELECT = 1
+export const SINGLE_SELECT = 0
+export const MUST_HAVE_ONE = 1

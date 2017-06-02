@@ -6403,7 +6403,7 @@ export default {
       display_name: "Drink Style",
       display_description: null,
       price_level: "price1",
-      multi_select: 0,
+      multi_select: 1,
       modified_timestamp: 1494221464,
       outlet_id: 23,
       name1: "Drink Style",

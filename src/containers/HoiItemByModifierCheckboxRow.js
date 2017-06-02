@@ -16,8 +16,8 @@ const mapStateToProps = ({ order }) => {
 }
 
 const mapActionToProps = dispatch => ({
-  // addItemByModifierToBag: (modifier_id, item_by_modifier_id) =>
-  //   dispatch(actionAddItemByModifierToBag(modifier_id, item_by_modifier_id))
+  addItemByModifierToBag: (modifier_id, item_by_modifier_id) =>
+    dispatch(actionAddItemByModifierToBag(modifier_id, item_by_modifier_id))
 })
 
 export default connect(mapStateToProps, mapActionToProps)(ItemByModifierCheckboxRow)
