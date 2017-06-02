@@ -1,7 +1,6 @@
 import React from "react"
 
 import HoiSubCategoryList from "../containers/HoiSubCategoryList"
-import HoiItemList from "../containers/HoiItemList"
 
 export default class OrderProcessLoadItems extends React.Component {
   render() {
@@ -11,8 +10,7 @@ export default class OrderProcessLoadItems extends React.Component {
 
     return (
       <div className="fullWidth">
-        <HoiSubCategoryList categoryId={category_id} />
-        <HoiItemList categoryId={category_id} />
+        <HoiSubCategoryList category_id={category_id} />
       </div>
     )
   }

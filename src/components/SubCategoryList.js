@@ -2,84 +2,38 @@ import React from "react"
 
 import HoiItemList from "../containers/HoiItemList"
 
-// export default class SubCategoryList extends React.Component {
-//   shouldLoadSubCategories = () => {
-//     let { subCategories } = this.props
-//     return subCategories.length > 0
-//   }
-//
-//   loadSubCategories = () => {
-//     let { subCategories } = this.props
-//
-//     return (
-//       <div className="height500 scroll">
-//         {subCategories.map((category, index) => (
-//           <div key={index} className="fullWidth">
-//             <h3>Sub: {category.display_name}</h3>
-//             <HoiModifierList categoryId={category.id} />
-//           </div>
-//         ))}
-//       </div>
-//     )
-//   }
-//
-//   loadItemFromItSelf = () => {
-//     let { order: { category_id } } = this.props
-//
-//     return (
-//       <div className="fullWidth">
-//         <h3>Load from it self</h3>
-//         {[category_id].map((category_id, index) => <HoiModifierList categoryId={category_id} key={index} />)}
-//       </div>
-//     )
-//   }
-//
-//   componentDidMount(){
-//     let {findSubCategoriesByCategory} = this.props;
-//     let {order: {category_id}} = this.props;
-//     findSubCategoriesByCategory(category_id);
-//   }
-//
-//   render() {
-//     return (
-//       <div className="fullWidth">
-//         <h1>Please choose one</h1>
-//         {this.shouldLoadSubCategories() ? this.loadSubCategories() : this.loadItemFromItSelf()}
-//       </div>
-//     )
-//   }
-// }
-
 export default class SubCategoryList extends React.Component {
-  componentDidUpdate() {
-    console.log("SubCategoryList updated")
+  normalizeData = () => {
     let { normalizeSubCategoriesByCategory } = this.props
     let { categoryId } = this.props
     normalizeSubCategoriesByCategory(categoryId)
+  }
+
+  componentDidUpdate() {
+    console.log("SubCategoryList updated")
+    this.normalizeData()
   }
 
   componentDidMount() {
     console.log("SubCategoryList mounted")
-    let { normalizeSubCategoriesByCategory } = this.props
-    let { categoryId } = this.props
-    normalizeSubCategoriesByCategory(categoryId)
+    this.normalizeData()
   }
 
   render() {
-    let { subCategoriesByCategory, categoryId } = this.props
-
-    let subCategories = subCategoriesByCategory[categoryId]
+    let { getSubCategoriesByCategory, category_id } = this.props
+    let subCategories = getSubCategoriesByCategory(category_id)
+    let canLoad = subCategories && subCategories.length > 0
 
     return (
       <div>
-        {subCategories && subCategories.length > 0
+        {canLoad
           ? subCategories.map((category, index) => (
               <div key={category.id} className="fullWidth">
                 <h3 className="bgYellow">{category.display_name}</h3>
                 <HoiItemList {...{ category_id: category.id }} />
               </div>
             ))
-          : null}
+          : <HoiItemList {...{ category_id }} />}
       </div>
     )
   }
