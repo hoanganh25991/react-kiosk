@@ -145,7 +145,7 @@ export const addModifierToChildren = (currChildren, modifier, item_by_modifier_i
 //         }
 //       ]
 //click to add item modifier to bag
-export const addItemModifierToBag = (currBag, item_id, modifier, item_by_modifier_id) => {
+export const addItemModifierCheckboxRowToBag = (currBag, item_id, modifier, item_by_modifier_id) => {
   let { id: modifier_id } = modifier
   let defaultBagItem = {
     item_id,
@@ -163,8 +163,87 @@ export const addItemModifierToBag = (currBag, item_id, modifier, item_by_modifie
       // Update the children
       let { children: currChildren } = bagItem
       let children = addModifierToChildren(currChildren, modifier, item_by_modifier_id)
-      newBagItem = { ...newBagItem, children }
+      newBagItem = { ...bagItem, children }
       return newBagItem
+    }
+    return bagItem
+  })
+  // If newBagItem already merge into, done, but if not, add him
+  let isNewBagItemAdded = newBagItem != defaultBagItem
+  if (!isNewBagItemAdded) {
+    newBag = [...newBag, newBagItem]
+  }
+
+  return newBag
+}
+
+export const addItemModifierToBag = (currBag, item_id, modifier, item_by_modifier_id) => {
+  let { id: modifier_id } = modifier
+  let defaultBagItem = {
+    item_id,
+    quanity: 1,
+    type: c.MODIFIER_BAG_ITEM,
+    children: { [modifier_id]: [{ item_by_modifier_id, quanity: 1 }] }
+  }
+  let newBagItem = defaultBagItem
+  let newBag = currBag.map(bagItem => {
+    let sameBagItemType = bagItem.type === c.MODIFIER_BAG_ITEM
+    let sameBagItemId = bagItem.item_id === newBagItem.item_id
+    let sameBagItemExist = sameBagItemType && sameBagItemId
+
+    if (sameBagItemExist) {
+      // Update the children
+      let { quanity: currQuanity } = bagItem
+      let { quanity: addedUpQuanity } = newBagItem
+      let quanity = currQuanity + addedUpQuanity
+      // Why i dont change the children
+      // ItemByModifier understand asssss ONLY HAVE ONE
+      // ONLY ALLOWED ONE
+      // ONLY XXX
+      // THIS IS HARD CODE IMPLICIT IN DB
+      newBagItem = { ...bagItem, quanity }
+      return newBagItem
+    }
+    return bagItem
+  })
+  // If newBagItem already merge into, done, but if not, add him
+  let isNewBagItemAdded = newBagItem != defaultBagItem
+  if (!isNewBagItemAdded) {
+    newBag = [...newBag, newBagItem]
+  }
+
+  return newBag
+}
+
+export const removeItemModifierToBag = (currBag, item_id, modifier, item_by_modifier_id) => {
+  let { id: modifier_id } = modifier
+  let defaultBagItem = {
+    item_id,
+    quanity: -1,
+    type: c.MODIFIER_BAG_ITEM,
+    children: { [modifier_id]: [{ item_by_modifier_id, quanity: 1 }] }
+  }
+  let newBagItem = defaultBagItem
+  let newBag = currBag.map(bagItem => {
+    let sameBagItemType = bagItem.type === c.MODIFIER_BAG_ITEM
+    let sameBagItemId = bagItem.item_id === newBagItem.item_id
+    let sameBagItemExist = sameBagItemType && sameBagItemId
+
+    if (sameBagItemExist) {
+      // Update the children
+      let { quanity: currQuanity } = bagItem
+      let { quanity: addedUpQuanity } = newBagItem
+      let quanity = currQuanity + addedUpQuanity
+      // Why i dont change the children
+      // ItemByModifier understand asssss ONLY HAVE ONE
+      // ONLY ALLOWED ONE
+      // ONLY XXX
+      // THIS IS HARD CODE IMPLICIT IN DB
+      newBagItem = { ...bagItem, quanity }
+      // Should have check of mandatory & multiselect
+      // Implicit in idea >>> no need check on these code
+      // Remove doesnt have meaning when remove to 0
+      return quanity > 0 ? newBagItem : bagItem
     }
     return bagItem
   })
@@ -224,6 +303,28 @@ export default (state, action) => {
       let { modifier_groups } = state
       let modifier = modifier_groups.filter(modifier => modifier.id === modifier_id)[0]
       let bag = addItemModifierToBag(currBag, item_id, modifier, item_by_modifier_id)
+      let order = { ...currOrder, bag }
+      return { ...state, order }
+    }
+    case c.REMOVE_ITEM_BY_MODIFIER_TO_BAG: {
+      let { modifier_id, item_by_modifier_id } = action
+      let { order: currOrder, items } = state
+      let { item_id } = currOrder
+      let { bag: currBag } = currOrder
+      let { modifier_groups } = state
+      let modifier = modifier_groups.filter(modifier => modifier.id === modifier_id)[0]
+      let bag = removeItemModifierToBag(currBag, item_id, modifier, item_by_modifier_id)
+      let order = { ...currOrder, bag }
+      return { ...state, order }
+    }
+    case c.ADD_ITEM_BY_MODIFIER_CHECKBOX_ROW_TO_BAG: {
+      let { modifier_id, item_by_modifier_id } = action
+      let { order: currOrder, items } = state
+      let { item_id } = currOrder
+      let { bag: currBag } = currOrder
+      let { modifier_groups } = state
+      let modifier = modifier_groups.filter(modifier => modifier.id === modifier_id)[0]
+      let bag = addItemModifierCheckboxRowToBag(currBag, item_id, modifier, item_by_modifier_id)
       let order = { ...currOrder, bag }
       return { ...state, order }
     }

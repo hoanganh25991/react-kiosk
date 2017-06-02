@@ -79,15 +79,27 @@ export const actionChooseItemOrAddToBag = item_id => {
 //
 //
 // click to add item by modifier to bag
-// export const actionAddItemByModifierToBag = () => {
+// export const actionAddItemByModifierCheckboxRowToBag = () => {
 //   return (dispatch, getState) => {
 //     dispatch({type: c.THUNK_ADD_ITEM_BY_MODIFIER_TO_BAG})
 //
 //
 //   }
 // }
+export const actionAddItemByModifierCheckboxRowToBag = (modifier_id, item_by_modifier_id) => ({
+  type: c.ADD_ITEM_BY_MODIFIER_CHECKBOX_ROW_TO_BAG,
+  modifier_id,
+  item_by_modifier_id
+})
+
 export const actionAddItemByModifierToBag = (modifier_id, item_by_modifier_id) => ({
   type: c.ADD_ITEM_BY_MODIFIER_TO_BAG,
+  modifier_id,
+  item_by_modifier_id
+})
+
+export const actionRemoveItemByModifierToBag = (modifier_id, item_by_modifier_id) => ({
+  type: c.REMOVE_ITEM_BY_MODIFIER_TO_BAG,
   modifier_id,
   item_by_modifier_id
 })
