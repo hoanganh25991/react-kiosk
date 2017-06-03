@@ -1,17 +1,13 @@
 import { connect } from "react-redux"
 import SubCategoryList from "../components/SubCategoryList"
-import { actionNormalizeSubCategoriesByCategory } from "../actions"
+import { getSubCategoriesByCategory } from "../selectors"
 
-const mapStateToProps = ({ subCategoriesByCategory }) => {
-  const getSubCategoriesByCategory = category_id => subCategoriesByCategory[category_id]
-
+const mapStateToProps = state => {
   return {
-    getSubCategoriesByCategory
+    subCategories: getSubCategoriesByCategory(state)
   }
 }
 
-const mapActionToProps = dispatch => ({
-  normalizeSubCategoriesByCategory: category_id => dispatch(actionNormalizeSubCategoriesByCategory(category_id))
-})
+const mapActionToProps = dispatch => ({})
 
 export default connect(mapStateToProps, mapActionToProps)(SubCategoryList)
