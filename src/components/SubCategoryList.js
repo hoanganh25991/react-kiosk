@@ -4,7 +4,7 @@ import HoiItemList from "../containers/HoiItemList"
 
 export default class SubCategoryList extends React.Component {
   render() {
-    let { subCategories } = this.props
+    let { subCategories, orderCategoryId } = this.props
     let canLoad = subCategories && subCategories.length > 0
 
     return (
@@ -16,7 +16,7 @@ export default class SubCategoryList extends React.Component {
                 <HoiItemList {...{ category_id: category.id }} />
               </div>
             ))
-          : null}
+          : <HoiItemList {...{ category_id: orderCategoryId }} />}
       </div>
     )
   }

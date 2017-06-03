@@ -1,18 +1,18 @@
 import { connect } from "react-redux"
 import ItemList from "../components/ItemList"
 
-import { actionNormalizeItemsByCategory } from "../actions"
+import { getItemsByCategory } from "../selectors"
 
-const mapStateToProps = ({ itemsByCategory }) => {
-  let getItemsByCategory = category_id => itemsByCategory[category_id]
-
-  return {
-    getItemsByCategory
+const makeMapStateToProps = () => {
+  const mapStateToProps = (state, props) => {
+    return {
+      items: getItemsByCategory(state, props)
+    }
   }
+
+  return mapStateToProps
 }
 
-const mapActionToProps = dispatch => ({
-  normalizeItemsByCategory: category_id => dispatch(actionNormalizeItemsByCategory(category_id))
-})
+const mapActionToProps = dispatch => ({})
 
-export default connect(mapStateToProps, mapActionToProps)(ItemList)
+export default connect(makeMapStateToProps, mapActionToProps)(ItemList)

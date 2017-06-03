@@ -3,8 +3,10 @@ import SubCategoryList from "../components/SubCategoryList"
 import { getSubCategoriesByCategory } from "../selectors"
 
 const mapStateToProps = state => {
+  let { order: { category_id: orderCategoryId } } = state
   return {
-    subCategories: getSubCategoriesByCategory(state)
+    subCategories: getSubCategoriesByCategory(state),
+    orderCategoryId
   }
 }
 
