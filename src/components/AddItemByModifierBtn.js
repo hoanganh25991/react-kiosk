@@ -6,16 +6,14 @@ export default class AddItemByModifierBtn extends React.Component {
     let { getItemByModifierQuanity } = this.props
     return (
       <div className="flexColumn flexCenter">
-        <div className="flexRow">
-          <span
-            className="addBtn width20"
-            onClick={e => removeItemByModifierToBag(modifier_id, item_by_modifier_id)}
-          >{` - `}</span>
+        <div className="flexRow flexItemCenter">
+          <button className="addBtn width20" onClick={e => removeItemByModifierToBag(modifier_id, item_by_modifier_id)}>
+            -
+          </button>
           <span className="textCenter width40">{getItemByModifierQuanity()}</span>
-          <span
-            className="addBtn width20"
-            onClick={e => addItemByModifierToBag(modifier_id, item_by_modifier_id)}
-          >{` + `}</span>
+          <button className="addBtn width20" onClick={e => addItemByModifierToBag(modifier_id, item_by_modifier_id)}>
+            +
+          </button>
         </div>
       </div>
     )
