@@ -2,6 +2,7 @@ import React from "react"
 import * as c from "../actions/const-name"
 
 import HoiNormalBagItemInfoRow from "../containers/HoiNormalBagItemInfoRow"
+import HoiModifierBagItemInfoRow from "../containers/HoiModifierBagItemInfoRow"
 
 export default class OrderInfo extends React.Component {
   render() {
@@ -13,20 +14,22 @@ export default class OrderInfo extends React.Component {
     return (
       <div>
         <h1>Order Info</h1>
-        {hasNormalBagItems
-          ? <div>
-              <h3>Normal bag items</h3>
-              {normalBagItems.map((bagItem, key) => <HoiNormalBagItemInfoRow {...{ bagItem, key, order: key }} />)}
-              <hr />
-            </div>
-          : null}
-        {hasModifierBagItems
-          ? <div>
-              <h3>Modifier bag items</h3>
-              {modifierBagItems.map((bagItem, key) => <HoiNormalBagItemInfoRow {...{ bagItem, key, order: key }} />)}
-            </div>
-          : null}
-
+        <div className="scroll height200">
+          {hasNormalBagItems
+            ? <div>
+                <h3>Normal bag items</h3>
+                {normalBagItems.map((bagItem, key) => <HoiNormalBagItemInfoRow {...{ bagItem, key, order: key }} />)}
+              </div>
+            : null}
+          {hasModifierBagItems
+            ? <div>
+                <h3>Modifier bag items</h3>
+                {modifierBagItems.map((bagItem, key) => (
+                  <HoiModifierBagItemInfoRow {...{ bagItem, key, order: key }} />
+                ))}
+              </div>
+            : null}
+        </div>
       </div>
     )
   }

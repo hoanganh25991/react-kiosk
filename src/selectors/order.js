@@ -131,18 +131,24 @@ export const getOrderInfo = createSelector([state, order], (state, order) => {
   let bagParsed = bag.map(bagItem => {
     switch (bagItem.type) {
       case c.NORMAL_BAG_ITEM: {
-        let item = makeGetItem(bagItem.item_id)(state)
-        let item_price = item[c.DEFAULT_PRICE_LEVEL]
-        return { ...bagItem, item_price, item }
+        let itemOrigin = makeGetItem(bagItem.item_id)(state)
+        let item_price = itemOrigin[c.DEFAULT_PRICE_LEVEL]
+        return { ...bagItem, item_price, item: itemOrigin, ...itemOrigin }
       }
       case c.MODIFIER_BAG_ITEM: {
         let { children } = bagItem
-        let item = makeGetItem(bagItem.item_id)(state)
+        let itemOrigin = makeGetItem(bagItem.item_id)(state)
         let children_items = Object.keys(children).reduce((carry, modifier_id) => {
           let items = children[modifier_id]
           let itemsWithModifierId = items.map(item => {
             let itemOrigin = makeGetItem(item.item_by_modifier_id)(state)
-            return { ...item, item_id: item.item_by_modifier_id, item: itemOrigin, modifier_group_id: +modifier_id }
+            return {
+              ...item,
+              ...itemOrigin,
+              item_id: item.item_by_modifier_id,
+              item: itemOrigin,
+              modifier_group_id: +modifier_id
+            }
           })
           carry = [...carry, ...itemsWithModifierId]
           return carry
@@ -157,7 +163,7 @@ export const getOrderInfo = createSelector([state, order], (state, order) => {
           return carry
         }, 0)
 
-        return { ...bagItem, item, children: children_items, item_price }
+        return { ...bagItem, ...itemOrigin, item: itemOrigin, children: children_items, item_price }
       }
       default: {
         return bagItem
