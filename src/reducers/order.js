@@ -26,40 +26,8 @@ export const addNewOrUpdateOrderBag = ({ lastCategoryIdChanged, previousCategory
 //             quanity,
 //             type: c.NORMAL_BAG_ITEM
 //           }
-// how to add one to EXIST bag
-const addItemToBagV2 = (currBag, item_id) => {
-  let newBagItem = { item_id, quanity: 1, type: c.NORMAL_BAG_ITEM }
-  let newBag = currBag.reduce(
-    (carry, bagItem) => {
-      let sameBagItemType = bagItem.type === c.NORMAL_BAG_ITEM
-      let sameBagItemId = bagItem.item_id === newBagItem.item_id
-      let sameBagItemExist = sameBagItemType && sameBagItemId
-      if (sameBagItemExist) {
-        // Update quanity of newBagItem
-        let { quanity: currQuanity } = bagItem
-        newBagItem.quanity = currQuanity + newBagItem.quanity
-        return carry
-      }
-      // Nothing conflict happen
-      // So just re-add bagItem back
-      return [...carry, bagItem]
-    },
-    [newBagItem]
-  )
-  // Reorder bagItem
-  // The newBagItem, should at the end of currBag
-  // So, move the first one to the end
-  // let firstBagItem = newBag[0]
-  // let restBagItem = newBag.slice(1)
-  // return [...restBagItem, firstBagItem]
-  return newBag
-}
-//
-//
-//
-//
 // addItem keep order of currBag
-const addItemToBag = (currBag, item_id) => {
+const addItemReadyToBuyToBag = (currBag, item_id) => {
   let defaultBagItem = { item_id, quanity: 1, type: c.NORMAL_BAG_ITEM }
   let newBagItem = defaultBagItem
   let newBag = currBag.map(bagItem => {
@@ -281,11 +249,11 @@ export default (state, action) => {
       let order = { ...currOrder, item_id }
       return { ...state, order }
     }
-    case c.ADD_TIME_TO_BAG: {
+    case c.ADD_ITEM_READY_TO_BUY_TO_BAG: {
       let { item_id } = action
       let { order: currOrder } = state
       let { bag: currBag } = currOrder
-      let bag = addItemToBag(currBag, item_id)
+      let bag = addItemReadyToBuyToBag(currBag, item_id)
       let order = { ...currOrder, bag }
       return { ...state, order }
       return state

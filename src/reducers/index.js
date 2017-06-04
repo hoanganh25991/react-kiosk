@@ -24,7 +24,7 @@ export default (state = initState, action) => {
     case c.UPDATE_LAST_ORDER_CATEGORY_ID_CHANGED_TIMESTAMP:
     case c.ORDER_PROCESS_STEP_LOAD_ITEMS:
     case c.CHOOSE_ITEM:
-    case c.ADD_TIME_TO_BAG:
+    case c.ADD_ITEM_READY_TO_BUY_TO_BAG:
     case c.ORDER_PROCESS_STEP_LOAD_MODIFIERS:
     case c.ADD_ITEM_BY_MODIFIER_TO_BAG:
     case c.REMOVE_ITEM_BY_MODIFIER_TO_BAG:

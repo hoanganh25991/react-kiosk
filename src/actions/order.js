@@ -41,7 +41,7 @@ export const actionChooseItem = item_id => {
   }
 }
 
-export const actionAddItemToBag = item_id => ({ type: c.ADD_TIME_TO_BAG, item_id })
+export const actionAddItemReadyToBuyToBag = item_id => ({ type: c.ADD_ITEM_READY_TO_BUY_TO_BAG, item_id })
 //
 //
 //
@@ -49,8 +49,8 @@ export const actionAddItemToBag = item_id => ({ type: c.ADD_TIME_TO_BAG, item_id
 // click on an item
 export const actionChooseItemOrAddToBag = item_id => {
   return (dispatch, getState) => {
-    dispatch({ type: c.ADD_ITEM_BY_MODIFIER_TO_BAG })
-    dispatch(actionAddItemToBag(item_id))
+    dispatch({ type: c.CHOOSE_ITEM_OR_ADD_ITEM_READY_TO_BUY_TO_BAG })
+    dispatch(actionAddItemReadyToBuyToBag(item_id))
   }
 }
 //
