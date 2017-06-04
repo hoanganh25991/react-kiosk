@@ -1,5 +1,5 @@
 import React from "react"
-import HoiAddItemByModifierBtn from "../containers/HoiAddItemByModifierBtn"
+import HoiAddItemByModifierBtn from "../containers/HoiChangeComboPanel"
 
 export default class ItemByModifier extends React.Component {
   render() {

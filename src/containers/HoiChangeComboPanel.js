@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import HoiAddItemByModifierBtn from "../components/AddItemByModifierBtn"
+import ChangeComboPanel from "../components/ChangeComboPanel"
 import { actionAddItemByModifierXXXToBag, actionRemoveItemByModifierToBag } from "../actions"
 
 const mapStateToProps = ({ order }) => {
@@ -24,4 +24,4 @@ const mapActionToProps = dispatch => ({
     dispatch(actionRemoveItemByModifierToBag(modifier_id, item_by_modifier_id))
 })
 
-export default connect(mapStateToProps, mapActionToProps)(HoiAddItemByModifierBtn)
+export default connect(mapStateToProps, mapActionToProps)(ChangeComboPanel)

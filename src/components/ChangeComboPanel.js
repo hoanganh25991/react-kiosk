@@ -1,6 +1,6 @@
 import React from "react"
 
-export default class AddItemByModifierBtn extends React.Component {
+export default class ChangeComboPanel extends React.Component {
   render() {
     let { addItemByModifierToBag, removeItemByModifierToBag, modifier_id, item_by_modifier_id } = this.props
     let { getItemByModifierQuanity } = this.props
