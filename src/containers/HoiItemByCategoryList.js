@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import ItemList from "../components/ItemList"
+import ItemByCategoryList from "../components/ItemByCategoryList"
 
 import { makeGetItemsByCategory } from "../selectors"
 
@@ -16,4 +16,4 @@ const makeMapStateToProps = () => {
 
 const mapActionToProps = dispatch => ({})
 
-export default connect(makeMapStateToProps, mapActionToProps)(ItemList)
+export default connect(makeMapStateToProps, mapActionToProps)(ItemByCategoryList)

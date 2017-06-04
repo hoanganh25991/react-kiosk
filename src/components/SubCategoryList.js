@@ -1,6 +1,6 @@
 import React from "react"
 
-import HoiItemList from "../containers/HoiItemList"
+import HoiItemByCategoryList from "../containers/HoiItemByCategoryList"
 
 export default class SubCategoryList extends React.Component {
   render() {
@@ -13,10 +13,10 @@ export default class SubCategoryList extends React.Component {
           ? subCategories.map((category, index) => (
               <div key={category.id} className="fullWidth">
                 <h3 className="bgYellow">{category.display_name}</h3>
-                <HoiItemList {...{ category_id: category.id }} />
+                <HoiItemByCategoryList {...{ category_id: category.id }} />
               </div>
             ))
-          : <HoiItemList {...{ category_id: orderCategoryId }} />}
+          : <HoiItemByCategoryList {...{ category_id: orderCategoryId }} />}
       </div>
     )
   }

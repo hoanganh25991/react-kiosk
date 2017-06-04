@@ -1,7 +1,7 @@
 import React from "react"
 import HoiItem from "../containers/HoiItem"
 
-export default class ItemList extends React.Component {
+export default class ItemByCategoryList extends React.Component {
   render() {
     let { items } = this.props
     return (
