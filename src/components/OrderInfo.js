@@ -6,7 +6,7 @@ import HoiModifierBagItemInfoRow from "../containers/HoiModifierBagItemInfoRow"
 
 export default class OrderInfo extends React.Component {
   render() {
-    let { orderInfo } = this.props
+    let { orderInfo, orderTotal } = this.props
     let normalBagItems = orderInfo.filter(bagItem => bagItem.type === c.NORMAL_BAG_ITEM)
     let modifierBagItems = orderInfo.filter(bagItem => bagItem.type === c.MODIFIER_BAG_ITEM)
     let hasNormalBagItems = normalBagItems.length > 0
@@ -29,6 +29,11 @@ export default class OrderInfo extends React.Component {
                 ))}
               </div>
             : null}
+        </div>
+        <div className="flexRow">
+          <h1>TOTAL</h1>
+          <div className="flex1" />
+          <h1>{orderTotal}</h1>
         </div>
       </div>
     )
