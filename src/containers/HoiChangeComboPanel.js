@@ -1,20 +1,13 @@
 import { connect } from "react-redux"
 import ChangeComboPanel from "../components/ChangeComboPanel"
 import { actionAddSingleItemByModifierAsComboToBag } from "../actions"
+import { makeGetSingleItemByModifierAsComboQuantity } from "../selectors"
 
-const mapStateToProps = ({ order }) => {
-  let { bag, item_id } = order
-  let getItemByModifierQuanity = () => {
-    let currBagItem = bag.filter(bagItem => bagItem.item_id === item_id)[0]
-    if (currBagItem) {
-      // This case is quantity of WHOLE BAG
-      return currBagItem.quantity
-    }
+const mapStateToProps = (state, props) => {
+  let { item_by_modifier_id } = props
+  const singleItemByModifierAsComboQuantity = makeGetSingleItemByModifierAsComboQuantity(item_by_modifier_id)(state)
 
-    return 0
-  }
-
-  return { getItemByModifierQuanity }
+  return { singleItemByModifierAsComboQuantity }
 }
 
 const mapActionToProps = dispatch => ({

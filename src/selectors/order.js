@@ -5,6 +5,7 @@ const categories = state => state.categories
 const items = state => state.items
 const modifiers = state => state.modifier_groups
 const order = state => state.order
+const bag = state => state.order.bag
 // From pivot
 const pivotCategoryItems = state => state.category_items
 const pivotItemModifiers = state => state.item_modifier_groups
@@ -19,8 +20,10 @@ export const makeGetCategory = category_id =>
 export const makeGetItem = item_id => createSelector([items], items => items.filter(item => item.id === item_id)[0])
 export const makeGetModifier = modifier_id =>
   createSelector([modifiers], modifiers => modifiers.filter(modifier => modifier.id === modifier_id)[0])
-
-// Get subcategories from category id
+export const makeGetBagItem = item_id =>
+  createSelector([bag], bag => {
+    return bag.filter(bagItem => bagItem.item_id === item_id)[0]
+  })
 export const getSubCategoriesByCategory = createSelector([categories, orderCategoryId], (categories, category_id) =>
   categories.filter(category => category.main_category_id === category_id)
 )
@@ -50,10 +53,19 @@ export const makeGetItemsByModifiers = modifier_id =>
     return items.filter(item => item_ids.includes(item.id))
   })
 
-export const makeShouldLoadSingleItemByModifierAsCombo = items =>
+export const makeGetShouldLoadSingleItemByModifierAsCombo = items =>
   createSelector([order], order => {
     let { item_id: orderItemId } = order
     let hasOnlyOneItem = items.length === 1
     let sameAsOrderItemId = items[0].id === orderItemId
     return hasOnlyOneItem && sameAsOrderItemId
+  })
+
+export const makeGetSingleItemByModifierAsComboQuantity = item_id =>
+  createSelector([makeGetBagItem(item_id)], currBagItem => {
+    if (currBagItem) {
+      let { quantity } = currBagItem
+      return quantity
+    }
+    return null
   })
