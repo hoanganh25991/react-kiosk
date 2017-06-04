@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import ItemByModifierCheckboxRow from "../components/ItemByModifierCheckboxRow"
-import { actionAddItemByModifierToBag } from "../actions"
+import { actionAddItemByModifierToBagTemporary } from "../actions"
 
 const mapStateToProps = ({ order }) => {
   let isSelected = (modifier_id, item_by_modifier_id) => {
@@ -16,8 +16,8 @@ const mapStateToProps = ({ order }) => {
 }
 
 const mapActionToProps = dispatch => ({
-  addItemByModifierCheckboxRowToBag: (modifier_id, item_by_modifier_id) =>
-    dispatch(actionAddItemByModifierToBag(modifier_id, item_by_modifier_id))
+  actionAddItemByModifierToBagTemporary: (modifier_id, item_by_modifier_id) =>
+    dispatch(actionAddItemByModifierToBagTemporary(modifier_id, item_by_modifier_id))
 })
 
 export default connect(mapStateToProps, mapActionToProps)(ItemByModifierCheckboxRow)
