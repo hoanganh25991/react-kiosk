@@ -4,7 +4,7 @@ import { actionAddItemReadyToBuyToBag } from "../actions"
 
 const mapStateToProps = null
 const mapActionToProps = dispatch => ({
-  addItemReadyToBuyToBag: item_id => dispatch(actionAddItemReadyToBuyToBag(item_id))
+  actionAddItemReadyToBuyToBag: (item_id, quantity) => dispatch(actionAddItemReadyToBuyToBag(item_id, quantity))
 })
 
 export default connect(mapStateToProps, mapActionToProps)(ChangeItemReadyToBuyPanel)

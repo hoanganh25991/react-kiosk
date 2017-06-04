@@ -35,7 +35,11 @@ export const actionChooseItem = item_id => {
   }
 }
 
-export const actionAddItemReadyToBuyToBag = item_id => ({ type: c.ADD_ITEM_READY_TO_BUY_TO_BAG, item_id })
+export const actionAddItemReadyToBuyToBag = (item_id, quantity) => ({
+  type: c.ADD_ITEM_READY_TO_BUY_TO_BAG,
+  item_id,
+  quantity
+})
 //
 //
 //

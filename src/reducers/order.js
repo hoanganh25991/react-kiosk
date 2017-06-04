@@ -28,8 +28,8 @@ export const addNewOrUpdateOrderBag = ({ lastCategoryIdChanged, previousCategory
 //             type: c.NORMAL_BAG_ITEM
 //           }
 // addItem keep order of currBag
-const addItemReadyToBuyToBag = (currBag, item_id) => {
-  let defaultBagItem = { item_id, quantity: 1, type: c.NORMAL_BAG_ITEM }
+const addItemReadyToBuyToBag = (currBag, item_id, quantity) => {
+  let defaultBagItem = { item_id, quantity, type: c.NORMAL_BAG_ITEM }
   let newBagItem = defaultBagItem
   let newBag = currBag.map(bagItem => {
     let sameBagItemType = bagItem.type === c.NORMAL_BAG_ITEM
@@ -42,6 +42,12 @@ const addItemReadyToBuyToBag = (currBag, item_id) => {
       let { quantity: addUpQuanity } = newBagItem
       let quantity = currQuanity + addUpQuanity
       newBagItem = { ...newBagItem, quantity }
+
+      let newBagItemHasZeroQuantity = newBagItem.quantity <= 0
+      if (newBagItemHasZeroQuantity) {
+        return null
+      }
+
       return newBagItem
     }
 
@@ -54,7 +60,7 @@ const addItemReadyToBuyToBag = (currBag, item_id) => {
     newBag = [...newBag, newBagItem]
   }
 
-  return newBag
+  return newBag.filter(bagItem => bagItem !== null)
 }
 
 export const addItemByModifierToModifier = (currModifier, modifier, item_by_modifier_id) => {
@@ -174,7 +180,7 @@ export const addSingleItemByModifierAsComboToBag = (currBag, item_id, modifier, 
 
       let { mandatory } = modifier
       let mustHaveOne = mandatory === c.MUST_HAVE_ONE
-      let newBagItemHasZeroQuantity = newBagItem.quantity === 0
+      let newBagItemHasZeroQuantity = newBagItem.quantity <= 0
       if (mustHaveOne && newBagItemHasZeroQuantity) {
         // Ok, return the old bagItem
         // The new one is wrong
@@ -226,10 +232,10 @@ export default (state, action) => {
       return { ...state, order }
     }
     case c.ADD_ITEM_READY_TO_BUY_TO_BAG: {
-      let { item_id } = action
+      let { item_id, quantity } = action
       let { order: currOrder } = state
       let { bag: currBag } = currOrder
-      let bag = addItemReadyToBuyToBag(currBag, item_id)
+      let bag = addItemReadyToBuyToBag(currBag, item_id, quantity)
       let order = { ...currOrder, bag }
       return { ...state, order }
       return state
