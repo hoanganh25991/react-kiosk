@@ -1,11 +1,13 @@
 import { connect } from "react-redux"
 import Modifier from "../components/Modifier"
 import { actionAddItemByModifierToBag } from "../actions"
-import { makeGetItemsByModifiers } from "../selectors"
+import { makeGetItemsByModifiers, makeShouldLoadSingleItemByModifierAsCombo } from "../selectors"
 
 const mapStateToProps = (state, props) => {
   let { modifier: { id: modifier_id } } = props
-  return { items: makeGetItemsByModifiers(modifier_id)(state) }
+  let items = makeGetItemsByModifiers(modifier_id)(state)
+  const shouldLoadSingleItemByModifierAsItemCombo = makeShouldLoadSingleItemByModifierAsCombo(items)(state)
+  return { items, shouldLoadSingleItemByModifierAsItemCombo }
 }
 
 const mapActionToProps = dispatch => ({
