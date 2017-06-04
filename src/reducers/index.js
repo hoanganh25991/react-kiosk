@@ -9,6 +9,7 @@ const initState = {
     category_id: -1,
     lastCategoryIdUpdatedTimestamp: null,
     item_id: null,
+    lastItemIdUpdatedTimestamp: null,
     step: null,
     bag: [],
     bagTemporary: []
