@@ -1,5 +1,9 @@
 import * as c from "../actions/const-name"
-import { makeGetModifier } from "../selectors"
+import {
+  makeGetModifier,
+  makeGetBagTemporaryItemBeingEdited,
+  makeGetBagTemporaryWithoutBagItemAddedBackToBag
+} from "../selectors"
 
 const priceLevel = "price1"
 
@@ -284,6 +288,18 @@ export default (state, action) => {
       )
       let order = { ...currOrder, bagTemporary }
       return { ...state, order }
+    }
+    case c.ADD_BAG_TEMPORARY_ITEM_TO_BAG: {
+      let bagTemporaryBeingEdited = makeGetBagTemporaryItemBeingEdited(state)
+      if (bagTemporaryBeingEdited) {
+        let { order: currOrder } = state
+        let { bag: currBag } = currOrder
+        let bag = [...currBag, bagTemporaryBeingEdited]
+        let bagTemporary = makeGetBagTemporaryWithoutBagItemAddedBackToBag(state)
+        let order = { ...currOrder, bag, bagTemporary }
+        return { ...state, order }
+      }
+      return state
     }
     case c.ADD_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG: {
       let { modifier_id, item_by_modifier_id, quantity } = action

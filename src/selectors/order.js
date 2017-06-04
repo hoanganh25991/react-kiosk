@@ -29,6 +29,15 @@ export const makeGetBagTemporaryItem = item_id =>
   createSelector([bagTemporary], bagTemporary => {
     return bagTemporary.filter(bagItem => bagItem.item_id === item_id)[0]
   })
+export const makeGetBagTemporaryItemBeingEdited = createSelector([order], order => {
+  let { item_id, lastCategoryIdUpdatedTimestamp, bagTemporary } = order
+  let bagTemporaryItemBeingEdited = bagTemporary.filter(
+    bagTemporaryItem =>
+      bagTemporaryItem.item_id === item_id &&
+      bagTemporaryItem.lastCategoryIdUpdatedTimestamp === lastCategoryIdUpdatedTimestamp
+  )[0]
+  return bagTemporaryItemBeingEdited
+})
 
 export const getSubCategoriesByCategory = createSelector([categories, orderCategoryId], (categories, category_id) =>
   categories.filter(category => category.main_category_id === category_id)
@@ -99,3 +108,13 @@ export const makeGetIsItemByModifierSelectedTemporary = (item_id, modifier_id, i
     }
     return false
   })
+
+export const makeGetBagTemporaryWithoutBagItemAddedBackToBag = createSelector([order], order => {
+  let { item_id, lastCategoryIdUpdatedTimestamp, bagTemporary } = order
+  let bagTemporaryWithoutBagItemAddedBackToBag = bagTemporary.filter(
+    bagTemporaryItem =>
+      bagTemporaryItem.item_id !== item_id ||
+      bagTemporaryItem.lastCategoryIdUpdatedTimestamp !== lastCategoryIdUpdatedTimestamp
+  )
+  return bagTemporaryWithoutBagItemAddedBackToBag
+})

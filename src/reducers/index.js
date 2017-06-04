@@ -26,6 +26,7 @@ export default (state = initState, action) => {
     case c.OPEN_BAG_TEMPORARY:
     case c.ADD_ITEM_BY_MODIFIER_TO_BAG_TEMPORARY:
     case c.ADD_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG_TEMPORARY:
+    case c.ADD_BAG_TEMPORARY_ITEM_TO_BAG:
     case c.ADD_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG:
     case c.ADD_ITEM_BY_MODIFIER_TO_BAG: {
       return order(state, action)

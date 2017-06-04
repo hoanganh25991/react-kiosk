@@ -4,6 +4,7 @@ import HoiModifier from "../containers/HoiModifier"
 export default class ModifierList extends React.Component {
   render() {
     let { modifiers } = this.props
+    let { actionAddBagTemporaryItemToBag } = this.props
     return (
       <div className="flexColumn">
         <div className="flexRow">
@@ -14,7 +15,7 @@ export default class ModifierList extends React.Component {
           ? modifiers.map(modifier => <HoiModifier {...{ modifier, key: modifier.id }} />)
           : <p>No modifier found on this item</p>}
         <div className="flexRow">
-          <button className="addBtn">+ADD TO ORDER</button>
+          <button className="addBtn" onClick={e => actionAddBagTemporaryItemToBag()}>+ADD TO ORDER</button>
           <div className="flex1" />
         </div>
       </div>

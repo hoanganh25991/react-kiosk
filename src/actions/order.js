@@ -87,3 +87,5 @@ export const actionAddSingleItemByModifierAsComboToBagTemporary = (modifier_id, 
   item_by_modifier_id,
   quantity
 })
+
+export const actionAddBagTemporaryItemToBag = () => ({ type: c.ADD_BAG_TEMPORARY_ITEM_TO_BAG })
