@@ -28,8 +28,8 @@ export const addNewOrUpdateOrderBag = ({ lastCategoryIdChanged, previousCategory
 //             type: c.NORMAL_BAG_ITEM
 //           }
 // addItem keep order of currBag
-const addItemReadyToBuyToBag = (currBag, item_id, quantity) => {
-  let defaultBagItem = { item_id, quantity, type: c.NORMAL_BAG_ITEM }
+const addItemReadyToBuyToBag = (currBag, item_id, quantity, lastCategoryIdUpdatedTimestamp) => {
+  let defaultBagItem = { item_id, quantity, type: c.NORMAL_BAG_ITEM, lastCategoryIdUpdatedTimestamp }
   let newBagItem = defaultBagItem
   let newBag = currBag.map(bagItem => {
     let sameBagItemType = bagItem.type === c.NORMAL_BAG_ITEM
@@ -114,12 +114,19 @@ export const addModifierToChildren = (currChildren, modifier, item_by_modifier_i
 //         }
 //       ]
 //click to add item modifier to bag
-export const addItemModifierToBag = (currBag, item_id, modifier, item_by_modifier_id) => {
+export const addItemModifierToBag = (
+  currBag,
+  item_id,
+  modifier,
+  item_by_modifier_id,
+  lastCategoryIdUpdatedTimestamp
+) => {
   let { id: modifier_id } = modifier
   let defaultBagItem = {
     item_id,
     quantity: 1,
     type: c.MODIFIER_BAG_ITEM,
+    lastCategoryIdUpdatedTimestamp,
     children: { [modifier_id]: [{ item_by_modifier_id, quantity: 1 }] }
   }
   let newBagItem = defaultBagItem
@@ -146,12 +153,20 @@ export const addItemModifierToBag = (currBag, item_id, modifier, item_by_modifie
   return newBag
 }
 
-export const addSingleItemByModifierAsComboToBag = (currBag, item_id, modifier, item_by_modifier_id, quantity) => {
+export const addSingleItemByModifierAsComboToBag = (
+  currBag,
+  item_id,
+  modifier,
+  item_by_modifier_id,
+  quantity,
+  lastCategoryIdUpdatedTimestamp
+) => {
   let { id: modifier_id } = modifier
   let defaultBagItem = {
     item_id,
     quantity,
     type: c.MODIFIER_BAG_ITEM,
+    lastCategoryIdUpdatedTimestamp,
     children: { [modifier_id]: [{ item_by_modifier_id, quantity: 1 }] }
   }
   let newBagItem = defaultBagItem
@@ -223,8 +238,8 @@ export default (state, action) => {
     case c.ADD_ITEM_READY_TO_BUY_TO_BAG: {
       let { item_id, quantity } = action
       let { order: currOrder } = state
-      let { bag: currBag } = currOrder
-      let bag = addItemReadyToBuyToBag(currBag, item_id, quantity)
+      let { bag: currBag, lastCategoryIdUpdatedTimestamp } = currOrder
+      let bag = addItemReadyToBuyToBag(currBag, item_id, quantity, lastCategoryIdUpdatedTimestamp)
       let order = { ...currOrder, bag }
       return { ...state, order }
       return state
@@ -235,19 +250,21 @@ export default (state, action) => {
       return { ...state, order }
     }
     case c.OPEN_BAG_TEMPORARY: {
-      // let { order: currOrder } = state
-      // let bagTemporary = [];
-      // let order = { ...currOrder, bagTemporary }
-      // return { ...state, order }
       return state
     }
     case c.ADD_ITEM_BY_MODIFIER_TO_BAG_TEMPORARY: {
       let { modifier_id, item_by_modifier_id } = action
       let { order: currOrder } = state
       let { item_id } = currOrder
-      let { bagTemporary: currBagTemporary } = currOrder
+      let { bagTemporary: currBagTemporary, lastCategoryIdUpdatedTimestamp } = currOrder
       let modifier = makeGetModifier(modifier_id)(state)
-      let bagTemporary = addItemModifierToBag(currBagTemporary, item_id, modifier, item_by_modifier_id)
+      let bagTemporary = addItemModifierToBag(
+        currBagTemporary,
+        item_id,
+        modifier,
+        item_by_modifier_id,
+        lastCategoryIdUpdatedTimestamp
+      )
       let order = { ...currOrder, bagTemporary }
       return { ...state, order }
     }
@@ -255,14 +272,15 @@ export default (state, action) => {
       let { modifier_id, item_by_modifier_id, quantity } = action
       let { order: currOrder } = state
       let { item_id } = currOrder
-      let { bagTemporary: currBagTemporary } = currOrder
+      let { bagTemporary: currBagTemporary, lastCategoryIdUpdatedTimestamp } = currOrder
       let modifier = makeGetModifier(modifier_id)(state)
       let bagTemporary = addSingleItemByModifierAsComboToBag(
         currBagTemporary,
         item_id,
         modifier,
         item_by_modifier_id,
-        quantity
+        quantity,
+        lastCategoryIdUpdatedTimestamp
       )
       let order = { ...currOrder, bagTemporary }
       return { ...state, order }
@@ -271,9 +289,16 @@ export default (state, action) => {
       let { modifier_id, item_by_modifier_id, quantity } = action
       let { order: currOrder } = state
       let { item_id } = currOrder
-      let { bag: currBag } = currOrder
+      let { bag: currBag, lastCategoryIdUpdatedTimestamp } = currOrder
       let modifier = makeGetModifier(modifier_id)(state)
-      let bag = addSingleItemByModifierAsComboToBag(currBag, item_id, modifier, item_by_modifier_id, quantity)
+      let bag = addSingleItemByModifierAsComboToBag(
+        currBag,
+        item_id,
+        modifier,
+        item_by_modifier_id,
+        quantity,
+        lastCategoryIdUpdatedTimestamp
+      )
       let order = { ...currOrder, bag }
       return { ...state, order }
     }
@@ -281,10 +306,9 @@ export default (state, action) => {
       let { modifier_id, item_by_modifier_id } = action
       let { order: currOrder } = state
       let { item_id } = currOrder
-      let { bag: currBag } = currOrder
-      let { modifier_groups } = state
-      let modifier = modifier_groups.filter(modifier => modifier.id === modifier_id)[0]
-      let bag = addItemModifierToBag(currBag, item_id, modifier, item_by_modifier_id)
+      let { bag: currBag, lastCategoryIdUpdatedTimestamp } = currOrder
+      let modifier = makeGetModifier(modifier_id)(state)
+      let bag = addItemModifierToBag(currBag, item_id, modifier, item_by_modifier_id, lastCategoryIdUpdatedTimestamp)
       let order = { ...currOrder, bag }
       return { ...state, order }
     }

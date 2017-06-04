@@ -8,13 +8,13 @@ export default class ModifierList extends React.Component {
       <div className="flexColumn">
         <div className="flexRow">
           <div className="flex1" />
-          <span className="addBtn">x</span>
+          <button className="addBtn">x</button>
         </div>
         {modifiers && modifiers.length > 0
           ? modifiers.map(modifier => <HoiModifier {...{ modifier, key: modifier.id }} />)
           : <p>No modifier found on this item</p>}
         <div className="flexRow">
-          <span className="addBtn">+ADD TO ORDER</span>
+          <button className="addBtn">+ADD TO ORDER</button>
           <div className="flex1" />
         </div>
       </div>
