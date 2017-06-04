@@ -165,7 +165,7 @@ export const addItemModifierToBag = (currBag, item_id, modifier, item_by_modifie
       let { quanity: addedUpQuanity } = newBagItem
       let quanity = currQuanity + addedUpQuanity
       // Why i dont change the children
-      // ItemByModifier understand asssss ONLY HAVE ONE
+      // HoiItemByModifier understand asssss ONLY HAVE ONE
       // ONLY ALLOWED ONE
       // ONLY XXX
       // THIS IS HARD CODE IMPLICIT IN DB
@@ -203,7 +203,7 @@ export const removeItemModifierToBag = (currBag, item_id, modifier, item_by_modi
       let { quanity: addedUpQuanity } = newBagItem
       let quanity = currQuanity + addedUpQuanity
       // Why i dont change the children
-      // ItemByModifier understand asssss ONLY HAVE ONE
+      // HoiItemByModifier understand asssss ONLY HAVE ONE
       // ONLY ALLOWED ONE
       // ONLY XXX
       // THIS IS HARD CODE IMPLICIT IN DB

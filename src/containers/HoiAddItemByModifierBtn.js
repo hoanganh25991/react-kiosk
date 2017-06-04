@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import HoiAddItemByModifierBtn from "../components/AddItemByModifierBtn"
-import { actionAddItemByModifierToBag, actionRemoveItemByModifierToBag } from "../actions"
+import { actionAddItemByModifierXXXToBag, actionRemoveItemByModifierToBag } from "../actions"
 
 const mapStateToProps = ({ order }) => {
   let { bag, item_id } = order
@@ -19,7 +19,7 @@ const mapStateToProps = ({ order }) => {
 
 const mapActionToProps = dispatch => ({
   addItemByModifierToBag: (modifier_id, item_by_modifier_id) =>
-    dispatch(actionAddItemByModifierToBag(modifier_id, item_by_modifier_id)),
+    dispatch(actionAddItemByModifierXXXToBag(modifier_id, item_by_modifier_id)),
   removeItemByModifierToBag: (modifier_id, item_by_modifier_id) =>
     dispatch(actionRemoveItemByModifierToBag(modifier_id, item_by_modifier_id))
 })

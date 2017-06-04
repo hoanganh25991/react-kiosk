@@ -1,16 +1,15 @@
 import { connect } from "react-redux"
 import Modifier from "../components/Modifier"
+import { actionAddItemByModifierToBag } from "../actions"
+import { makeGetItemsByModifiers } from "../selectors"
 
-const mapStateToProps = ({ items, order, itemsByModifier }) => {
-  let { item_id } = order
-  let item = items.filter(item => item.id === item_id)[0]
-  let getTotalItemsByModifier = modifier_id => {
-    let filteredItems = itemsByModifier[modifier_id]
-    return filteredItems ? filteredItems.length : null
-  }
-  return { item, getTotalItemsByModifier }
+const mapStateToProps = (state, props) => {
+  let { modifier: { id: modifier_id } } = props
+  return { items: makeGetItemsByModifiers(modifier_id)(state) }
 }
 
-const mapActionToProps = dispatch => ({})
+const mapActionToProps = dispatch => ({
+  addItemByModifierToBag: (modifier_id, item_id) => dispatch(actionAddItemByModifierToBag(modifier_id, item_id))
+})
 
 export default connect(mapStateToProps, mapActionToProps)(Modifier)

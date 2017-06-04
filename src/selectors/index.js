@@ -31,3 +31,11 @@ export const makeGetModifiersByItem = item_id =>
       .map(pivot => pivot.modifier_group_id)
     return modifiers.filter(modifier => modifier_ids.includes(modifier.id))
   })
+
+export const makeGetItemsByModifiers = modifier_id =>
+  createSelector([pivotModifierItems, items], (pivotModifierItems, items) => {
+    let item_ids = pivotModifierItems
+      .filter(pivot => pivot.modifier_group_id === modifier_id)
+      .map(pivot => pivot.item_id)
+    return items.filter(item => item_ids.includes(item.id))
+  })
