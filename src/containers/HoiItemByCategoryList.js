@@ -5,7 +5,7 @@ import { makeGetItemsByCategory } from "../selectors"
 
 const makeMapStateToProps = () => {
   const mapStateToProps = (state, props) => {
-    let { category_id } = props
+    let { category: { id: category_id } } = props
     return {
       items: makeGetItemsByCategory(category_id)(state)
     }

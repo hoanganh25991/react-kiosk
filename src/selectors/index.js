@@ -1,4 +1,5 @@
 import { createSelector } from "reselect"
+export * from "./utils"
 
 // From table data
 const categories = state => state.categories

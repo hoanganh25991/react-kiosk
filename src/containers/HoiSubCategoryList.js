@@ -1,12 +1,12 @@
 import { connect } from "react-redux"
 import SubCategoryList from "../components/SubCategoryList"
-import { getSubCategoriesByCategory } from "../selectors"
+import { getSubCategoriesByCategory, makeGetCategory } from "../selectors"
 
 const mapStateToProps = state => {
   let { order: { category_id: orderCategoryId } } = state
   return {
     subCategories: getSubCategoriesByCategory(state),
-    orderCategoryId
+    orderCategory: makeGetCategory(orderCategoryId)(state)
   }
 }
 
