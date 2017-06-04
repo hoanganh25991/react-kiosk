@@ -10,11 +10,11 @@ export default class Item extends React.Component {
   }
 
   autoSelectOnLoad = () => {
-    let { modifier, items, addItemByModifierToBag } = this.props
+    let { modifier, items, actionAutoSelectItemByModifierOnLoad } = this.props
     let item = items[0]
     let { mandatory } = modifier
     if (mandatory && item) {
-      addItemByModifierToBag(modifier.id, item.id)
+      actionAutoSelectItemByModifierOnLoad(modifier.id, item.id)
       this.setState({ isAutoSelectOnLoadRun: true })
     }
   }

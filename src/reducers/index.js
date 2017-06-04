@@ -10,7 +10,8 @@ const initState = {
     lastCategoryIdUpdatedTimestamp: null,
     item_id: null,
     step: null,
-    bag: []
+    bag: [],
+    bagTemporary: []
   }
 }
 
@@ -22,8 +23,10 @@ export default (state = initState, action) => {
     case c.CHOOSE_ITEM:
     case c.ADD_ITEM_READY_TO_BUY_TO_BAG:
     case c.ORDER_PROCESS_STEP_LOAD_MODIFIERS:
+    case c.OPEN_BAG_TEMPORARY:
+    case c.ADD_ITEM_BY_MODIFIER_TO_BAG_TEMPORARY:
+    case c.ADD_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG_TEMPORARY:
     case c.ADD_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG:
-    case c.REMOVE_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG:
     case c.ADD_ITEM_BY_MODIFIER_TO_BAG: {
       return order(state, action)
     }

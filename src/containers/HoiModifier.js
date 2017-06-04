@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import Modifier from "../components/Modifier"
-import { actionAddItemByModifierToBag } from "../actions"
+import { actionAutoSelectItemByModifierOnLoad } from "../actions"
 import { makeGetItemsByModifiers, makeGetShouldLoadSingleItemByModifierAsCombo } from "../selectors"
 
 const mapStateToProps = (state, props) => {
@@ -11,7 +11,8 @@ const mapStateToProps = (state, props) => {
 }
 
 const mapActionToProps = dispatch => ({
-  addItemByModifierToBag: (modifier_id, item_id) => dispatch(actionAddItemByModifierToBag(modifier_id, item_id))
+  actionAutoSelectItemByModifierOnLoad: (modifier_id, item_id) =>
+    dispatch(actionAutoSelectItemByModifierOnLoad(modifier_id, item_id))
 })
 
 export default connect(mapStateToProps, mapActionToProps)(Modifier)

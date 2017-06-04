@@ -234,8 +234,40 @@ export default (state, action) => {
       let order = { ...currOrder, step: action.type }
       return { ...state, order }
     }
-    case c.ADD_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG:
-    case c.REMOVE_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG: {
+    case c.OPEN_BAG_TEMPORARY: {
+      // let { order: currOrder } = state
+      // let bagTemporary = [];
+      // let order = { ...currOrder, bagTemporary }
+      // return { ...state, order }
+      return state
+    }
+    case c.ADD_ITEM_BY_MODIFIER_TO_BAG_TEMPORARY: {
+      let { modifier_id, item_by_modifier_id } = action
+      let { order: currOrder } = state
+      let { item_id } = currOrder
+      let { bagTemporary: currBagTemporary } = currOrder
+      let modifier = makeGetModifier(modifier_id)(state)
+      let bagTemporary = addItemModifierToBag(currBagTemporary, item_id, modifier, item_by_modifier_id)
+      let order = { ...currOrder, bagTemporary }
+      return { ...state, order }
+    }
+    case c.ADD_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG_TEMPORARY: {
+      let { modifier_id, item_by_modifier_id, quantity } = action
+      let { order: currOrder } = state
+      let { item_id } = currOrder
+      let { bagTemporary: currBagTemporary } = currOrder
+      let modifier = makeGetModifier(modifier_id)(state)
+      let bagTemporary = addSingleItemByModifierAsComboToBag(
+        currBagTemporary,
+        item_id,
+        modifier,
+        item_by_modifier_id,
+        quantity
+      )
+      let order = { ...currOrder, bagTemporary }
+      return { ...state, order }
+    }
+    case c.ADD_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG: {
       let { modifier_id, item_by_modifier_id, quantity } = action
       let { order: currOrder } = state
       let { item_id } = currOrder
@@ -247,7 +279,7 @@ export default (state, action) => {
     }
     case c.ADD_ITEM_BY_MODIFIER_TO_BAG: {
       let { modifier_id, item_by_modifier_id } = action
-      let { order: currOrder, items } = state
+      let { order: currOrder } = state
       let { item_id } = currOrder
       let { bag: currBag } = currOrder
       let { modifier_groups } = state

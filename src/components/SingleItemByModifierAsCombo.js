@@ -1,5 +1,5 @@
 import React from "react"
-import HoiChangeComboPanel from "../containers/HoiChangeComboPanel"
+import HoiChangeComboPanelTemporary from "../containers/HoiChangeComboPanelTemporary"
 
 export default class SingleItemByModifierAsCombo extends React.Component {
   render() {
@@ -18,7 +18,7 @@ export default class SingleItemByModifierAsCombo extends React.Component {
           <p>{item.display_name}, Id: {item.id}</p>
           <p>Price: {item[price_level]}</p>
         </div>
-        <HoiChangeComboPanel {...{ modifier_id: modifier.id, item_by_modifier_id: item.id }} />
+        <HoiChangeComboPanelTemporary {...{ modifier_id: modifier.id, item_by_modifier_id: item.id }} />
       </div>
     )
   }
