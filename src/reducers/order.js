@@ -6,8 +6,6 @@ import {
 } from "../selectors"
 import moment from "moment"
 
-const priceLevel = "price1"
-
 //
 //
 //
@@ -39,7 +37,7 @@ const addItemReadyToBuyToBag = (currBag, item_id, quantity) => {
   })
 
   // If newBagItem already merge into, done, but if not, add him
-  let isNewBagItemAdded = newBagItem != defaultBagItem
+  let isNewBagItemAdded = newBagItem !== defaultBagItem
   if (!isNewBagItemAdded) {
     newBag = [...newBag, newBagItem]
   }
@@ -130,7 +128,7 @@ export const addItemModifierToBag = (currBag, item_id, modifier, item_by_modifie
     return bagItem
   })
   // If newBagItem already merge into, done, but if not, add him
-  let isNewBagItemAdded = newBagItem != defaultBagItem
+  let isNewBagItemAdded = newBagItem !== defaultBagItem
   if (!isNewBagItemAdded) {
     newBag = [...newBag, newBagItem]
   }
@@ -188,7 +186,7 @@ export const addSingleItemByModifierAsComboToBag = (
     return bagItem
   })
   // If newBagItem already merge into, done, but if not, add him
-  let isNewBagItemAdded = newBagItem != defaultBagItem
+  let isNewBagItemAdded = newBagItem !== defaultBagItem
   if (!isNewBagItemAdded) {
     newBag = [...newBag, newBagItem]
   }
@@ -252,7 +250,6 @@ export default (state, action) => {
       let bag = addItemReadyToBuyToBag(currBag, item_id, quantity, lastItemIdUpdatedTimestamp)
       let order = { ...currOrder, bag }
       return { ...state, order }
-      return state
     }
     case c.ORDER_PROCESS_STEP_LOAD_MODIFIERS: {
       let { order: currOrder } = state

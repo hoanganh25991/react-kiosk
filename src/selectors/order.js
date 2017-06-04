@@ -14,7 +14,6 @@ const pivotItemModifiers = state => state.item_modifier_groups
 const pivotModifierItems = state => state.modifier_group_items
 // Form order
 const orderCategoryId = state => state.order.category_id
-const orderItemId = state => state.order.item_id
 
 // Get obj from id
 export const makeGetCategory = category_id =>

@@ -112,6 +112,10 @@ body {
     background-color: #f0ad4e;
 }
 
+.bgGreen {
+    background-color: green;
+}
+
 .selected {
     background-color: #fff4c2;
 }

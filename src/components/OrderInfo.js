@@ -5,6 +5,13 @@ import HoiNormalBagItemInfoRow from "../containers/HoiNormalBagItemInfoRow"
 import HoiModifierBagItemInfoRow from "../containers/HoiModifierBagItemInfoRow"
 
 export default class OrderInfo extends React.Component {
+  dumpOrderInfoToConsole = () => {
+    window.alert("OrderInfo logged in Chrome console")
+    let { orderInfo, orderTotal } = this.props
+    console.log("%c orderInfo", "background:#FDD835", orderInfo)
+    console.log("%c orderTotal", "background:#FDD835", orderTotal)
+  }
+
   render() {
     let { orderInfo, orderTotal } = this.props
     let normalBagItems = orderInfo.filter(bagItem => bagItem.type === c.NORMAL_BAG_ITEM)
@@ -31,6 +38,7 @@ export default class OrderInfo extends React.Component {
             : null}
         </div>
         <div className="flexRow">
+          <button className="bgGreen" onClick={e => this.dumpOrderInfoToConsole()}><h1>PROCCESS</h1></button>
           <h1>TOTAL</h1>
           <div className="flex1" />
           <h1>{orderTotal}</h1>
