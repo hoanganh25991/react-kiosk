@@ -54,10 +54,11 @@ export const actionAddItemByModifierToBag = (modifier_id, item_by_modifier_id) =
   item_by_modifier_id
 })
 
-export const actionAddSingleItemByModifierAsComboToBag = (modifier_id, item_by_modifier_id) => ({
+export const actionAddSingleItemByModifierAsComboToBag = (modifier_id, item_by_modifier_id, quantity) => ({
   type: c.ADD_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG,
   modifier_id,
-  item_by_modifier_id
+  item_by_modifier_id,
+  quantity
 })
 
 export const actionRemoveSingleItemByModifierAsComboToBag = (modifier_id, item_by_modifier_id) => ({

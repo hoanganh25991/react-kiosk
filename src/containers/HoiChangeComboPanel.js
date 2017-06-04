@@ -1,14 +1,14 @@
 import { connect } from "react-redux"
 import ChangeComboPanel from "../components/ChangeComboPanel"
-import { actionAddSingleItemByModifierAsComboToBag, actionRemoveSingleItemByModifierAsComboToBag } from "../actions"
+import { actionAddSingleItemByModifierAsComboToBag } from "../actions"
 
 const mapStateToProps = ({ order }) => {
   let { bag, item_id } = order
   let getItemByModifierQuanity = () => {
     let currBagItem = bag.filter(bagItem => bagItem.item_id === item_id)[0]
     if (currBagItem) {
-      // This case is quanity of WHOLE BAG
-      return currBagItem.quanity
+      // This case is quantity of WHOLE BAG
+      return currBagItem.quantity
     }
 
     return 0
@@ -18,10 +18,8 @@ const mapStateToProps = ({ order }) => {
 }
 
 const mapActionToProps = dispatch => ({
-  actionAddSingleItemByModifierAsComboToBag: (modifier_id, item_by_modifier_id) =>
-    dispatch(actionAddSingleItemByModifierAsComboToBag(modifier_id, item_by_modifier_id)),
-  actionRemoveSingleItemByModifierAsComboToBag: (modifier_id, item_by_modifier_id) =>
-    dispatch(actionRemoveSingleItemByModifierAsComboToBag(modifier_id, item_by_modifier_id))
+  actionAddSingleItemByModifierAsComboToBag: (modifier_id, item_by_modifier_id, quantity) =>
+    dispatch(actionAddSingleItemByModifierAsComboToBag(modifier_id, item_by_modifier_id, quantity))
 })
 
 export default connect(mapStateToProps, mapActionToProps)(ChangeComboPanel)
