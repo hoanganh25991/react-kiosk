@@ -89,3 +89,10 @@ export const actionAddSingleItemByModifierAsComboToBagTemporary = (modifier_id, 
 })
 
 export const actionAddBagTemporaryItemToBag = () => ({ type: c.ADD_BAG_TEMPORARY_ITEM_TO_BAG })
+
+export const actionAddBagTemporaryItemToBagAndCloseLoadModifiers = () => {
+  return dispatch => {
+    dispatch(actionAddBagTemporaryItemToBag())
+    dispatch(actionOrderProcessStepLoadItems())
+  }
+}
