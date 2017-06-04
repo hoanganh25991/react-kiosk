@@ -1,4 +1,5 @@
 import React from "react"
+import "../css/index.css"
 import HoiCategoryList from "../containers/HoiCategoryList"
 import HoiOrderProcess from "../containers/HoiOrderProcess"
 import HoiOrderInfo from "../containers/HoiOrderInfo"

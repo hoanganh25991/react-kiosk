@@ -170,6 +170,6 @@ export const getOrderInfo = createSelector([state, order], (state, order) => {
       }
     }
   })
-  console.log(bagParsed)
+  //console.log(bagParsed)
   return bagParsed
 })
