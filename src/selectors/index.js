@@ -23,3 +23,11 @@ export const makeGetItemsByCategory = category_id =>
     let item_ids = pivotCategoryItems.filter(pivot => pivot.category_id === category_id).map(pivot => pivot.item_id)
     return items.filter(item => item_ids.includes(item.id))
   })
+
+export const makeGetModifiersByItem = item_id =>
+  createSelector([pivotItemModifiers, modifiers], (pivotItemModifiers, modifiers) => {
+    let modifier_ids = pivotItemModifiers
+      .filter(pivot => pivot.parent_item_id === item_id)
+      .map(pivot => pivot.modifier_group_id)
+    return modifiers.filter(modifier => modifier_ids.includes(modifier.id))
+  })

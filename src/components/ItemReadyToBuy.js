@@ -1,8 +1,8 @@
 import React from "react"
-import HoiAddItemBtn from "../containers/HoiAddItemBtn"
 export default class ItemReadyToBuy extends React.Component {
   render() {
     let { item } = this.props
+    let { addItemReadyToBuyToBag } = this.props
     let className = "flexRow flexCenter"
 
     return (
@@ -14,7 +14,9 @@ export default class ItemReadyToBuy extends React.Component {
             <p>{item.display_name}, Id: {item.id}</p>
             <p>Price: {item.price1}</p>
           </div>
-          <HoiAddItemBtn {...{ item_id: item.id }} />
+          <div className="flexColumn flexCenter">
+            <button className="addBtn" onClick={e => addItemReadyToBuyToBag(item.id)}>+Add</button>
+          </div>
         </div>
       )
     )

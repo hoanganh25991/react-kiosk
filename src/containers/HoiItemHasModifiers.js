@@ -1,11 +1,11 @@
 import { connect } from "react-redux"
 import ItemHasModifiers from "../components/ItemHasModifiers"
-import { actionChooseItemOrAddToBag } from "../actions"
+import { actionChooseItem } from "../actions"
 
 const mapStateToProps = () => ({})
 
 const mapActionToProps = dispatch => ({
-  clickOnItem: item_id => dispatch(actionChooseItemOrAddToBag(item_id))
+  chooseItem: item_id => dispatch(actionChooseItem(item_id))
 })
 
 export default connect(mapStateToProps, mapActionToProps)(ItemHasModifiers)

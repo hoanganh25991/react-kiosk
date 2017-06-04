@@ -53,7 +53,7 @@ export const SINGLE_SELECT = 0
 export const MUST_HAVE_ONE = 1
 
 /**
- * Item by modifier TYPE
+ * ItemByCategory by modifier TYPE
  */
 export const ITEM_BY_MODIFIER = "ITEM_BY_MODIFIER"
 export const ITEM_BY_MODIFIER_CHECKBOX_ROW = "ITEM_BY_MODIFIER_CHECKBOX_ROW"
