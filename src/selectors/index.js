@@ -17,12 +17,8 @@ export const getSubCategoriesByCategory = createSelector([categories, orderCateg
   categories.filter(category => category.main_category_id === category_id)
 )
 
-const categoryIdFromProps = (state, props) => props.category_id
-
-export const getItemsByCategory = createSelector(
-  [categoryIdFromProps, pivotCategoryItems, items],
-  (categoryId, pivotCategoryItems, items) => {
-    let item_ids = pivotCategoryItems.filter(pivot => pivot.category_id === categoryId).map(pivot => pivot.item_id)
+export const makeGetItemsByCategory = category_id =>
+  createSelector([pivotCategoryItems, items], (pivotCategoryItems, items) => {
+    let item_ids = pivotCategoryItems.filter(pivot => pivot.category_id === category_id).map(pivot => pivot.item_id)
     return items.filter(item => item_ids.includes(item.id))
-  }
-)
+  })

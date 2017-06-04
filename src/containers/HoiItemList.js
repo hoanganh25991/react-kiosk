@@ -1,12 +1,13 @@
 import { connect } from "react-redux"
 import ItemList from "../components/ItemList"
 
-import { getItemsByCategory } from "../selectors"
+import { makeGetItemsByCategory } from "../selectors"
 
 const makeMapStateToProps = () => {
   const mapStateToProps = (state, props) => {
+    let { category_id } = props
     return {
-      items: getItemsByCategory(state, props)
+      items: makeGetItemsByCategory(category_id)(state)
     }
   }
 
