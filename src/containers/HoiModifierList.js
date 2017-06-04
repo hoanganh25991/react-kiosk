@@ -1,17 +1,13 @@
 import { connect } from "react-redux"
 import ModifierList from "../components/ModifierList"
-import { actionNormalizeModifiersByItem } from "../actions"
+import { makeGetModifiersByItem } from "../selectors"
 
-const mapStateToProps = ({ modifiersByItem }) => {
-  let getModifiersByItem = item_id => modifiersByItem[item_id]
-
+const mapStateToProps = state => {
+  let { order: { item_id } } = state
   return {
-    getModifiersByItem
+    modifiers: makeGetModifiersByItem(item_id)(state)
   }
 }
-
-const mapActionToProps = dispatch => ({
-  normalizeModifiersByItem: item_id => dispatch(actionNormalizeModifiersByItem(item_id))
-})
+const mapActionToProps = dispatch => ({})
 
 export default connect(mapStateToProps, mapActionToProps)(ModifierList)
