@@ -49,29 +49,8 @@ export const actionAddItemToBag = item_id => ({ type: c.ADD_TIME_TO_BAG, item_id
 // click on an item
 export const actionChooseItemOrAddToBag = item_id => {
   return (dispatch, getState) => {
-    dispatch({ type: c.CHOOSE_ITEM_OR_ADD_TO_BAG })
-    let { modifiersByItem } = getState()
-    let modifiers = modifiersByItem[item_id]
-    // Decide proper action to handle
-    let action
-    if (modifiers === undefined) {
-      // Normalize for this item_id not yet set up
-      // Ok wait
-      let msg = "Please waiting..."
-      action = () => actionAlert(msg)
-    } else if (modifiers && modifiers.length > 0) {
-      // ItemHasModifiers has modifiers
-      // Click on it means load modifiers
-      action = () => actionChooseItem(item_id)
-    } else if (modifiers && modifiers.length === 0) {
-      // ItemHasModifiers has no modifiers
-      // Click on it means add to bag
-      action = () => actionAddItemToBag(item_id)
-    } else {
-      let msg = "Sorry. Unknown case!"
-      action = () => actionAlert(msg)
-    }
-    dispatch(action())
+    dispatch({ type: c.ADD_ITEM_BY_MODIFIER_TO_BAG })
+    dispatch(actionAddItemToBag(item_id))
   }
 }
 //
