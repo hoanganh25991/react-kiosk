@@ -115,3 +115,8 @@ export const makeGetIsItemByModifierSelectedTemporary = (item_id, modifier_id, i
     }
     return false
   })
+
+export const makeGetIsItemReadyToBuyHadBeenSelected = item_id =>
+  createSelector([bag], bag => {
+    return bag.filter(bagItem => bagItem.item_id === item_id).length > 0
+  })

@@ -3,8 +3,9 @@ import HoiChangeItemReadyToBuyPanel from "../containers/HoiChangeItemReadyToBuyP
 export default class ItemReadyToBuy extends React.Component {
   render() {
     let { item } = this.props
-    let className = "flexRow flexCenter"
-
+    let { isItemReadyToBuyHadBeenSelected } = this.props
+    let className = "flexRow flexCenterc"
+    className = isItemReadyToBuyHadBeenSelected ? `${className} selected` : className
     return (
       <div className={className}>
         <div className="flexColumn flex1">
