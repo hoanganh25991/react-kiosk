@@ -7,9 +7,7 @@ export default class SingleItemByModifierAsCombo extends React.Component {
     let item = items[0]
     let { modifier } = this.props
     let { price_level } = modifier
-    let { isSelected } = this.props
     let className = "flexRow"
-    className = isSelected(modifier.id, item.id) ? `${className} selected` : className
 
     return (
       <div className={className}>
