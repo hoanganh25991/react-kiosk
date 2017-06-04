@@ -41,13 +41,7 @@ const addItemReadyToBuyToBag = (currBag, item_id, quantity) => {
       let { quantity: currQuanity } = bagItem
       let { quantity: addUpQuanity } = newBagItem
       let quantity = currQuanity + addUpQuanity
-      newBagItem = { ...newBagItem, quantity }
-
-      let newBagItemHasZeroQuantity = newBagItem.quantity <= 0
-      if (newBagItemHasZeroQuantity) {
-        return null
-      }
-
+      newBagItem = { ...bagItem, quantity }
       return newBagItem
     }
 
@@ -60,7 +54,7 @@ const addItemReadyToBuyToBag = (currBag, item_id, quantity) => {
     newBag = [...newBag, newBagItem]
   }
 
-  return newBag.filter(bagItem => bagItem !== null)
+  return newBag.filter(bagItem => bagItem.quantity > 0)
 }
 
 export const addItemByModifierToModifier = (currModifier, modifier, item_by_modifier_id) => {
@@ -187,11 +181,6 @@ export const addSingleItemByModifierAsComboToBag = (currBag, item_id, modifier, 
         console.log("Bag Item should have one.")
         return bagItem
       }
-
-      if (!mustHaveOne && newBagItemHasZeroQuantity) {
-        return null
-      }
-
       return newBagItem
     }
 
@@ -203,7 +192,7 @@ export const addSingleItemByModifierAsComboToBag = (currBag, item_id, modifier, 
     newBag = [...newBag, newBagItem]
   }
 
-  return newBag.filter(bagItem => bagItem !== null)
+  return newBag.filter(bagItem => bagItem.quantity > 0)
 }
 
 export default (state, action) => {
