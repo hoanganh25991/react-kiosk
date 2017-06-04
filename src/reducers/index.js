@@ -30,7 +30,8 @@ export default (state = initState, action) => {
     case c.ADD_BAG_TEMPORARY_ITEM_BEING_EDITED_TO_BAG:
     case c.REMOVE_BAG_TEMPORARY_ITEM_BEING_EDITED:
     case c.ADD_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG:
-    case c.ADD_ITEM_BY_MODIFIER_TO_BAG: {
+    case c.ADD_ITEM_BY_MODIFIER_TO_BAG:
+    case c.ADD_ITEM_AS_COMBO_QUANTITY: {
       return order(state, action)
     }
     case c.NORMALIZE_SUB_CATEGORIES_BY_CATEGORY:

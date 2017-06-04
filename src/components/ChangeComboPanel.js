@@ -7,14 +7,14 @@ export default class ChangeComboPanel extends React.Component {
     return (
       <div className="flexColumn flexCenter">
         <button
-          className="addBtn"
+          className="addBtn fontSize15"
           onClick={e => actionAddSingleItemByModifierAsComboToBagTemporary(modifier_id, item_by_modifier_id, -1)}
         >
           -
         </button>
         <span className="textCenter width40">{singleItemByModifierAsComboQuantityTemporary}</span>
         <button
-          className="addBtn"
+          className="addBtn fontSize15"
           onClick={e => actionAddSingleItemByModifierAsComboToBagTemporary(modifier_id, item_by_modifier_id, +1)}
         >
           +

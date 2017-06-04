@@ -23,6 +23,9 @@ export const REMOVE_BAG_TEMPORARY_ITEM_BEING_EDITED = "REMOVE_BAG_TEMPORARY_ITEM
 
 export const ADD_NEW_TO_ORDER_BAG = "ADD_NEW_TO_ORDER_BAG"
 export const UPDATE_ORDER_BAG = "UPDATE_ORDER_BAG"
+// Use in order info
+// Only change the quantity of whole combo
+export const ADD_ITEM_AS_COMBO_QUANTITY = "ADD_ITEM_AS_COMBO_QUANTITY"
 
 /**
  * Normalize

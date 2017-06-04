@@ -97,3 +97,10 @@ export const actionRemoveBagTemporaryItemBeingEditedAndMoveToLoadItems = () => {
     dispatch(actionOrderProcessStepLoadItems())
   }
 }
+
+export const actionAddItemAsComboQuantity = (item_id, quantity, lastItemIdUpdatedTimestamp) => ({
+  type: c.ADD_ITEM_AS_COMBO_QUANTITY,
+  item_id,
+  quantity,
+  lastItemIdUpdatedTimestamp
+})

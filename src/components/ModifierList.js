@@ -10,7 +10,10 @@ export default class ModifierList extends React.Component {
       <div className="flexColumn">
         <div className="flexRow">
           <div className="flex1" />
-          <button className="addBtn" onClick={e => actionRemoveBagTemporaryItemBeingEditedAndMoveToLoadItems()}>
+          <button
+            className="addBtn fontSize15"
+            onClick={e => actionRemoveBagTemporaryItemBeingEditedAndMoveToLoadItems()}
+          >
             x
           </button>
         </div>
@@ -18,7 +21,7 @@ export default class ModifierList extends React.Component {
           ? modifiers.map(modifier => <HoiModifier {...{ modifier, key: modifier.id }} />)
           : <p>No modifier found on this item</p>}
         <div className="flexRow">
-          <button className="addBtn" onClick={e => actionAddBagTemporaryItemToBagAndCloseLoadModifiers()}>
+          <button className="addBtn fontSize15" onClick={e => actionAddBagTemporaryItemToBagAndCloseLoadModifiers()}>
             +ADD TO ORDER
           </button>
           <div className="flex1" />

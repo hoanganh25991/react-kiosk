@@ -8,21 +8,6 @@ import moment from "moment"
 
 const priceLevel = "price1"
 
-export const addNewOrUpdateOrderBag = ({ lastCategoryIdChanged, previousCategoryIdChanged }) => {
-  let whatShoudDo
-  switch (true) {
-    case lastCategoryIdChanged > previousCategoryIdChanged: {
-      whatShoudDo = c.ADD_NEW_TO_ORDER_BAG
-      break
-    }
-    default: {
-      whatShoudDo = c.UPDATE_ORDER_BAG
-      break
-    }
-  }
-  return whatShoudDo
-}
-
 //
 //
 //
@@ -34,9 +19,7 @@ export const addNewOrUpdateOrderBag = ({ lastCategoryIdChanged, previousCategory
 //           }
 // addItem keep order of currBag
 const addItemReadyToBuyToBag = (currBag, item_id, quantity) => {
-  let now = moment()
-  let lastItemIdUpdatedTimestamp = +now.format("X")
-  let defaultBagItem = { item_id, quantity, type: c.NORMAL_BAG_ITEM, lastItemIdUpdatedTimestamp }
+  let defaultBagItem = { item_id, quantity, type: c.NORMAL_BAG_ITEM }
   let newBagItem = defaultBagItem
   let newBag = currBag.map(bagItem => {
     let sameBagItemType = bagItem.type === c.NORMAL_BAG_ITEM
@@ -134,7 +117,8 @@ export const addItemModifierToBag = (currBag, item_id, modifier, item_by_modifie
   let newBag = currBag.map(bagItem => {
     let sameBagItemType = bagItem.type === c.MODIFIER_BAG_ITEM
     let sameBagItemId = bagItem.item_id === newBagItem.item_id
-    let sameBagItemExist = sameBagItemType && sameBagItemId
+    let sameTimestamp = bagItem.lastItemIdUpdatedTimestamp === newBagItem.lastItemIdUpdatedTimestamp
+    let sameBagItemExist = sameBagItemType && sameBagItemId && sameTimestamp
 
     if (sameBagItemExist) {
       // Update the children
@@ -174,7 +158,8 @@ export const addSingleItemByModifierAsComboToBag = (
   let newBag = currBag.map(bagItem => {
     let sameBagItemType = bagItem.type === c.MODIFIER_BAG_ITEM
     let sameBagItemId = bagItem.item_id === newBagItem.item_id
-    let sameBagItemExist = sameBagItemType && sameBagItemId
+    let sameTimestamp = bagItem.lastItemIdUpdatedTimestamp === newBagItem.lastItemIdUpdatedTimestamp
+    let sameBagItemExist = sameBagItemType && sameBagItemId && sameTimestamp
 
     if (sameBagItemExist) {
       // Update the children
@@ -207,6 +192,26 @@ export const addSingleItemByModifierAsComboToBag = (
   if (!isNewBagItemAdded) {
     newBag = [...newBag, newBagItem]
   }
+
+  return newBag.filter(bagItem => bagItem.quantity > 0)
+}
+
+export const addItemAsComboQuantity = (currBag, item_id, addedUpQuantity, lastItemIdUpdatedTimestamp) => {
+  let newBag = currBag.map(bagItem => {
+    let sameBagItemType = bagItem.type === c.MODIFIER_BAG_ITEM
+    let sameBagItemId = bagItem.item_id === item_id
+    let sameTimestamp = bagItem.lastItemIdUpdatedTimestamp === lastItemIdUpdatedTimestamp
+    let sameBagItemExist = sameBagItemType && sameBagItemId && sameTimestamp
+
+    if (sameBagItemExist) {
+      // Update the children
+      let { quantity: currQuanity } = bagItem
+      let quantity = currQuanity + addedUpQuantity
+      return { ...bagItem, quantity }
+    }
+
+    return bagItem
+  })
 
   return newBag.filter(bagItem => bagItem.quantity > 0)
 }
@@ -332,6 +337,14 @@ export default (state, action) => {
       let { bag: currBag, lastItemIdUpdatedTimestamp } = currOrder
       let modifier = makeGetModifier(modifier_id)(state)
       let bag = addItemModifierToBag(currBag, item_id, modifier, item_by_modifier_id, lastItemIdUpdatedTimestamp)
+      let order = { ...currOrder, bag }
+      return { ...state, order }
+    }
+    case c.ADD_ITEM_AS_COMBO_QUANTITY: {
+      let { item_id, quantity, lastItemIdUpdatedTimestamp } = action
+      let { order: currOrder } = state
+      let { bag: currBag } = currOrder
+      let bag = addItemAsComboQuantity(currBag, item_id, quantity, lastItemIdUpdatedTimestamp)
       let order = { ...currOrder, bag }
       return { ...state, order }
     }
