@@ -1,6 +1,6 @@
 import React from "react"
 
-export default class BagItemRowInfo extends React.Component {
+export default class NormalBagItemInfoRow extends React.Component {
   render() {
     let { bagItem, order } = this.props
     return (
