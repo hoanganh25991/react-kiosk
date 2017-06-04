@@ -1,6 +1,7 @@
 import { createSelector } from "reselect"
-
+import * as c from "../actions/const-name"
 // From table data
+const state = state => state
 const categories = state => state.categories
 const items = state => state.items
 const modifiers = state => state.modifier_groups
@@ -120,3 +121,49 @@ export const makeGetIsItemReadyToBuyHadBeenSelected = item_id =>
   createSelector([bag], bag => {
     return bag.filter(bagItem => bagItem.item_id === item_id).length > 0
   })
+
+/**
+ * For Order Info
+ * Parse order
+ */
+export const getOrderInfo = createSelector([state, order], (state, order) => {
+  let { bag } = order
+  let bagParsed = bag.map(bagItem => {
+    switch (bagItem.type) {
+      case c.NORMAL_BAG_ITEM: {
+        let item = makeGetItem(bagItem.item_id)(state)
+        let item_price = item[c.DEFAULT_PRICE_LEVEL]
+        return { ...bagItem, item_price, item }
+      }
+      case c.MODIFIER_BAG_ITEM: {
+        let { children } = bagItem
+        let item = makeGetItem(bagItem.item_id)(state)
+        let children_items = Object.keys(children).reduce((carry, modifier_id) => {
+          let items = children[modifier_id]
+          let itemsWithModifierId = items.map(item => {
+            let itemOrigin = makeGetItem(item.item_by_modifier_id)(state)
+            return { ...item, item_id: item.item_by_modifier_id, item: itemOrigin, modifier_group_id: +modifier_id }
+          })
+          carry = [...carry, ...itemsWithModifierId]
+          return carry
+        }, [])
+
+        let item_price = children_items.reduce((carry, itemXX) => {
+          let modifier = makeGetModifier(itemXX.modifier_group_id)(state)
+          let priceLevel = modifier.price_level
+          let item = itemXX.item
+          let itemTotal = item[priceLevel] * itemXX.quantity
+          carry += itemTotal
+          return carry
+        }, 0)
+
+        return { ...bagItem, item, children: children_items, item_price }
+      }
+      default: {
+        return bagItem
+      }
+    }
+  })
+  console.log(bagParsed)
+  return bagParsed
+})

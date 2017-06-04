@@ -55,3 +55,8 @@ export const MUST_HAVE_ONE = 1
  * ItemByCategory by modifier TYPE
  */
 export const ITEM_BY_MODIFIER = "ITEM_BY_MODIFIER"
+
+/**
+ * Item as item ready to buy
+ */
+export const DEFAULT_PRICE_LEVEL = "price1"

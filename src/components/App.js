@@ -17,7 +17,7 @@ export default class App extends React.Component {
               <HoiOrderProcess />
             </div>
           </div>
-          {/*<HoiOrderInfo />*/}
+          <HoiOrderInfo />
         </div>
       </div>
     )

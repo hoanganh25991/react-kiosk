@@ -3829,7 +3829,7 @@ export default {
       item_price_incl_gst: 1,
       item_gst: -1,
       item_sc: -1,
-      price1: 0,
+      price1: 1.5,
       price2: 0,
       price3: 0,
       price4: 0,
