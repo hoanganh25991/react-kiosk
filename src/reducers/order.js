@@ -113,7 +113,7 @@ export const addModifierToChildren = (currChildren, modifier, item_by_modifier_i
 //         }
 //       ]
 //click to add item modifier to bag
-export const addItemModifierCheckboxRowToBag = (currBag, item_id, modifier, item_by_modifier_id) => {
+export const addItemModifierToBag = (currBag, item_id, modifier, item_by_modifier_id) => {
   let { id: modifier_id } = modifier
   let defaultBagItem = {
     item_id,
@@ -145,7 +145,7 @@ export const addItemModifierCheckboxRowToBag = (currBag, item_id, modifier, item
   return newBag
 }
 
-export const addItemModifierToBag = (currBag, item_id, modifier, item_by_modifier_id) => {
+export const addSingleItemByModifierAsComboToBag = (currBag, item_id, modifier, item_by_modifier_id) => {
   let { id: modifier_id } = modifier
   let defaultBagItem = {
     item_id,
@@ -183,7 +183,7 @@ export const addItemModifierToBag = (currBag, item_id, modifier, item_by_modifie
   return newBag
 }
 
-export const removeItemModifierToBag = (currBag, item_id, modifier, item_by_modifier_id) => {
+export const removeSingleItemByModifierAsComboToBag = (currBag, item_id, modifier, item_by_modifier_id) => {
   let { id: modifier_id } = modifier
   let defaultBagItem = {
     item_id,
@@ -263,6 +263,28 @@ export default (state, action) => {
       let order = { ...currOrder, step: action.type }
       return { ...state, order }
     }
+    case c.ADD_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG: {
+      let { modifier_id, item_by_modifier_id } = action
+      let { order: currOrder, items } = state
+      let { item_id } = currOrder
+      let { bag: currBag } = currOrder
+      let { modifier_groups } = state
+      let modifier = modifier_groups.filter(modifier => modifier.id === modifier_id)[0]
+      let bag = addSingleItemByModifierAsComboToBag(currBag, item_id, modifier, item_by_modifier_id)
+      let order = { ...currOrder, bag }
+      return { ...state, order }
+    }
+    case c.REMOVE_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG: {
+      let { modifier_id, item_by_modifier_id } = action
+      let { order: currOrder, items } = state
+      let { item_id } = currOrder
+      let { bag: currBag } = currOrder
+      let { modifier_groups } = state
+      let modifier = modifier_groups.filter(modifier => modifier.id === modifier_id)[0]
+      let bag = removeSingleItemByModifierAsComboToBag(currBag, item_id, modifier, item_by_modifier_id)
+      let order = { ...currOrder, bag }
+      return { ...state, order }
+    }
     case c.ADD_ITEM_BY_MODIFIER_TO_BAG: {
       let { modifier_id, item_by_modifier_id } = action
       let { order: currOrder, items } = state
@@ -271,28 +293,6 @@ export default (state, action) => {
       let { modifier_groups } = state
       let modifier = modifier_groups.filter(modifier => modifier.id === modifier_id)[0]
       let bag = addItemModifierToBag(currBag, item_id, modifier, item_by_modifier_id)
-      let order = { ...currOrder, bag }
-      return { ...state, order }
-    }
-    case c.REMOVE_ITEM_BY_MODIFIER_TO_BAG: {
-      let { modifier_id, item_by_modifier_id } = action
-      let { order: currOrder, items } = state
-      let { item_id } = currOrder
-      let { bag: currBag } = currOrder
-      let { modifier_groups } = state
-      let modifier = modifier_groups.filter(modifier => modifier.id === modifier_id)[0]
-      let bag = removeItemModifierToBag(currBag, item_id, modifier, item_by_modifier_id)
-      let order = { ...currOrder, bag }
-      return { ...state, order }
-    }
-    case c.ADD_ITEM_BY_MODIFIER_CHECKBOX_ROW_TO_BAG: {
-      let { modifier_id, item_by_modifier_id } = action
-      let { order: currOrder, items } = state
-      let { item_id } = currOrder
-      let { bag: currBag } = currOrder
-      let { modifier_groups } = state
-      let modifier = modifier_groups.filter(modifier => modifier.id === modifier_id)[0]
-      let bag = addItemModifierCheckboxRowToBag(currBag, item_id, modifier, item_by_modifier_id)
       let order = { ...currOrder, bag }
       return { ...state, order }
     }

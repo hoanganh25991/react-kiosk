@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import ChangeComboPanel from "../components/ChangeComboPanel"
-import { actionAddItemByModifierXXXToBag, actionRemoveItemByModifierToBag } from "../actions"
+import { actionAddSingleItemByModifierAsComboToBag, actionRemoveSingleItemByModifierAsComboToBag } from "../actions"
 
 const mapStateToProps = ({ order }) => {
   let { bag, item_id } = order
@@ -18,10 +18,10 @@ const mapStateToProps = ({ order }) => {
 }
 
 const mapActionToProps = dispatch => ({
-  addItemByModifierToBag: (modifier_id, item_by_modifier_id) =>
-    dispatch(actionAddItemByModifierXXXToBag(modifier_id, item_by_modifier_id)),
-  removeItemByModifierToBag: (modifier_id, item_by_modifier_id) =>
-    dispatch(actionRemoveItemByModifierToBag(modifier_id, item_by_modifier_id))
+  actionAddSingleItemByModifierAsComboToBag: (modifier_id, item_by_modifier_id) =>
+    dispatch(actionAddSingleItemByModifierAsComboToBag(modifier_id, item_by_modifier_id)),
+  actionRemoveSingleItemByModifierAsComboToBag: (modifier_id, item_by_modifier_id) =>
+    dispatch(actionRemoveSingleItemByModifierAsComboToBag(modifier_id, item_by_modifier_id))
 })
 
 export default connect(mapStateToProps, mapActionToProps)(ChangeComboPanel)

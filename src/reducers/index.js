@@ -11,11 +11,7 @@ const initState = {
     item_id: null,
     step: null,
     bag: []
-  },
-  subCategoriesByCategory: {},
-  itemsByCategory: {},
-  modifiersByItem: {},
-  itemsByModifier: {}
+  }
 }
 
 export default (state = initState, action) => {
@@ -26,9 +22,9 @@ export default (state = initState, action) => {
     case c.CHOOSE_ITEM:
     case c.ADD_ITEM_READY_TO_BUY_TO_BAG:
     case c.ORDER_PROCESS_STEP_LOAD_MODIFIERS:
-    case c.ADD_ITEM_BY_MODIFIER_TO_BAG:
-    case c.REMOVE_ITEM_BY_MODIFIER_TO_BAG:
-    case c.ADD_ITEM_BY_MODIFIER_CHECKBOX_ROW_TO_BAG: {
+    case c.ADD_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG:
+    case c.REMOVE_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG:
+    case c.ADD_ITEM_BY_MODIFIER_TO_BAG: {
       return order(state, action)
     }
     case c.NORMALIZE_SUB_CATEGORIES_BY_CATEGORY:

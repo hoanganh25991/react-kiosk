@@ -13,15 +13,10 @@ export const actionOrderProcessStepLoadItems = () => ({ type: c.ORDER_PROCESS_ST
 //
 // customer pick one category
 export const actionChooseCategory = category_id => {
-  return (dispatch, getState) => {
+  return dispatch => {
     dispatch({ type: c.THUNK_CHOOSE_CATEGORY })
-    let { order: { category_id: currCategoryId } } = getState()
-    let isCategoryIdChanged = currCategoryId != category_id
-    if (isCategoryIdChanged) {
-      let now = moment()
-      // Please remeber to use number, format from moment date obj is string
-      dispatch(actionUpdateLastOrderCategoryIdChangedTimestamp(+now.format("X")))
-    }
+    let now = moment()
+    dispatch(actionUpdateLastOrderCategoryIdChangedTimestamp(+now.format("X")))
     dispatch({ type: c.CHOOSE_CATEGORY, category_id })
     dispatch(actionOrderProcessStepLoadItems())
   }
@@ -54,19 +49,19 @@ export const actionAddItemReadyToBuyToBag = item_id => ({ type: c.ADD_ITEM_READY
 //   }
 // }
 export const actionAddItemByModifierToBag = (modifier_id, item_by_modifier_id) => ({
-  type: c.ADD_ITEM_BY_MODIFIER_CHECKBOX_ROW_TO_BAG,
-  modifier_id,
-  item_by_modifier_id
-})
-
-export const actionAddItemByModifierXXXToBag = (modifier_id, item_by_modifier_id) => ({
   type: c.ADD_ITEM_BY_MODIFIER_TO_BAG,
   modifier_id,
   item_by_modifier_id
 })
 
-export const actionRemoveItemByModifierToBag = (modifier_id, item_by_modifier_id) => ({
-  type: c.REMOVE_ITEM_BY_MODIFIER_TO_BAG,
+export const actionAddSingleItemByModifierAsComboToBag = (modifier_id, item_by_modifier_id) => ({
+  type: c.ADD_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG,
+  modifier_id,
+  item_by_modifier_id
+})
+
+export const actionRemoveSingleItemByModifierAsComboToBag = (modifier_id, item_by_modifier_id) => ({
+  type: c.REMOVE_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG,
   modifier_id,
   item_by_modifier_id
 })
