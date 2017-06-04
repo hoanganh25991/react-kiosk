@@ -3,7 +3,8 @@ import HoiAddItemByModifierBtn from "../containers/HoiAddItemByModifierBtn"
 
 export default class SingleItemByModifierAsCombo extends React.Component {
   render() {
-    let { item } = this.props
+    let { items } = this.props
+    let item = items[0]
     let { modifier } = this.props
     let { price_level } = modifier
     let { isSelected } = this.props

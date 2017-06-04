@@ -1,4 +1,5 @@
 import React from "react"
+import SingleItemByModifierAsCombo from "../containers/HoiSingleItemByModifierAsCombo"
 import HoiItemByModifierCheckboxRowList from "../containers/HoiItemByModifierCheckboxRowList"
 export default class Item extends React.Component {
   constructor(props) {
@@ -24,13 +25,16 @@ export default class Item extends React.Component {
 
   render() {
     let { modifier, items, shouldLoadSingleItemByModifierAsItemCombo } = this.props
+
     return (
       <div>
-        <h3 className="bgYellow">{modifier.display_name}, Id: {modifier.id}</h3>
-        <pre>Mandatory: {modifier.mandatory}. Multiselect: {modifier.multi_select}</pre>
         {shouldLoadSingleItemByModifierAsItemCombo
-          ? null
-          : <HoiItemByModifierCheckboxRowList {...{ items, modifier }} />}
+          ? <SingleItemByModifierAsCombo {...{ items, modifier }} />
+          : <div>
+              <h3 className="bgYellow">{modifier.display_name}, Id: {modifier.id}</h3>
+              <pre>Mandatory: {modifier.mandatory}. Multiselect: {modifier.multi_select}</pre>
+              <HoiItemByModifierCheckboxRowList {...{ items, modifier }} />
+            </div>}
       </div>
     )
   }
