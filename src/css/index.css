@@ -147,10 +147,13 @@ span {
 .addBtn {
     background-color: #f0ad4e;
     border-radius: 4px;
-    font-size: 1.5em;
     cursor: pointer;
     cursor: hand;
     text-align: center;
+}
+
+.fontSize15 {
+    font-size: 1.5em;
 }
 
 .textCenter {
@@ -163,6 +166,24 @@ span {
 
 .width40 {
     width: 40px;
+}
+
+.width75 {
+    width: 75px;
+}
+
+.width100 {
+    width: 100px;
+}
+
+.tcLongTxt {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.inlineBlock {
+    display: inline-block;
 }
 
 .childrenItemList {
