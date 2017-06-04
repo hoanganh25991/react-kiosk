@@ -4,6 +4,7 @@ import {
   makeGetBagTemporaryItemBeingEdited,
   makeGetBagTemporaryWithoutBagItemAddedBackToBag
 } from "../selectors"
+import moment from "moment"
 
 const priceLevel = "price1"
 
@@ -218,8 +219,10 @@ export default (state, action) => {
   switch (action.type) {
     case c.CHOOSE_CATEGORY: {
       let { category_id } = action
+      let now = moment()
+      let lastCategoryIdUpdatedTimestamp = +now.format("X")
       let { order: currOrder } = state
-      let order = { ...currOrder, category_id }
+      let order = { ...currOrder, category_id, lastCategoryIdUpdatedTimestamp }
       return { ...state, order }
     }
     case c.UPDATE_LAST_ORDER_CATEGORY_ID_CHANGED_TIMESTAMP: {
@@ -236,7 +239,9 @@ export default (state, action) => {
     case c.CHOOSE_ITEM: {
       let { order: currOrder } = state
       let { item_id } = action
-      let order = { ...currOrder, item_id }
+      let now = moment()
+      let lastItemIdUpdatedTimestamp = +now.format("X")
+      let order = { ...currOrder, item_id, lastItemIdUpdatedTimestamp }
       return { ...state, order }
     }
     case c.ADD_ITEM_READY_TO_BUY_TO_BAG: {

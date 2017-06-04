@@ -1,10 +1,4 @@
 import * as c from "./const-name"
-import moment from "moment"
-
-export const actionUpdateLastOrderCategoryIdChangedTimestamp = timestamp => ({
-  type: c.UPDATE_LAST_ORDER_CATEGORY_ID_CHANGED_TIMESTAMP,
-  timestamp
-})
 
 export const actionOrderProcessStepLoadItems = () => ({ type: c.ORDER_PROCESS_STEP_LOAD_ITEMS })
 //
@@ -15,8 +9,6 @@ export const actionOrderProcessStepLoadItems = () => ({ type: c.ORDER_PROCESS_ST
 export const actionChooseCategory = category_id => {
   return dispatch => {
     dispatch({ type: c.THUNK_CHOOSE_CATEGORY })
-    let now = moment()
-    dispatch(actionUpdateLastOrderCategoryIdChangedTimestamp(+now.format("X")))
     dispatch({ type: c.CHOOSE_CATEGORY, category_id })
     dispatch(actionOrderProcessStepLoadItems())
   }
