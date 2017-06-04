@@ -3,7 +3,7 @@ import React from "react"
 export default class ChangeComboPanel extends React.Component {
   render() {
     let { actionAddSingleItemByModifierAsComboToBagTemporary, modifier_id, item_by_modifier_id } = this.props
-    let { singleItemByModifierAsComboQuantity } = this.props
+    let { singleItemByModifierAsComboQuantityTemporary } = this.props
     return (
       <div className="flexColumn flexCenter">
         <button
@@ -12,7 +12,7 @@ export default class ChangeComboPanel extends React.Component {
         >
           -
         </button>
-        <span className="textCenter width40">{singleItemByModifierAsComboQuantity}</span>
+        <span className="textCenter width40">{singleItemByModifierAsComboQuantityTemporary}</span>
         <button
           className="addBtn"
           onClick={e => actionAddSingleItemByModifierAsComboToBagTemporary(modifier_id, item_by_modifier_id, +1)}

@@ -6,6 +6,7 @@ const items = state => state.items
 const modifiers = state => state.modifier_groups
 const order = state => state.order
 const bag = state => state.order.bag
+const bagTemporary = state => state.order.bagTemporary
 // From pivot
 const pivotCategoryItems = state => state.category_items
 const pivotItemModifiers = state => state.item_modifier_groups
@@ -24,6 +25,11 @@ export const makeGetBagItem = item_id =>
   createSelector([bag], bag => {
     return bag.filter(bagItem => bagItem.item_id === item_id)[0]
   })
+export const makeGetBagTemporaryItem = item_id =>
+  createSelector([bagTemporary], bagTemporary => {
+    return bagTemporary.filter(bagItem => bagItem.item_id === item_id)[0]
+  })
+
 export const getSubCategoriesByCategory = createSelector([categories, orderCategoryId], (categories, category_id) =>
   categories.filter(category => category.main_category_id === category_id)
 )
@@ -70,5 +76,17 @@ export const makeGetBagItemQuantity = item_id =>
     return 0
   })
 
+export const makeGetBagTemporaryItemQuantity = item_id =>
+  createSelector([makeGetBagTemporaryItem(item_id)], currBagTemporaryItem => {
+    if (currBagTemporaryItem) {
+      let { quantity } = currBagTemporaryItem
+      return quantity
+    }
+    return 0
+  })
+
 export const makeGetSingleItemByModifierAsComboQuantity = item_id =>
   createSelector([makeGetBagItemQuantity(item_id)], quantity => quantity)
+
+export const makeGetSingleItemByModifierAsComboQuantityTemporary = item_id =>
+  createSelector([makeGetBagTemporaryItemQuantity(item_id)], quantity => quantity)
