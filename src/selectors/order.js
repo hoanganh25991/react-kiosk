@@ -61,11 +61,14 @@ export const makeGetShouldLoadSingleItemByModifierAsCombo = items =>
     return hasOnlyOneItem && sameAsOrderItemId
   })
 
-export const makeGetSingleItemByModifierAsComboQuantity = item_id =>
+export const makeGetBagItemQuantity = item_id =>
   createSelector([makeGetBagItem(item_id)], currBagItem => {
     if (currBagItem) {
       let { quantity } = currBagItem
       return quantity
     }
-    return null
+    return 0
   })
+
+export const makeGetSingleItemByModifierAsComboQuantity = item_id =>
+  createSelector([makeGetBagItemQuantity(item_id)], quantity => quantity)
