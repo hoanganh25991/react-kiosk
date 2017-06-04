@@ -90,3 +90,12 @@ export const makeGetSingleItemByModifierAsComboQuantity = item_id =>
 
 export const makeGetSingleItemByModifierAsComboQuantityTemporary = item_id =>
   createSelector([makeGetBagTemporaryItemQuantity(item_id)], quantity => quantity)
+
+export const makeGetIsItemByModifierSelectedTemporary = (item_id, modifier_id, item_by_modifier_id) =>
+  createSelector([makeGetBagTemporaryItem(item_id)], currBagTemporaryItem => {
+    if (currBagTemporaryItem) {
+      let { children: { [modifier_id]: items_by_modifier } } = currBagTemporaryItem
+      return items_by_modifier.filter(item => item.item_by_modifier_id === item_by_modifier_id).length > 0
+    }
+    return false
+  })
