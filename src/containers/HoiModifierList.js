@@ -1,7 +1,10 @@
 import { connect } from "react-redux"
 import ModifierList from "../components/ModifierList"
 import { makeGetModifiersByItem } from "../selectors"
-import { actionAddBagTemporaryItemToBagAndCloseLoadModifiers } from "../actions"
+import {
+  actionAddBagTemporaryItemToBagAndMoveToLoadItems,
+  actionRemoveBagTemporaryItemBeingEditedAndMoveToLoadItems
+} from "../actions"
 
 const mapStateToProps = state => {
   let { order: { item_id } } = state
@@ -11,7 +14,9 @@ const mapStateToProps = state => {
 }
 const mapActionToProps = dispatch => ({
   actionAddBagTemporaryItemToBagAndCloseLoadModifiers: () =>
-    dispatch(actionAddBagTemporaryItemToBagAndCloseLoadModifiers())
+    dispatch(actionAddBagTemporaryItemToBagAndMoveToLoadItems()),
+  actionRemoveBagTemporaryItemBeingEditedAndMoveToLoadItems: () =>
+    dispatch(actionRemoveBagTemporaryItemBeingEditedAndMoveToLoadItems())
 })
 
 export default connect(mapStateToProps, mapActionToProps)(ModifierList)

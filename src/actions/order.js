@@ -80,11 +80,20 @@ export const actionAddSingleItemByModifierAsComboToBagTemporary = (modifier_id, 
   quantity
 })
 
-export const actionAddBagTemporaryItemToBag = () => ({ type: c.ADD_BAG_TEMPORARY_ITEM_TO_BAG })
+export const actionAddBagTemporaryItemToBag = () => ({ type: c.ADD_BAG_TEMPORARY_ITEM_BEING_EDITED_TO_BAG })
 
-export const actionAddBagTemporaryItemToBagAndCloseLoadModifiers = () => {
+export const actionAddBagTemporaryItemToBagAndMoveToLoadItems = () => {
   return dispatch => {
     dispatch(actionAddBagTemporaryItemToBag())
+    dispatch(actionOrderProcessStepLoadItems())
+  }
+}
+
+export const actionRemoveBagTemporaryItemBeingEdited = () => ({ type: c.REMOVE_BAG_TEMPORARY_ITEM_BEING_EDITED })
+
+export const actionRemoveBagTemporaryItemBeingEditedAndMoveToLoadItems = () => {
+  return dispatch => {
+    dispatch(actionRemoveBagTemporaryItemBeingEdited())
     dispatch(actionOrderProcessStepLoadItems())
   }
 }

@@ -37,13 +37,13 @@ export const makeGetBagTemporaryItemBeingEdited = createSelector([order], order 
   )[0]
   return bagTemporaryItemBeingEdited
 })
-export const makeGetBagTemporaryWithoutBagItemAddedBackToBag = createSelector([order], order => {
+export const makeGetBagTemporaryWithoutBagItemBeingEdited = createSelector([order], order => {
   let { item_id, lastItemIdUpdatedTimestamp, bagTemporary } = order
-  let bagTemporaryWithoutBagItemAddedBackToBag = bagTemporary.filter(
+  let bagTemporaryWithoutBagItemBeingEdited = bagTemporary.filter(
     bagTemporaryItem =>
       bagTemporaryItem.item_id !== item_id && bagTemporaryItem.lastItemIdUpdatedTimestamp !== lastItemIdUpdatedTimestamp
   )
-  return bagTemporaryWithoutBagItemAddedBackToBag
+  return bagTemporaryWithoutBagItemBeingEdited
 })
 
 export const getSubCategoriesByCategory = createSelector([categories, orderCategoryId], (categories, category_id) =>

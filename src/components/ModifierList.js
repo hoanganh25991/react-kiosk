@@ -5,11 +5,14 @@ export default class ModifierList extends React.Component {
   render() {
     let { modifiers } = this.props
     let { actionAddBagTemporaryItemToBagAndCloseLoadModifiers } = this.props
+    let { actionRemoveBagTemporaryItemBeingEditedAndMoveToLoadItems } = this.props
     return (
       <div className="flexColumn">
         <div className="flexRow">
           <div className="flex1" />
-          <button className="addBtn">x</button>
+          <button className="addBtn" onClick={e => actionRemoveBagTemporaryItemBeingEditedAndMoveToLoadItems()}>
+            x
+          </button>
         </div>
         {modifiers && modifiers.length > 0
           ? modifiers.map(modifier => <HoiModifier {...{ modifier, key: modifier.id }} />)
