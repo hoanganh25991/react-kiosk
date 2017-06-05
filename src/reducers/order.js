@@ -136,6 +136,11 @@ export const addItemModifierToBag = (currBag, item_id, modifier, item_by_modifie
   return newBag
 }
 
+// When add item by modifier to bag
+// Understand as only add up to the 'children' branch inside bagItem
+// But this case consider 'single item by modifier' as 'delegate' of COMBO
+// So, allow add him up as add the WHOLE COMBO quantity
+// with 'singleItemByModifier' always has quantity = 1
 export const addSingleItemByModifierAsComboToBag = (
   currBag,
   item_id,
@@ -164,20 +169,14 @@ export const addSingleItemByModifierAsComboToBag = (
       let { quantity: currQuanity } = bagItem
       let { quantity: addedUpQuanity } = newBagItem
       let quantity = currQuanity + addedUpQuanity
-      // Why i dont change the children
-      // HoiItemByModifierCheckboxRow understand asssss ONLY HAVE ONE
-      // ONLY ALLOWED ONE
-      // ONLY XXX
-      // THIS IS HARD CODE IMPLICIT IN DB
       newBagItem = { ...bagItem, quantity }
 
       let { mandatory } = modifier
       let mustHaveOne = mandatory === c.MUST_HAVE_ONE
       let newBagItemHasZeroQuantity = newBagItem.quantity <= 0
+      // Check mandatory from modifier
       if (mustHaveOne && newBagItemHasZeroQuantity) {
-        // Ok, return the old bagItem
-        // The new one is wrong
-        console.log("Bag Item should have one.")
+        // Ok, return the old bagItem, the new one is wrong
         return bagItem
       }
       return newBagItem
@@ -194,7 +193,7 @@ export const addSingleItemByModifierAsComboToBag = (
   return newBag.filter(bagItem => bagItem.quantity > 0)
 }
 
-export const addItemAsComboQuantity = (currBag, item_id, addedUpQuantity, lastItemIdUpdatedTimestamp) => {
+export const addComboQuantity = (currBag, item_id, addedUpQuantity, lastItemIdUpdatedTimestamp) => {
   let newBag = currBag.map(bagItem => {
     let sameBagItemType = bagItem.type === c.MODIFIER_BAG_ITEM
     let sameBagItemId = bagItem.item_id === item_id
@@ -335,7 +334,7 @@ export default (state, action) => {
       let { item_id, quantity, lastItemIdUpdatedTimestamp } = action
       let { order: currOrder } = state
       let { bag: currBag } = currOrder
-      let bag = addItemAsComboQuantity(currBag, item_id, quantity, lastItemIdUpdatedTimestamp)
+      let bag = addComboQuantity(currBag, item_id, quantity, lastItemIdUpdatedTimestamp)
       let order = { ...currOrder, bag }
       return { ...state, order }
     }
