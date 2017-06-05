@@ -1,15 +1,15 @@
 import { connect } from "react-redux"
 import ItemByModifierCheckboxRow from "../components/ItemByModifierCheckboxRow"
 import { actionAddItemByModifierToBagTemporary } from "../actions"
-import { makeGetIsItemByModifierSelectedInBagTemporaryItemBeingEdited } from "../selectors"
+import { makeGetItemByModifierQuantityInBagTemporaryItemBeingEdited } from "../selectors"
 
 const mapStateToProps = (state, props) => {
   let { modifier, item } = props
-  const isItemByModifierSelectedTemporary = makeGetIsItemByModifierSelectedInBagTemporaryItemBeingEdited(
+  const itemByModifierQuantityTemporary = makeGetItemByModifierQuantityInBagTemporaryItemBeingEdited(
     modifier.id,
     item.id
   )(state)
-  return { isItemByModifierSelectedTemporary }
+  return { itemByModifierQuantityTemporary }
 }
 
 const mapActionToProps = dispatch => ({

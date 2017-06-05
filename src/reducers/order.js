@@ -57,9 +57,6 @@ export const addItemByModifierToModifier = (currModifier, modifier, item_by_modi
         let quantity = currQuantity + addedUpQuantity
         newItem = { ...item, quantity }
         // Base on current quantity
-        // Check if newItem added up normal
-        // Or limited or removed
-        //let hasQuantity = quantity > 0;
         // Under threshold of multil_select
         let quantityUnderMultiSelect = quantity <= multi_select
         // Best case, add up newItem

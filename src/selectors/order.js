@@ -92,13 +92,16 @@ export const getSingleItemByModifierAsComboQuantityTemporaryBeingEdited = create
   }
 )
 
-export const makeGetIsItemByModifierSelectedInBagTemporaryItemBeingEdited = (modifier_id, item_by_modifier_id) =>
+export const makeGetItemByModifierQuantityInBagTemporaryItemBeingEdited = (modifier_id, item_by_modifier_id) =>
   createSelector([getBagTemporaryItemBeingEdited], currBagTemporaryItem => {
     if (currBagTemporaryItem) {
       let { children: { [modifier_id]: items_by_modifier } } = currBagTemporaryItem
-      return items_by_modifier.filter(item => item.item_by_modifier_id === item_by_modifier_id).length > 0
+      let itemByModifier = items_by_modifier.filter(item => item.item_by_modifier_id === item_by_modifier_id)[0]
+      // Use 0 as trick in value expression of js
+      // Which force to return 0, when itemByModifier as undefined
+      return (itemByModifier || 0) && itemByModifier.quantity
     }
-    return false
+    return 0
   })
 
 export const makeGetIsItemReadyToBuyHadBeenSelected = item_id =>
