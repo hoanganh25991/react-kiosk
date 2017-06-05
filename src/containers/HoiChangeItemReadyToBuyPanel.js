@@ -1,11 +1,11 @@
 import { connect } from "react-redux"
 import ChangeItemReadyToBuyPanel from "../components/ChangeItemReadyToBuyPanel"
 import { actionAddItemReadyToBuyToBag } from "../actions"
-import { makeGetBagItemQuantity } from "../selectors"
+import { makeGetNormalBagItemQuantity } from "../selectors"
 
 const mapStateToProps = (state, props) => {
   let { item_id } = props
-  let itemReadyToBuyQuantity = makeGetBagItemQuantity(item_id)(state)
+  let itemReadyToBuyQuantity = makeGetNormalBagItemQuantity(item_id)(state)
   return { itemReadyToBuyQuantity }
 }
 const mapActionToProps = dispatch => ({
