@@ -91,7 +91,7 @@ export const getSingleItemByModifierAsComboQuantityTemporaryBeingEdited = create
   }
 )
 
-export const makeGetIsItemByModifierSelectedTemporaryBeingEdited = (modifier_id, item_by_modifier_id) =>
+export const makeGetIsItemByModifierSelectedInBagTemporaryItemBeingEdited = (modifier_id, item_by_modifier_id) =>
   createSelector([getBagTemporaryItemBeingEdited], currBagTemporaryItem => {
     if (currBagTemporaryItem) {
       let { children: { [modifier_id]: items_by_modifier } } = currBagTemporaryItem
