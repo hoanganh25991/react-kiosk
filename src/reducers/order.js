@@ -41,41 +41,60 @@ const addItemReadyToBuyToBag = (currBag, item_id, quantity) => {
   return newBag.filter(bagItem => bagItem.quantity > 0)
 }
 
-export const addItemByModifierToModifier = (currModifier, modifier, item_by_modifier_id) => {
-  let defaultItem = { item_by_modifier_id, quantity: 1 }
+export const addItemByModifierToModifier = (currModifier, modifier, item_by_modifier_id, quantity) => {
+  let defaultItem = { item_by_modifier_id, quantity }
   let newItem = defaultItem
   // Base on modifier multil_select flag
   // Decide toggle or add up quantity
   let { multi_select, mandatory } = modifier
   let newModifier
-  if (multi_select === c.MULTI_SELECT) {
-    newModifier = currModifier.reduce(
-      (carry, item) => {
-        let sameItemExist = item.item_by_modifier_id === newItem.item_by_modifier_id
-        if (sameItemExist) {
-          return carry.slice(1)
+  if (multi_select > 1) {
+    newModifier = currModifier.map(item => {
+      let sameItemExist = item.item_by_modifier_id === newItem.item_by_modifier_id
+      if (sameItemExist) {
+        let { quantity: currQuantity } = item
+        let { quantity: addedUpQuantity } = newItem
+        let quantity = currQuantity + addedUpQuantity
+        newItem = { ...item, quantity }
+        // Base on current quantity
+        // Check if newItem added up normal
+        // Or limited or removed
+        //let hasQuantity = quantity > 0;
+        // Under threshold of multil_select
+        let quantityUnderMultiSelect = quantity <= multi_select
+        // Best case, add up newItem
+        if (!quantityUnderMultiSelect) {
+          return item
         }
-        return [...carry, item]
-      },
-      [newItem]
-    )
+        return newItem
+      }
+      return item
+    })
   } else {
     // Only allow one item added
     newModifier = [newItem]
   }
-
+  // New one added ?, If not add him
+  let isNewItemAdded = newItem !== defaultItem
+  if (!isNewItemAdded) {
+    newModifier = [...newModifier, newItem]
+  }
+  // Remove item without quantity
+  newModifier = newModifier.filter(item => item.quantity > 0)
+  // In mandatory case, need reuse currModifer
+  // Which has length
   if (mandatory === c.MUST_HAVE_ONE) {
     return newModifier.length > 0 ? newModifier : currModifier
   }
 }
 
-export const addModifierToChildren = (currChildren, modifier, item_by_modifier_id) => {
+export const addModifierToChildren = (currChildren, modifier, item_by_modifier_id, quantity) => {
   let { id: modifier_id } = modifier
   let newModifier = [{ item_by_modifier_id, quantity: 1 }]
   let sameModifierExist = currChildren[modifier_id]
   if (sameModifierExist) {
     let { [modifier_id]: currModifier } = currChildren
-    newModifier = addItemByModifierToModifier(currModifier, modifier, item_by_modifier_id)
+    newModifier = addItemByModifierToModifier(currModifier, modifier, item_by_modifier_id, quantity)
   }
   return { ...currChildren, [modifier_id]: newModifier }
 }
@@ -102,7 +121,14 @@ export const addModifierToChildren = (currChildren, modifier, item_by_modifier_i
 // Dont change the quantity of WHOLE COMBO
 // A combo has many items inside, subset as children
 // addItemModifier > add item to the children branch
-export const addItemModifierToBag = (currBag, item_id, modifier, item_by_modifier_id, lastItemIdUpdatedTimestamp) => {
+export const addItemModifierToBag = (
+  currBag,
+  item_id,
+  modifier,
+  item_by_modifier_id,
+  quantity,
+  lastItemIdUpdatedTimestamp
+) => {
   let { id: modifier_id } = modifier
   let defaultBagItem = {
     item_id,
@@ -121,7 +147,7 @@ export const addItemModifierToBag = (currBag, item_id, modifier, item_by_modifie
     if (sameBagItemExist) {
       // Update the children
       let { children: currChildren } = bagItem
-      let children = addModifierToChildren(currChildren, modifier, item_by_modifier_id)
+      let children = addModifierToChildren(currChildren, modifier, item_by_modifier_id, quantity)
       newBagItem = { ...bagItem, children }
       return newBagItem
     }
@@ -253,7 +279,7 @@ export default (state, action) => {
       return state
     }
     case c.ADD_ITEM_BY_MODIFIER_TO_BAG_TEMPORARY: {
-      let { modifier_id, item_by_modifier_id } = action
+      let { modifier_id, item_by_modifier_id, quantity } = action
       let { order: currOrder } = state
       let { bagTemporary: currBagTemporary, lastItemIdUpdatedTimestamp, item_id } = currOrder
       let modifier = makeGetModifier(modifier_id)(state)
@@ -262,6 +288,7 @@ export default (state, action) => {
         item_id,
         modifier,
         item_by_modifier_id,
+        quantity,
         lastItemIdUpdatedTimestamp
       )
       let order = { ...currOrder, bagTemporary }

@@ -13,8 +13,8 @@ const mapStateToProps = (state, props) => {
 }
 
 const mapActionToProps = dispatch => ({
-  actionAddItemByModifierToBagTemporary: (modifier_id, item_by_modifier_id) =>
-    dispatch(actionAddItemByModifierToBagTemporary(modifier_id, item_by_modifier_id))
+  actionAddItemByModifierToBagTemporary: (modifier_id, item_by_modifier_id, quantity) =>
+    dispatch(actionAddItemByModifierToBagTemporary(modifier_id, item_by_modifier_id, quantity))
 })
 
 export default connect(mapStateToProps, mapActionToProps)(ItemByModifierCheckboxRow)

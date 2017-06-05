@@ -7,7 +7,7 @@ export default class ItemByModifierCheckboxRow extends React.Component {
     let { isItemByModifierSelectedTemporary } = this.props
     let { actionAddItemByModifierToBagTemporary } = this.props
     return (
-      <div className="padding10" onClick={e => actionAddItemByModifierToBagTemporary(modifier.id, item.id)}>
+      <div className="padding10" onClick={e => actionAddItemByModifierToBagTemporary(modifier.id, item.id, 1)}>
         <input type="checkbox" checked={isItemByModifierSelectedTemporary} onChange={e => console.log("hello")} />
         <span>{item.display_name}</span>
       </div>
