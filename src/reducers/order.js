@@ -97,7 +97,11 @@ export const addModifierToChildren = (currChildren, modifier, item_by_modifier_i
 //           ]
 //         }
 //       ]
-//click to add item modifier to bag
+// Click to add item modifier to bag
+// Only change the children inside bagItem
+// Dont change the quantity of WHOLE COMBO
+// A combo has many items inside, subset as children
+// addItemModifier > add item to the children branch
 export const addItemModifierToBag = (currBag, item_id, modifier, item_by_modifier_id, lastItemIdUpdatedTimestamp) => {
   let { id: modifier_id } = modifier
   let defaultBagItem = {
