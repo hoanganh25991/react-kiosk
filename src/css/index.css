@@ -194,3 +194,7 @@ span {
     margin-left: 30px;
     font-family: monospace;
 }
+
+.noBorder {
+    border: none;
+}
