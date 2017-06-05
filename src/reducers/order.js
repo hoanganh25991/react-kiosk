@@ -62,14 +62,14 @@ export const addItemByModifierToModifier = (currModifier, modifier, item_by_modi
       }
       return item
     })
+    // New one added ?, If not add him
+    let isNewItemAdded = newItem !== defaultItem
+    if (!isNewItemAdded) {
+      newModifier = [...newModifier, newItem]
+    }
   } else {
     // Only allow one item added
     newModifier = [newItem]
-  }
-  // New one added ?, If not add him
-  let isNewItemAdded = newItem !== defaultItem
-  if (!isNewItemAdded) {
-    newModifier = [...newModifier, newItem]
   }
   // Remove item without quantity
   newModifier = newModifier.filter(item => item.quantity > 0)
@@ -81,7 +81,7 @@ export const addItemByModifierToModifier = (currModifier, modifier, item_by_modi
     return currModifier
   }
   let multiSelectTotal = newModifier.reduce((carry, item) => carry + item.quantity, 0)
-  let overMultiSelect = multiSelectTotal > multi_select
+  let overMultiSelect = multiSelectTotal > multi_select && multi_select > 0
   if (overMultiSelect) {
     return currModifier
   }
