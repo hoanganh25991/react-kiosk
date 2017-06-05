@@ -46,9 +46,8 @@ export const makeGetBagTemporaryWithoutBagItemBeingEdited = createSelector([orde
   return bagTemporaryWithoutBagItemBeingEdited
 })
 
-export const getSubCategoriesByCategory = createSelector([categories, orderCategoryId], (categories, category_id) =>
-  categories.filter(category => category.main_category_id === category_id)
-)
+export const makeGetSubCategoriesByCategory = category_id =>
+  createSelector([categories], categories => categories.filter(category => category.main_category_id === category_id))
 
 // Get items from category id
 export const makeGetItemsByCategory = category_id =>
