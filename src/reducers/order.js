@@ -255,8 +255,7 @@ export default (state, action) => {
     case c.ADD_ITEM_BY_MODIFIER_TO_BAG_TEMPORARY: {
       let { modifier_id, item_by_modifier_id } = action
       let { order: currOrder } = state
-      let { item_id } = currOrder
-      let { bagTemporary: currBagTemporary, lastItemIdUpdatedTimestamp } = currOrder
+      let { bagTemporary: currBagTemporary, lastItemIdUpdatedTimestamp, item_id } = currOrder
       let modifier = makeGetModifier(modifier_id)(state)
       let bagTemporary = addItemModifierToBag(
         currBagTemporary,
@@ -271,8 +270,7 @@ export default (state, action) => {
     case c.ADD_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG_TEMPORARY: {
       let { modifier_id, item_by_modifier_id, quantity } = action
       let { order: currOrder } = state
-      let { item_id } = currOrder
-      let { bagTemporary: currBagTemporary, lastItemIdUpdatedTimestamp } = currOrder
+      let { item_id, bagTemporary: currBagTemporary, lastItemIdUpdatedTimestamp } = currOrder
       let modifier = makeGetModifier(modifier_id)(state)
       let bagTemporary = addSingleItemByModifierAsComboToBag(
         currBagTemporary,
@@ -306,8 +304,7 @@ export default (state, action) => {
     case c.ADD_SINGLE_ITEM_BY_MODIFIER_AS_COMBO_TO_BAG: {
       let { modifier_id, item_by_modifier_id, quantity } = action
       let { order: currOrder } = state
-      let { item_id } = currOrder
-      let { bag: currBag, lastItemIdUpdatedTimestamp } = currOrder
+      let { item_id, bag: currBag, lastItemIdUpdatedTimestamp } = currOrder
       let modifier = makeGetModifier(modifier_id)(state)
       let bag = addSingleItemByModifierAsComboToBag(
         currBag,
@@ -323,8 +320,7 @@ export default (state, action) => {
     case c.ADD_ITEM_BY_MODIFIER_TO_BAG: {
       let { modifier_id, item_by_modifier_id } = action
       let { order: currOrder } = state
-      let { item_id } = currOrder
-      let { bag: currBag, lastItemIdUpdatedTimestamp } = currOrder
+      let { item_id, bag: currBag, lastItemIdUpdatedTimestamp } = currOrder
       let modifier = makeGetModifier(modifier_id)(state)
       let bag = addItemModifierToBag(currBag, item_id, modifier, item_by_modifier_id, lastItemIdUpdatedTimestamp)
       let order = { ...currOrder, bag }
