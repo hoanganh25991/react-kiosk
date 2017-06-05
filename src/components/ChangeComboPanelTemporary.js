@@ -1,21 +1,21 @@
 import React from "react"
 
-export default class ChangeComboPanel extends React.Component {
+export default class ChangeComboPanelTemporary extends React.Component {
   render() {
-    let { actionAddSingleItemByModifierAsComboToBag, modifier_id, item_by_modifier_id } = this.props
-    let { singleItemByModifierAsComboQuantity } = this.props
+    let { actionAddSingleItemByModifierAsComboToBagTemporary, modifier_id, item_by_modifier_id } = this.props
+    let { singleItemByModifierAsComboQuantityTemporary } = this.props
     return (
       <div className="flexColumn flexCenter">
         <button
           className="addBtn fontSize15"
-          onClick={e => actionAddSingleItemByModifierAsComboToBag(modifier_id, item_by_modifier_id, -1)}
+          onClick={e => actionAddSingleItemByModifierAsComboToBagTemporary(modifier_id, item_by_modifier_id, -1)}
         >
           -
         </button>
-        <span className="textCenter width40">{singleItemByModifierAsComboQuantity}</span>
+        <span className="textCenter width40">{singleItemByModifierAsComboQuantityTemporary}</span>
         <button
           className="addBtn fontSize15"
-          onClick={e => actionAddSingleItemByModifierAsComboToBag(modifier_id, item_by_modifier_id, +1)}
+          onClick={e => actionAddSingleItemByModifierAsComboToBagTemporary(modifier_id, item_by_modifier_id, +1)}
         >
           +
         </button>

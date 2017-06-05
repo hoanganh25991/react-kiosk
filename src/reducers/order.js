@@ -1,9 +1,5 @@
 import * as c from "../actions/const-name"
-import {
-  makeGetModifier,
-  getBagTemporaryItemBeingEdited,
-  makeGetBagTemporaryWithoutBagItemBeingEdited
-} from "../selectors"
+import { makeGetModifier, getBagTemporaryItemBeingEdited, getBagTemporaryWithoutBagItemBeingEdited } from "../selectors"
 import moment from "moment"
 
 //
@@ -298,14 +294,14 @@ export default (state, action) => {
         let { order: currOrder } = state
         let { bag: currBag } = currOrder
         let bag = [...currBag, bagTemporaryBeingEdited]
-        let bagTemporary = makeGetBagTemporaryWithoutBagItemBeingEdited(state)
+        let bagTemporary = getBagTemporaryWithoutBagItemBeingEdited(state)
         let order = { ...currOrder, bag, bagTemporary }
         return { ...state, order }
       }
       return state
     }
     case c.REMOVE_BAG_TEMPORARY_ITEM_BEING_EDITED: {
-      let bagTemporary = makeGetBagTemporaryWithoutBagItemBeingEdited(state)
+      let bagTemporary = getBagTemporaryWithoutBagItemBeingEdited(state)
       let { order: currOrder } = state
       let order = { ...currOrder, bagTemporary }
       return { ...state, order }

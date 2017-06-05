@@ -18,7 +18,7 @@ export const makeGetCategory = category_id =>
 export const makeGetItem = item_id => createSelector([items], items => items.filter(item => item.id === item_id)[0])
 export const makeGetModifier = modifier_id =>
   createSelector([modifiers], modifiers => modifiers.filter(modifier => modifier.id === modifier_id)[0])
-export const makeGetBagItem = item_id =>
+export const makeGetNormalBagItem = item_id =>
   createSelector([bag], bag => {
     return bag.filter(bagItem => bagItem.item_id === item_id)[0]
   })
@@ -29,7 +29,7 @@ export const getBagTemporaryItemBeingEdited = createSelector([order], order => {
       bagTemporaryItem.item_id === item_id && bagTemporaryItem.lastItemIdUpdatedTimestamp === lastItemIdUpdatedTimestamp
   )[0]
 })
-export const makeGetBagTemporaryWithoutBagItemBeingEdited = createSelector([order], order => {
+export const getBagTemporaryWithoutBagItemBeingEdited = createSelector([order], order => {
   let { item_id, lastItemIdUpdatedTimestamp, bagTemporary } = order
   let bagTemporaryWithoutBagItemBeingEdited = bagTemporary.filter(
     bagTemporaryItem =>
@@ -66,14 +66,13 @@ export const makeGetItemsByModifiers = modifier_id =>
     return items.filter(item => item_ids.includes(item.id))
   })
 
-export const makeGetShouldLoadSingleItemByModifierAsCombo = items =>
-  createSelector([], () => {
-    let hasOnlyOneItem = items.length === 1
-    return hasOnlyOneItem
-  })
+export const shouldLoadSingleItemByModifierAsCombo = items => {
+  let hasOnlyOneItem = items.length === 1
+  return hasOnlyOneItem
+}
 
 export const makeGetNormalBagItemQuantity = item_id =>
-  createSelector([makeGetBagItem(item_id)], currBagItem => {
+  createSelector([makeGetNormalBagItem(item_id)], currBagItem => {
     if (currBagItem) {
       let { quantity } = currBagItem
       return quantity
@@ -81,7 +80,7 @@ export const makeGetNormalBagItemQuantity = item_id =>
     return 0
   })
 
-export const makeGetSingleItemByModifierAsComboQuantity = item_id =>
+export const makeGetModifierBagItemQuantity = item_id =>
   createSelector([makeGetNormalBagItemQuantity(item_id)], quantity => quantity)
 
 export const getSingleItemByModifierAsComboQuantityTemporaryBeingEdited = createSelector(

@@ -1,12 +1,12 @@
 import { connect } from "react-redux"
 import Modifier from "../components/Modifier"
 import { actionAutoSelectItemByModifierOnLoad } from "../actions"
-import { makeGetItemsByModifiers, makeGetShouldLoadSingleItemByModifierAsCombo } from "../selectors"
+import { makeGetItemsByModifiers, shouldLoadSingleItemByModifierAsCombo } from "../selectors"
 
 const mapStateToProps = (state, props) => {
   let { modifier: { id: modifier_id } } = props
   let items = makeGetItemsByModifiers(modifier_id)(state)
-  const shouldLoadSingleItemByModifierAsItemCombo = makeGetShouldLoadSingleItemByModifierAsCombo(items)(state)
+  const shouldLoadSingleItemByModifierAsItemCombo = shouldLoadSingleItemByModifierAsCombo(items)
   return { items, shouldLoadSingleItemByModifierAsItemCombo }
 }
 
