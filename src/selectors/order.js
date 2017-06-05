@@ -75,11 +75,9 @@ export const makeGetItemsByModifiers = modifier_id =>
   })
 
 export const makeGetShouldLoadSingleItemByModifierAsCombo = items =>
-  createSelector([order], order => {
-    let { item_id: orderItemId } = order
+  createSelector([], () => {
     let hasOnlyOneItem = items.length === 1
-    let sameAsOrderItemId = items[0].id === orderItemId
-    return hasOnlyOneItem && sameAsOrderItemId
+    return hasOnlyOneItem
   })
 
 export const makeGetBagItemQuantity = item_id =>
