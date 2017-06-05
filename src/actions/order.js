@@ -22,6 +22,7 @@ export const actionOrderProcessLoadModifiers = () => ({ type: c.ORDER_PROCESS_ST
 // customer pick one item
 export const actionChooseItem = item_id => {
   return dispatch => {
+    dispatch({ type: c.THUNK_CHOOSE_ITEM })
     dispatch({ type: c.CHOOSE_ITEM, item_id })
     dispatch(actionOrderProcessLoadModifiers())
   }

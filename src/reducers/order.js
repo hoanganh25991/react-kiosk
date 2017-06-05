@@ -220,12 +220,6 @@ export default (state, action) => {
       let order = { ...currOrder, category_id, lastCategoryIdUpdatedTimestamp }
       return { ...state, order }
     }
-    case c.UPDATE_LAST_ORDER_CATEGORY_ID_CHANGED_TIMESTAMP: {
-      let { timestamp: lastCategoryIdUpdatedTimestamp } = action
-      let { order: currOrder } = state
-      let order = { ...currOrder, lastCategoryIdUpdatedTimestamp }
-      return { ...state, order }
-    }
     case c.ORDER_PROCESS_STEP_LOAD_ITEMS: {
       let { order: currOrder } = state
       let order = { ...currOrder, step: action.type }
