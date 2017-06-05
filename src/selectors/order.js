@@ -7,14 +7,11 @@ const items = state => state.items
 const modifiers = state => state.modifier_groups
 const order = state => state.order
 const bag = state => state.order.bag
-const bagTemporary = state => state.order.bagTemporary
 // From pivot
 const pivotCategoryItems = state => state.category_items
 const pivotItemModifiers = state => state.item_modifier_groups
 const pivotModifierItems = state => state.modifier_group_items
 // Form order
-const orderCategoryId = state => state.order.category_id
-
 // Get obj from id
 export const makeGetCategory = category_id =>
   createSelector([categories], categories => categories.filter(category => category.id === category_id)[0])
@@ -25,17 +22,12 @@ export const makeGetBagItem = item_id =>
   createSelector([bag], bag => {
     return bag.filter(bagItem => bagItem.item_id === item_id)[0]
   })
-export const makeGetBagTemporaryItem = item_id =>
-  createSelector([bagTemporary], bagTemporary => {
-    return bagTemporary.filter(bagItem => bagItem.item_id === item_id)[0]
-  })
-export const makeGetBagTemporaryItemBeingEdited = createSelector([order], order => {
+export const getBagTemporaryItemBeingEdited = createSelector([order], order => {
   let { item_id, lastItemIdUpdatedTimestamp, bagTemporary } = order
-  let bagTemporaryItemBeingEdited = bagTemporary.filter(
+  return bagTemporary.filter(
     bagTemporaryItem =>
       bagTemporaryItem.item_id === item_id && bagTemporaryItem.lastItemIdUpdatedTimestamp === lastItemIdUpdatedTimestamp
   )[0]
-  return bagTemporaryItemBeingEdited
 })
 export const makeGetBagTemporaryWithoutBagItemBeingEdited = createSelector([order], order => {
   let { item_id, lastItemIdUpdatedTimestamp, bagTemporary } = order
@@ -89,23 +81,22 @@ export const makeGetNormalBagItemQuantity = item_id =>
     return 0
   })
 
-export const makeGetBagTemporaryItemQuantity = item_id =>
-  createSelector([makeGetBagTemporaryItem(item_id)], currBagTemporaryItem => {
-    if (currBagTemporaryItem) {
-      let { quantity } = currBagTemporaryItem
-      return quantity
-    }
-    return 0
-  })
-
 export const makeGetSingleItemByModifierAsComboQuantity = item_id =>
   createSelector([makeGetNormalBagItemQuantity(item_id)], quantity => quantity)
 
-export const makeGetSingleItemByModifierAsComboQuantityTemporary = item_id =>
-  createSelector([makeGetBagTemporaryItemQuantity(item_id)], quantity => quantity)
+export const getSingleItemByModifierAsComboQuantityTemporaryBeingEdited = createSelector(
+  [getBagTemporaryItemBeingEdited],
+  currBagItem => {
+    if (currBagItem) {
+      let { quantity } = currBagItem
+      return quantity
+    }
+    return 0
+  }
+)
 
-export const makeGetIsItemByModifierSelectedTemporary = (item_id, modifier_id, item_by_modifier_id) =>
-  createSelector([makeGetBagTemporaryItem(item_id)], currBagTemporaryItem => {
+export const makeGetIsItemByModifierSelectedTemporaryBeingEdited = (modifier_id, item_by_modifier_id) =>
+  createSelector([getBagTemporaryItemBeingEdited], currBagTemporaryItem => {
     if (currBagTemporaryItem) {
       let { children: { [modifier_id]: items_by_modifier } } = currBagTemporaryItem
       return items_by_modifier.filter(item => item.item_by_modifier_id === item_by_modifier_id).length > 0

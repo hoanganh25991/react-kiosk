@@ -1,14 +1,10 @@
 import { connect } from "react-redux"
 import ChangeComboPanel from "../components/ChangeComboPanel"
 import { actionAddSingleItemByModifierAsComboToBagTemporary } from "../actions"
-import { makeGetSingleItemByModifierAsComboQuantityTemporary } from "../selectors"
+import { getSingleItemByModifierAsComboQuantityTemporaryBeingEdited } from "../selectors"
 
-const mapStateToProps = (state, props) => {
-  let { item_by_modifier_id } = props
-  const singleItemByModifierAsComboQuantityTemporary = makeGetSingleItemByModifierAsComboQuantityTemporary(
-    item_by_modifier_id
-  )(state)
-
+const mapStateToProps = state => {
+  const singleItemByModifierAsComboQuantityTemporary = getSingleItemByModifierAsComboQuantityTemporaryBeingEdited(state)
   return { singleItemByModifierAsComboQuantityTemporary }
 }
 

@@ -1,7 +1,7 @@
 import * as c from "../actions/const-name"
 import {
   makeGetModifier,
-  makeGetBagTemporaryItemBeingEdited,
+  getBagTemporaryItemBeingEdited,
   makeGetBagTemporaryWithoutBagItemBeingEdited
 } from "../selectors"
 import moment from "moment"
@@ -293,7 +293,7 @@ export default (state, action) => {
       return { ...state, order }
     }
     case c.ADD_BAG_TEMPORARY_ITEM_BEING_EDITED_TO_BAG: {
-      let bagTemporaryBeingEdited = makeGetBagTemporaryItemBeingEdited(state)
+      let bagTemporaryBeingEdited = getBagTemporaryItemBeingEdited(state)
       if (bagTemporaryBeingEdited) {
         let { order: currOrder } = state
         let { bag: currBag } = currOrder
