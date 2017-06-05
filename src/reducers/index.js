@@ -1,7 +1,6 @@
 import fakeData from "./fake-data"
 import * as c from "../actions/const-name"
 import order from "./order"
-import normalize from "./normalize"
 
 const initState = {
   ...fakeData,
@@ -33,12 +32,6 @@ export default (state = initState, action) => {
     case c.ADD_ITEM_BY_MODIFIER_TO_BAG:
     case c.ADD_ITEM_AS_COMBO_QUANTITY: {
       return order(state, action)
-    }
-    case c.NORMALIZE_SUB_CATEGORIES_BY_CATEGORY:
-    case c.NORMALIZE_ITEMS_BY_CATEGORY:
-    case c.NORMALIZE_MODIFIERS_BY_ITEM:
-    case c.NORMALIZE_ITEMS_BY_MODIFIER: {
-      return normalize(state, action)
     }
     case c.ALERT_MSG: {
       let { msg } = action
