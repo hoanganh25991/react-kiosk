@@ -58,11 +58,6 @@ export const addItemByModifierToModifier = (currModifier, modifier, item_by_modi
         newItem = { ...item, quantity }
         // Base on current quantity
         // Under threshold of multil_select
-        let quantityUnderMultiSelect = quantity <= multi_select
-        // Best case, add up newItem
-        if (!quantityUnderMultiSelect) {
-          return item
-        }
         return newItem
       }
       return item
@@ -78,11 +73,20 @@ export const addItemByModifierToModifier = (currModifier, modifier, item_by_modi
   }
   // Remove item without quantity
   newModifier = newModifier.filter(item => item.quantity > 0)
-  // In mandatory case, need reuse currModifer
-  // Which has length
-  if (mandatory === c.MUST_HAVE_ONE) {
-    return newModifier.length > 0 ? newModifier : currModifier
+  // In mandatory case, if no item exist in newModifier
+  // Need reuse currModifer
+  let hasItem = newModifier.length > 0
+  let musHave = mandatory === c.MUST_HAVE_ONE
+  if (musHave && !hasItem) {
+    return currModifier
   }
+  let multiSelectTotal = newModifier.reduce((carry, item) => carry + item.quantity, 0)
+  let overMultiSelect = multiSelectTotal > multi_select
+  if (overMultiSelect) {
+    return currModifier
+  }
+  // Normally, it's good to return newModifier
+  return newModifier
 }
 
 export const addModifierToChildren = (currChildren, modifier, item_by_modifier_id, quantity) => {
