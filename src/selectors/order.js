@@ -116,11 +116,10 @@ export const getOrderInfo = createSelector([state, order], (state, order) => {
       case c.NORMAL_BAG_ITEM: {
         let itemOrigin = makeGetItem(bagItem.item_id)(state)
         let item_price = itemOrigin[c.DEFAULT_PRICE_LEVEL]
-        return { ...bagItem, item_price, item: itemOrigin, ...itemOrigin }
+        return { ...bagItem, ...itemOrigin, item_price, item: itemOrigin }
       }
       case c.MODIFIER_BAG_ITEM: {
         let { children } = bagItem
-        let itemOrigin = makeGetItem(bagItem.item_id)(state)
         let children_items = Object.keys(children).reduce((carry, modifier_id) => {
           let items = children[modifier_id]
           let itemsWithModifierId = items.map(item => {
@@ -129,24 +128,27 @@ export const getOrderInfo = createSelector([state, order], (state, order) => {
               ...item,
               ...itemOrigin,
               item_id: item.item_by_modifier_id,
-              item: itemOrigin,
-              modifier_group_id: +modifier_id
+              modifier_group_id: +modifier_id,
+              item: itemOrigin
             }
           })
+          // Flat items inside each modifier in children
+          // Single array of items under children
           carry = [...carry, ...itemsWithModifierId]
           return carry
         }, [])
 
-        let item_price = children_items.reduce((carry, itemXX) => {
-          let modifier = makeGetModifier(itemXX.modifier_group_id)(state)
+        let itemOrigin = makeGetItem(bagItem.item_id)(state)
+        let item_price = children_items.reduce((carry, itemInfo) => {
+          let modifier = makeGetModifier(itemInfo.modifier_group_id)(state)
           let priceLevel = modifier.price_level
-          let item = itemXX.item
-          let itemTotal = item[priceLevel] * itemXX.quantity
+          let itemOrigin = itemInfo.item
+          let itemTotal = itemOrigin[priceLevel] * itemInfo.quantity
           carry += itemTotal
           return carry
         }, 0)
 
-        return { ...bagItem, ...itemOrigin, item: itemOrigin, children: children_items, item_price }
+        return { ...bagItem, ...itemOrigin, item_price, children: children_items, item: itemOrigin }
       }
       default: {
         return bagItem
