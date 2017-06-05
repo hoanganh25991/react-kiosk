@@ -20,7 +20,7 @@ export const makeGetModifier = modifier_id =>
   createSelector([modifiers], modifiers => modifiers.filter(modifier => modifier.id === modifier_id)[0])
 export const makeGetNormalBagItem = item_id =>
   createSelector([bag], bag => {
-    return bag.filter(bagItem => bagItem.item_id === item_id)[0]
+    return bag.filter(bagItem => bagItem.item_id === item_id && bagItem.type === c.NORMAL_BAG_ITEM)[0]
   })
 export const getBagTemporaryItemBeingEdited = createSelector([order], order => {
   let { item_id, lastItemIdUpdatedTimestamp, bagTemporary } = order
@@ -79,9 +79,6 @@ export const makeGetNormalBagItemQuantity = item_id =>
     }
     return 0
   })
-
-export const makeGetModifierBagItemQuantity = item_id =>
-  createSelector([makeGetNormalBagItemQuantity(item_id)], quantity => quantity)
 
 export const getSingleItemByModifierAsComboQuantityTemporaryBeingEdited = createSelector(
   [getBagTemporaryItemBeingEdited],
