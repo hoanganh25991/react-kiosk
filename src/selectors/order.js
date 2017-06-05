@@ -80,7 +80,7 @@ export const makeGetShouldLoadSingleItemByModifierAsCombo = items =>
     return hasOnlyOneItem
   })
 
-export const makeGetBagItemQuantity = item_id =>
+export const makeGetNormalBagItemQuantity = item_id =>
   createSelector([makeGetBagItem(item_id)], currBagItem => {
     if (currBagItem) {
       let { quantity } = currBagItem
@@ -99,7 +99,7 @@ export const makeGetBagTemporaryItemQuantity = item_id =>
   })
 
 export const makeGetSingleItemByModifierAsComboQuantity = item_id =>
-  createSelector([makeGetBagItemQuantity(item_id)], quantity => quantity)
+  createSelector([makeGetNormalBagItemQuantity(item_id)], quantity => quantity)
 
 export const makeGetSingleItemByModifierAsComboQuantityTemporary = item_id =>
   createSelector([makeGetBagTemporaryItemQuantity(item_id)], quantity => quantity)
