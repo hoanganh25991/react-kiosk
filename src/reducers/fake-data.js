@@ -6563,7 +6563,7 @@ export default {
       display_name: "Mixer Options",
       display_description: null,
       price_level: "price1",
-      multi_select: 0,
+      multi_select: 1,
       modified_timestamp: 1494221992,
       outlet_id: 23,
       name1: "Mixer Options",
