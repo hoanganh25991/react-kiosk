@@ -4,9 +4,9 @@ import { actionAutoSelectItemByModifierOnLoad } from "../actions"
 import { makeGetItemsByModifiers, shouldLoadSingleItemByModifierAsCombo } from "../selectors"
 
 const mapStateToProps = (state, props) => {
-  let { modifier: { id: modifier_id } } = props
-  let items = makeGetItemsByModifiers(modifier_id)(state)
-  const shouldLoadSingleItemByModifierAsItemCombo = shouldLoadSingleItemByModifierAsCombo(items)
+  let { modifier } = props
+  let items = makeGetItemsByModifiers(modifier.id)(state)
+  const shouldLoadSingleItemByModifierAsItemCombo = shouldLoadSingleItemByModifierAsCombo(modifier, items)
   return { items, shouldLoadSingleItemByModifierAsItemCombo }
 }
 

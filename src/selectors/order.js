@@ -66,9 +66,10 @@ export const makeGetItemsByModifiers = modifier_id =>
     return items.filter(item => item_ids.includes(item.id))
   })
 
-export const shouldLoadSingleItemByModifierAsCombo = items => {
+export const shouldLoadSingleItemByModifierAsCombo = (modifier, items) => {
+  let mustHave = modifier.mandatory === c.MUST_HAVE_ONE
   let hasOnlyOneItem = items.length === 1
-  return hasOnlyOneItem
+  return mustHave && hasOnlyOneItem
 }
 
 export const makeGetNormalBagItemQuantity = item_id =>
