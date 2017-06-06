@@ -34,6 +34,26 @@ let value: number = array[1]
 let tuple: [number, boolean, string] = [1, true, "three"]
 let none: void = tuple[3]
 
+// Type keyword
+type MyObject = {
+  foo: number,
+  bar: boolean,
+  baz: string
+}
+let obj1: MyObject = { foo: 1, bar: true, baz: 3 }
+
+// Generic Type
+type MyObjectX<A, B, C> = {
+  foo: A,
+  bar: B,
+  baz: C
+}
+var val: MyObjectX<number, boolean, string> = {
+  foo: 1,
+  bar: true,
+  baz: "three"
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
