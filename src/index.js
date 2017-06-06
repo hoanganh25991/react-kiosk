@@ -54,6 +54,42 @@ var val: MyObjectX<number, boolean, string> = {
   baz: "three"
 }
 
+// Interface
+class Foo {
+  serialize() {
+    return "[Foo]"
+  }
+}
+
+class Bar {
+  serialize() {
+    return "[Bar]"
+  }
+}
+
+// $ExpectError
+const foo: Foo = new Bar() // Error!
+
+// @flow
+interface Serializable {
+  serialize(): string
+}
+
+class Foo {
+  serialize() {
+    return "[Foo]"
+  }
+}
+
+class Bar {
+  serialize() {
+    return "[Bar]"
+  }
+}
+// They return string > Ok good, as what the interface defined
+const foo: Serializable = new Foo() // Works!
+const bar: Serializable = new Bar() // Works!
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
