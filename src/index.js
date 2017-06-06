@@ -19,8 +19,20 @@ const routerMiddlewareInstance = routerMiddleware(history)
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(routerMiddlewareInstance, thunkMiddleware)))
 
 // Try flow
-let flow: number = "hello"
+let flow: number = 1
 console.log(flow)
+
+// Array access
+let array: Array<number> = []
+array[0] = 0
+array[2] = 2
+// It's fine, flow mark as 'possible undefined'
+// But not warn it out
+let value: number = array[1]
+
+// Tuple type
+let tuple: [number, boolean, string] = [1, true, "three"]
+let none: void = tuple[3]
 
 ReactDOM.render(
   <Provider store={store}>
