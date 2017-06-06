@@ -18,6 +18,10 @@ const history = createHistory()
 const routerMiddlewareInstance = routerMiddleware(history)
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(routerMiddlewareInstance, thunkMiddleware)))
 
+// Try flow
+let flow: number = "hello"
+console.log(flow)
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
