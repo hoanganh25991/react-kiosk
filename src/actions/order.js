@@ -1,4 +1,4 @@
-import { constName as c } from "./index"
+import * as c from "./const-name"
 
 export const actionOrderProcessStepLoadItems = () => ({ type: c.ORDER_PROCESS_STEP_LOAD_ITEMS })
 //
