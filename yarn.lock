@@ -13,6 +13,16 @@
   version "7.0.31"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.31.tgz#80ea4d175599b2a00149c29a10a4eb2dff592e86"
 
+"@types/react-addons-update@^0.14.17":
+  version "0.14.17"
+  resolved "https://registry.yarnpkg.com/@types/react-addons-update/-/react-addons-update-0.14.17.tgz#ba9d4d3e9542380a0c3737daf97d247fe2e4e9a9"
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*":
+  version "15.0.29"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.29.tgz#a10831b9d025bcef6cab7bc1c6547bdddbabc938"
+
 abab@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.3.tgz#b81de5f7274ec4e756d797cd834f303642724e5d"

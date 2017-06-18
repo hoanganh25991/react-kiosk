@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@types/node": "^7.0.31",
+    "@types/react-addons-update": "^0.14.17",
     "flow-bin": "^0.47.0",
     "husky": "^0.13.4",
     "lint-staged": "^3.5.1",
