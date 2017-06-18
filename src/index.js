@@ -13,6 +13,7 @@ import { Route, Link } from "react-router-dom"
 import { ConnectedRouter } from "react-router-redux"
 import registerServiceWorker from "./registerServiceWorker"
 import DivTest from "./components/DivTest"
+
 // Build store with history push
 const history = createHistory()
 const routerMiddlewareInstance = routerMiddleware(history)
