@@ -16,3 +16,9 @@ export default class DivTest extends React.Component {
     return <h1>DivTest</h1>
   }
 }
+
+export class HelloWorld extends React.PureComponent {
+  render() {
+    return <div>This is the pure component from React</div>
+  }
+}
