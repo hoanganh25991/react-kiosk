@@ -19,65 +19,6 @@ const history = createHistory()
 const routerMiddlewareInstance = routerMiddleware(history)
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(routerMiddlewareInstance, thunkMiddleware)))
 
-// Try flow
-let flow: number = 1
-console.log(flow)
-
-// Array access
-let array: Array<number> = []
-array[0] = 0
-array[2] = 2
-// It's fine, flow mark as 'possible undefined'
-// But not warn it out
-let value: number = array[1]
-
-// Tuple type
-let tuple: [number, boolean, string] = [1, true, "three"]
-let none: void = tuple[3]
-
-// Type keyword
-type MyObject = {
-  foo: number,
-  bar: boolean,
-  baz: string
-}
-let obj1: MyObject = { foo: 1, bar: true, baz: 3 }
-
-// Generic Type
-type MyObjectX<A, B, C> = {
-  foo: A,
-  bar: B,
-  baz: C
-}
-var val: MyObjectX<number, boolean, string> = {
-  foo: 1,
-  bar: true,
-  baz: "three"
-}
-
-// Interface
-interface Serializable {
-  serialize(): string
-}
-
-class Foo {
-  serialize() {
-    return "[Foo]"
-  }
-}
-
-class Bar {
-  serialize() {
-    return "[Bar]"
-  }
-}
-
-// $ExpectError
-const foo: Foo = new Bar() // Error!
-// They return string > Ok good, as what the interface defined
-const foo1: Serializable = new Foo() // Works!
-const bar1: Serializable = new Bar() // Works!
-
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
